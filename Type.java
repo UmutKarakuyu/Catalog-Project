@@ -4,7 +4,7 @@ import java.util.List;
 public class Type {
     private String type;
     private List<Item> items=new ArrayList<Item>();
-    List<Property> defaultProperties=new ArrayList<Property>();
+    private List<Property> defaultProperties=new ArrayList<Property>();
 
     public String toString(){
         return type;
