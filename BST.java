@@ -41,6 +41,8 @@ public class BST {
 
     public void insert(Object object){ root = insert(object,root); }
     public void remove(Object object){ root = remove(object, root); }
+    public ArrayList find(String string){ return find(new ArrayList<>(), string, root); }
+    public ArrayList<Object> inOrder(){ return inOrder(new ArrayList<>(),root); }
     
     public Node insert(Object o, Node n){
         
@@ -82,5 +84,37 @@ public class BST {
             }
         }
         return r;
+    }
+    
+    public ArrayList find(ArrayList<Object> list , String s, Node f){
+        if (f != null){
+            int compare;
+
+            if (s.length() <= f.getObject().toString().length())
+                compare = s.compareToIgnoreCase(
+                        f.getObject().toString().substring(0,s.length()));
+            else // if the word we are looking for is longer than Node's object's name
+                compare = s.substring(0,f.getObject().toString().length())
+                        .compareToIgnoreCase(f.getObject().toString());
+
+            if (compare < 0)
+                find(list, s, f.getLeft());
+            else if (compare > 0)
+                find(list, s, f.getRight());
+            else { // if compare == 0
+                list.add(f.getObject());
+                find(list, s, f.getLeft());
+                find(list, s, f.getRight());
+            }
+        }
+        return list;
+    }
+    public ArrayList<Object> inOrder(ArrayList<Object> arrayList, Node i){
+        if (i != null){
+            inOrder(arrayList, i.getLeft());
+            arrayList.add(i.getObject());
+            inOrder(arrayList, i.getRight());
+        }
+        return arrayList;
     }
 }
