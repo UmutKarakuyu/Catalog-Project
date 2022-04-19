@@ -42,27 +42,49 @@ public class Catalog extends Application {
         Type type = new Type(typeName);
         types.insert(type);
     }
+    public void createTag(String tagName){
+        Tag tag = new Tag(tagName);
+        tags.insert(tag);
+    }
     public void createItem(Type type,String itemName){
         Item item=new Item(type,itemName);
         items.insert(item);
     }
-    public void editType(Type type, String name, ArrayList<Item> arrayList){
+    public void editType(Type type, String name){
         type.setType(name);
-        type.setItems(arrayList);
     }
-    public void editTag(){
-
+    public void editTag(Tag tag, String name){
+        tag.setTag(name);
     }
-    public void searchType(String type){
-        types.find(type);
+    public void deleteItem(Item item){
+        for (Tag tag : item.getTags())
+            tag.getItems().remove(item);
+        item.getType().getItems().remove(item);
+        items.remove(item);
     }
-    public void searchItem(String item){
-        items.find(item);
+    public void deleteTag(Tag tag){
+        for (Item item : tag.getItems())
+            item.getTags().remove(tag);
+        tags.remove(tag);
     }
-    public void searchTag(String tag){
-        tags.find(tag);
+    public void deleteType(Type type, ArrayList itemsForType){
+        types.remove(type);
+        for (Item item : type.getItems()) {
+            for (Tag tag : item.getTags())
+                tag.getItems().remove(item);
+            items.remove(item);
+            itemsForType.remove(item);
+        }
     }
-
+    public ArrayList searchType(String type){
+        return types.find(type);
+    }
+    public ArrayList searchItem(String item){
+        return items.find(item);
+    }
+    public ArrayList searchTag(String tag){
+        return tags.find(tag);
+    }
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Catalog.class.getResource("hello-view.fxml"));
