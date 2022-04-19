@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="425.0" prefWidth="703.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.catalog.Edit">
+   <children>
+      <TextField layoutX="238.0" layoutY="324.0" prefHeight="26.0" prefWidth="150.0" promptText="New Property Label" style="-fx-background-radius: 15;" />
+      <TableView layoutX="238.0" layoutY="105.0" prefHeight="200.0" prefWidth="150.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="C1" />
+          <TableColumn prefWidth="74.4000244140625" text="C2" />
+        </columns>
+      </TableView>
+      <TextField layoutX="25.0" layoutY="152.0" promptText="type" text="New Type Name" />
+      <Button layoutX="588.0" layoutY="381.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="59.0" style="-fx-background-radius: 15;" text="Submit" />
+      <ListView layoutX="438.0" layoutY="105.0" prefHeight="200.0" prefWidth="150.0" style="-fx-background-radius: 15;" />
+      <ChoiceBox layoutX="24.0" layoutY="113.0" prefWidth="150.0" style="-fx-background-radius: 15;" />
+      <TextField layoutX="438.0" layoutY="324.0" prefHeight="26.0" prefWidth="150.0" promptText="New Tag Name" style="-fx-background-radius: 15;" />
+      <Label layoutX="461.0" layoutY="69.0" prefHeight="26.0" prefWidth="103.0" text="Edit Tags" textFill="#9f9f9f">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="247.0" layoutY="63.0" prefHeight="39.0" prefWidth="131.0" text="Edit Properties" textFill="#9f9f9f">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField layoutX="238.0" layoutY="368.0" prefHeight="26.0" prefWidth="150.0" promptText="New Property Content" style="-fx-background-radius: 15;" />
+      <Label layoutX="34.0" layoutY="63.0" prefHeight="39.0" prefWidth="131.0" text="Edit Types" textFill="#9f9f9f">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
