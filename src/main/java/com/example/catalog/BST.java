@@ -110,4 +110,13 @@ public class BST {
         }
         return list;
     }
+    public ArrayList<Object> inOrder(){ return inOrder(new ArrayList<>(),root); }
+    public ArrayList<Object> inOrder(ArrayList<Object> arrayList, Node i){
+        if (i != null){
+            inOrder(arrayList, i.getLeft());
+            arrayList.add(i.getObject());
+            inOrder(arrayList, i.getRight());
+        }
+        return arrayList;
+    }
 }
