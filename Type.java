@@ -1,10 +1,11 @@
+package com.example.catalog;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Type {
-    private String type;
-    private List<Item> items=new ArrayList<Item>();
-    private List<Property> defaultProperties=new ArrayList<Property>();
+    private String type; // type's name
+    private ArrayList<Item> items = new ArrayList<Item>();
+
 
     public String toString(){
         return type;
@@ -12,9 +13,7 @@ public class Type {
     public void addItems(Item item){
         items.add(item);
     }
-    public void addDefaultProperties(Property property) {
-        defaultProperties.add(property);
-    }
+
 
     public String getType() {
         return type;
@@ -24,20 +23,12 @@ public class Type {
         this.type = type;
     }
 
-    public List<Item> getItems() {
+    public ArrayList<Item> getItems() {
         return items;
     }
 
-    public void setItems(List<Item> items) {
+    public void setItems(ArrayList<Item> items) {
         this.items = items;
-    }
-
-    public List<Property> getDefaultProperties() {
-        return defaultProperties;
-    }
-
-    public void setDefaultProperties(List<Property> defaultProperties) {
-        this.defaultProperties = defaultProperties;
     }
 
     public Type(String type) {
