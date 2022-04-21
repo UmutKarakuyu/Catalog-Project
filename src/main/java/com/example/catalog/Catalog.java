@@ -1,9 +1,14 @@
 package com.example.catalog;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,8 +16,8 @@ import java.util.ArrayList;
 public class Catalog extends Application {
 
     private BST types = new BST();
-    private BST tags=new BST();
-    private BST items=new BST();
+    private BST tags = new BST();
+    private BST items = new BST();
 
     public BST getTypes() {
         return types;
@@ -47,7 +52,7 @@ public class Catalog extends Application {
         tags.insert(tag);
     }
     public void createItem(Type type,String itemName){
-        Item item=new Item(type,itemName);
+        Item item = new Item(type,itemName);
         items.insert(item);
     }
     public void editType(Type type, String name){
@@ -85,15 +90,15 @@ public class Catalog extends Application {
     public ArrayList searchTag(String tag){
         return tags.find(tag);
     }
+
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Catalog.class.getResource("hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+        FXMLLoader fxmlLoader = new FXMLLoader(Catalog.class.getResource("MainScreen.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();
     }
-
     public static void main(String[] args) {
         launch();
     }
