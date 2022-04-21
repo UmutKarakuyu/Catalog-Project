@@ -1,16 +1,23 @@
+package com.example.catalog;
+
+import java.util.ArrayList;
+import java.util.Collections;
+
 public class Property {
 
-    /* It was created as a prototype.
-     The code blocks will be filled in soon.
-
-     */
 
     private String label;
-    private String content;
+    private ArrayList<String> content;
 
     public Property(String label, String content) {
         this.label = label;
-        this.content = content;
+        this.content = new ArrayList<>(){
+            @Override
+            public String toString() {
+                return super.toString().replace("[", "").replace(",","\n").replace("]", "");
+            }
+        };
+        setContent(content);
     }
 
     public String getLabel() {
@@ -21,19 +28,21 @@ public class Property {
         this.label = label;
     }
 
-    public String getContent() {
+    public ArrayList<String> getContent() {
         return content;
     }
 
     public void setContent(String content) {
-        this.content = content;
+        if (content.contains(",")) {
+            String[] s = content.split(",");
+            Collections.addAll(this.content, s);
+        }
+        else
+            this.content.add(content);
     }
 
     @Override
     public String toString() {
-        return "Property{" +
-                "label='" + label + '\'' +
-                ", content='" + content + '\'' +
-                '}';
+        return label + ": " + content;
     }
 }
