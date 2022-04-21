@@ -4,44 +4,44 @@ import java.util.ArrayList;
 
 public class Item {
 
-    /* It was created as a prototype.
-     The code blocks will be filled in soon.
-
-     */
-
     private Type type;
     private String name;
     private ArrayList<Tag> tags;
     private ArrayList<Property> properties;
 
-    public Item(Type type, ArrayList<Tag> tags, ArrayList<Property> properties) {
-        this.type = type;
-        this.tags = tags;
-        this.properties = properties;
-    }
     public Item(Type type, String name){
         this.type = type;
         this.name = name;
-        tags = new ArrayList<>();
+        tags = new ArrayList<>(){
+            @Override
+            public String toString() {
+                return super.toString().replace("[", "").replace("]", "");
+            }
+        };
         properties = new ArrayList<>();
-        
     }
 
-    public void createProperty(){
-
+    public void createProperty(String label, String content){
+        Property property = new Property(label, content);
+        properties.add(property);
     }
 
-    public void createTag(){
-
+    public void addTag(Tag tag){
+        tags.add(tag);
     }
 
-    public void editProperty(){
-
+    public void editProperty(Property property, String label, String content){
+        property.setLabel(label);
+        property.setContent(content);
     }
 
-    public void editTag(){
-
+    public void editTag(Tag tag, String name){
+        tag.setTag(name);
     }
+
+    public void setName(String name) { this.name = name; }
+
+    public String getName() { return name; }
 
     public Type getType() {
         return type;
@@ -67,14 +67,8 @@ public class Item {
         this.properties = properties;
     }
 
-
-
     @Override
     public String toString() {
-        return "Item{" +
-                "type=" + type +
-                ", tags=" + tags +
-                ", properties=" + properties +
-                '}';
+        return name;
     }
 }
