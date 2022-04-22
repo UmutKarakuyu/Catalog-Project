@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Tag {
     private String tag;
-    private List<Item> items=new ArrayList<Item>();
+    private ArrayList<Item> items = new ArrayList<Item>();
 
     public String toString(){
         return tag;
@@ -25,11 +25,11 @@ public class Tag {
         this.tag =tag;
     }
 
-    public List<Item> getItems() {
+    public ArrayList<Item> getItems() {
         return items;
     }
 
-    public void setItems(List<Item> items) {
+    public void setItems(ArrayList<Item> items) {
         this.items = items;
     }
 }

@@ -25,6 +25,9 @@ public class Item {
         Property property = new Property(label, content);
         properties.add(property);
     }
+    public void createProperty(Property property){
+        properties.add(property);
+    }
 
     public void addTag(Tag tag){
         tags.add(tag);

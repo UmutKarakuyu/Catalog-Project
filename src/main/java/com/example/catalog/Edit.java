@@ -1,9 +1,13 @@
 package com.example.catalog;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -18,7 +22,7 @@ public class Edit extends MainController implements Initializable{
 
     private TreeItem clickedItem;
 
-    @FXML private TableView propertyTable;
+    @FXML private static TableView propertyTable;
 
     @FXML private ListView tagList;
     @FXML private Button  addTag, deleteTag, addProperty, deleteProperty, changeType, submit;
@@ -49,7 +53,7 @@ public class Edit extends MainController implements Initializable{
     }
     public void tableView(TableView t){
         labelColumn.setCellValueFactory(new PropertyValueFactory<Property, String>("label"));
-        contentColumn.setCellValueFactory(new PropertyValueFactory<Property, ArrayList<String>>("content"));
+        contentColumn.setCellValueFactory(new PropertyValueFactory<Property, String>("content"));
         propertyTable.getColumns().add(labelColumn);
         propertyTable.getColumns().add(contentColumn);
         for (int i=0;i<t.getItems().size();i++)

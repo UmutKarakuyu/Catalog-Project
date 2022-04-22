@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class MainController {
     protected Catalog catalog;
 
-    protected ArrayList typeList, tagList, itemList;
+    protected static ArrayList typeList, tagList, itemList;
 
     @FXML
     private TextField textField, name;
@@ -43,7 +43,7 @@ public class MainController {
     protected TableView tableView;
 
     protected TableColumn<Property, String> labelColumn = new TableColumn<>("Label");
-    protected TableColumn<Property, ArrayList<String>> contentColumn = new TableColumn<>("Content");
+    protected TableColumn<Property, String> contentColumn = new TableColumn<>("Content");
 
     @FXML
     private void searched() {
@@ -106,6 +106,7 @@ public class MainController {
         typeTree(typeList, types, true);
         tagTree(tagList, tags, true);
         itemTree(itemList, items, true);
+
     }
 
     public void typeTree(ArrayList<Type> typeList, TreeItem root, boolean isFound) {
@@ -249,6 +250,8 @@ public class MainController {
         this.catalog = new Catalog();
         anchorPane.setVisible(false);
 
+        çerçöp();
+
         itemList = new ArrayList(catalog.getItems().inOrder());
         typeList = new ArrayList(catalog.getTypes().inOrder());
         tagList = new ArrayList(catalog.getTags().inOrder());
@@ -258,9 +261,7 @@ public class MainController {
         searchChoice.setOnAction(this::searchAction);
 
         labelColumn.setCellValueFactory(new PropertyValueFactory<Property, String>("label"));
-        contentColumn.setCellValueFactory(new PropertyValueFactory<Property, ArrayList<String>>("content"));
-        labelColumn.setStyle("-fx-alignment: CENTER");
-        contentColumn.setStyle("-fx-alignment: CENTER");
+        contentColumn.setCellValueFactory(new PropertyValueFactory<Property, String>("content"));
         tableView.getColumns().add(labelColumn);
         tableView.getColumns().add(contentColumn);
         tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
@@ -297,7 +298,6 @@ public class MainController {
         editScene.listView(item);
         editScene.choiceBoxes(typeList, tagList);
     }
-
     @FXML
     private void create(ActionEvent event) throws IOException {
             Stage stage = new Stage();
@@ -317,6 +317,51 @@ public class MainController {
     }
     public void createScreen(FXMLLoader f){
         Create createScene = f.getController();
+        createScene.selectedItem=this.selectedItem;
         createScene.choiceBoxes(typeList, tagList);
+        createScene.tableView(tableView);
+    }
+
+    private void çerçöp() {
+        Type a = new Type("Book");
+        catalog.getTypes().insert(a);
+
+        Item i1 = new Item(a, "item 1");
+        i1.getProperties().add(new Property("Book Name", "Lord Of The Rings"));
+        i1.getProperties().add(new Property("Book Type", "fantastic"));
+
+        catalog.getItems().insert(i1);
+        a.addItems(i1);
+
+        Item i2 = new Item(a, "item 2");
+        catalog.getItems().insert(i2);
+        a.addItems(i2);
+
+
+        Type b = new Type("type 2");
+        catalog.getTypes().insert(b);
+        Item i3 = new Item(b, "item 3");
+        b.addItems(i3);
+        catalog.getItems().insert(i3);
+        Item i4 = new Item(b, "item 4");
+        b.addItems(i4);
+        catalog.getItems().insert(i4);
+
+        Tag t1 = new Tag("tag1");
+        catalog.getTags().insert(t1);
+        t1.getItems().add(i1);
+        t1.getItems().add(i2);
+        i2.getTags().add(t1);
+        i1.getTags().add(t1);
+        Tag t2 = new Tag("tag2");
+        catalog.getTags().insert(t2);
+        t2.getItems().add(i3);
+        i3.getTags().add(t2);
+        t2.getItems().add(i4);
+        i4.getTags().add(t2);
+        t2.getItems().add(i2);
+        i1.getTags().add(t2);
+        i2.getTags().add(t2);
+        t2.getItems().add(i1);
     }
 }
