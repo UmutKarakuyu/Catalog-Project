@@ -16,8 +16,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class MainController {
-    protected Catalog catalog;
-
+    protected static Catalog catalog;
     protected static ArrayList typeList, tagList, itemList;
 
     @FXML
