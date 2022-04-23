@@ -16,7 +16,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class MainController {
-    protected static Catalog catalog;
+    protected Catalog catalog;
+
     protected static ArrayList typeList, tagList, itemList;
 
     @FXML
@@ -28,7 +29,7 @@ public class MainController {
 
     @FXML
     protected TreeView<Object> treeView;
-    protected TreeItem<Object> root, selectedItem;
+    protected static TreeItem<Object> root, selectedItem;
     @FXML
     private AnchorPane anchorPane;
 
@@ -279,7 +280,6 @@ public class MainController {
         Parent root = fxmlLoader.load();
 
         editScreen(fxmlLoader,(Item) selectedItem.getValue());
-
         Scene scene = new Scene(root, 700, 450);
         stage.setTitle("Edit");
         stage.setScene(scene);
@@ -302,6 +302,7 @@ public class MainController {
             Stage stage = new Stage();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Create.fxml"));
             Parent root = fxmlLoader.load();
+
             createScreen(fxmlLoader);
             Scene scene = new Scene(root, 740, 450);
             stage.setTitle("Create");

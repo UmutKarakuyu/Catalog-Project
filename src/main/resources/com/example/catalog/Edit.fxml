@@ -14,7 +14,7 @@
       <TextField fx:id="propertyLabel" layoutX="237.0" layoutY="255.0" prefHeight="26.0" prefWidth="150.0" promptText="New Property Label" style="-fx-background-radius: 15;" />
       <TableView fx:id="propertyTable" layoutX="237.0" layoutY="56.0" prefHeight="187.0" prefWidth="150.0" />
       <TextField fx:id="typeNameField" layoutX="24.0" layoutY="103.0" promptText="New Type Name" />
-      <Button fx:id="deleteTag" layoutX="443.0" layoutY="365.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="142.0" style="-fx-background-radius: 15;" text="Delete Tag" />
+      <Button fx:id="deleteTag" layoutX="443.0" layoutY="365.0" mnemonicParsing="false" onAction="#deleteTag" prefHeight="26.0" prefWidth="142.0" style="-fx-background-radius: 15;" text="Delete Tag" />
       <ListView fx:id="tagList" layoutX="437.0" layoutY="56.0" prefHeight="187.0" prefWidth="150.0" style="-fx-background-radius: 15;" />
       <ChoiceBox fx:id="typesBox" layoutX="23.0" layoutY="64.0" prefWidth="150.0" style="-fx-background-radius: 15;" />
       <TextField fx:id="tagNameField" layoutX="438.0" layoutY="255.0" prefHeight="26.0" prefWidth="150.0" promptText="New Tag Name" style="-fx-background-radius: 15;" />
@@ -34,11 +34,11 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Button fx:id="addProperty" layoutX="241.0" layoutY="328.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="142.0" style="-fx-background-radius: 15;" text="Add Property" />
-      <Button fx:id="addTag" layoutX="442.0" layoutY="328.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="142.0" style="-fx-background-radius: 15;" text="Add Tag" />
-      <Button fx:id="changeType" layoutX="28.0" layoutY="137.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="142.0" style="-fx-background-radius: 15;" text="Change Type" />
+      <Button fx:id="addProperty" layoutX="241.0" layoutY="328.0" mnemonicParsing="false" onAction="#addProperty" prefHeight="25.0" prefWidth="142.0" style="-fx-background-radius: 15;" text="Add Property" />
+      <Button fx:id="addTag" layoutX="442.0" layoutY="328.0" mnemonicParsing="false" onAction="#addTag" prefHeight="25.0" prefWidth="142.0" style="-fx-background-radius: 15;" text="Add Tag" />
+      <Button fx:id="changeType" layoutX="28.0" layoutY="137.0" mnemonicParsing="false" onAction="#changeType" prefHeight="25.0" prefWidth="142.0" style="-fx-background-radius: 15;" text="Change Type" />
       <ChoiceBox fx:id="tagsBox" layoutX="439.0" layoutY="289.0" prefWidth="150.0" style="-fx-background-radius: 15;" />
       <Button fx:id="submit" layoutX="626.0" layoutY="366.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="61.0" style="-fx-background-radius: 15;" text="Submit" />
-      <Button fx:id="deleteProperty" layoutX="241.0" layoutY="366.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="142.0" style="-fx-background-radius: 15;" text="Delete Property" />
+      <Button fx:id="deleteProperty" layoutX="241.0" layoutY="366.0" mnemonicParsing="false" onAction="#deleteProperty" prefHeight="26.0" prefWidth="142.0" style="-fx-background-radius: 15;" text="Delete Property" />
    </children>
 </AnchorPane>
