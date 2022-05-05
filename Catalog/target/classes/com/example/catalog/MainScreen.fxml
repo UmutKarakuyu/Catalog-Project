@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Copyright (c) 2015, 2019, Gluon and/or its affiliates.
+  All rights reserved. Use is subject to license terms.
+
+  This file is available and licensed under the following license:
+
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions
+  are met:
+
+  - Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+  - Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in
+    the documentation and/or other materials provided with the distribution.
+  - Neither the name of Oracle Corporation nor the names of its
+    contributors may be used to endorse or promote products derived
+    from this software without specific prior written permission.
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.catalog.MainController">
+  <children>
+    <MenuBar VBox.vgrow="NEVER">
+      <menus>
+        <Menu mnemonicParsing="false" text="Create">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#create" text="Create" />
+               </items></Menu>
+        <Menu mnemonicParsing="false" onAction="#helpMenu" text="Help">
+          <items>
+            <MenuItem mnemonicParsing="false" text="About Catalog Program" />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+    <SplitPane dividerPositions="0.3029830810329474" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+      <items>
+        <AnchorPane prefHeight="551.0" prefWidth="403.0" style="-fx-background-radius: 15;">
+          <children>
+                  <TextField fx:id="textField" layoutX="14.0" layoutY="14.0" onInputMethodTextChanged="#searched" onKeyTyped="#searched" prefHeight="26.0" prefWidth="142.0" promptText="Tags, Types or Items" style="-fx-background-radius: 15;" />
+                  <TreeView fx:id="treeView" layoutX="14.0" layoutY="56.0" onContextMenuRequested="#selected" onInputMethodTextChanged="#searched" onKeyPressed="#searched" onMouseClicked="#selected" prefHeight="475.0" prefWidth="243.0" style="-fx-background-radius: 5;" />
+                  <ChoiceBox fx:id="searchChoice" layoutX="167.0" layoutY="14.0" prefHeight="26.0" prefWidth="81.0" style="-fx-background-radius: 15;" />
+          </children>
+        </AnchorPane>
+        <ScrollPane prefHeight="-1.0" prefWidth="-1.0">
+               <content>
+                  <AnchorPane fx:id="anchorPane" onContextMenuRequested="#searched" onMouseClicked="#searched" prefHeight="544.0" prefWidth="600.0">
+                     <children>
+                        <Label layoutX="32.0" layoutY="8.0" prefHeight="46.0" prefWidth="142.0" text="VIEW" textFill="#9f9f9f">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="editButton" layoutX="174.0" layoutY="459.0" mnemonicParsing="false" onAction="#edit" prefHeight="37.0" prefWidth="78.0" style="-fx-background-radius: 15;" text="Edit" />
+                        <Button layoutX="300.0" layoutY="459.0" mnemonicParsing="false" onAction="#deleteButton" prefHeight="37.0" prefWidth="78.0" style="-fx-background-radius: 15;" text="Delete" />
+                        <TableView fx:id="tableView" layoutX="100.0" layoutY="215.0" prefHeight="200.0" prefWidth="330.0" />
+                        <Label fx:id="typeName" layoutX="82.0" layoutY="111.0" prefHeight="26.0" prefWidth="122.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="itemTags" layoutX="74.0" layoutY="159.0" prefHeight="27.0" prefWidth="438.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="name" layoutX="28.0" layoutY="64.0" onAction="#renameButton" prefHeight="26.0" prefWidth="167.0" promptText="name" style="-fx-background-radius: 15;" />
+                        <Button layoutX="204.0" layoutY="64.0" mnemonicParsing="false" onAction="#renameButton" style="-fx-background-radius: 15;" text="Rename" />
+                        <Label fx:id="tagsLabel" layoutX="26.0" layoutY="149.0" prefHeight="46.0" prefWidth="142.0" text="Tags :" textFill="#9f9f9f">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="typeLabel" layoutX="26.0" layoutY="101.0" prefHeight="46.0" prefWidth="142.0" text="Type :" textFill="#9f9f9f">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+               </content>
+        </ScrollPane>
+      </items>
+    </SplitPane>
+    <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
+      <children>
+        <Pane prefHeight="-1.0" prefWidth="-1.0" HBox.hgrow="ALWAYS" />
+      </children>
+      <padding>
+        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+      </padding>
+    </HBox>
+  </children>
+</VBox>
