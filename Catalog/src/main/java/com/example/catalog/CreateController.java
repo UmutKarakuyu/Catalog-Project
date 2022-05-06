@@ -5,6 +5,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -42,6 +43,8 @@ public class CreateController extends MainController implements Initializable {
                     for (int i = 0; i < item.getTags().size(); i++)
                         item.getTags().get(i).getItems().add(item);
                 alertSuccessWindow("Item Created!!", "Item is successfully created");
+                Stage stage = (Stage) create.getScene().getWindow();
+                stage.fireEvent(new WindowEvent(stage,WindowEvent.WINDOW_CLOSE_REQUEST));
             } else
                 alertErrorWindow("Type is null", "Please press the 'Add Item Type' button to add a type");
         } else

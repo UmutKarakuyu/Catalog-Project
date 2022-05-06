@@ -5,6 +5,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -111,7 +112,7 @@ public class EditController extends MainController implements Initializable {
     private void changeType() {
         if (typesBox.getValue() != clickedItem.getType() && !typeNameField.getText().equals(clickedItem.getType().toString())) {
             clickedItem.getType().getItems().remove(clickedItem);
-            if (!typesBox.getValue().equals("Types"))
+            if (!typesBox.getValue().equals(clickedItem.getType()))
                 clickedItem.setType((Type) typesBox.getValue());
             else if (!typeNameField.getText().isBlank()) {
                 Type type = new Type(typeNameField.getText());
@@ -131,6 +132,8 @@ public class EditController extends MainController implements Initializable {
         else {
             clickedItem.getType().getItems().add(clickedItem);
             alertSuccessWindow("Item Editted!!", "Item is successfully editted");
+            Stage stage = (Stage) close.getScene().getWindow();
+            stage.fireEvent(new WindowEvent(stage,WindowEvent.WINDOW_CLOSE_REQUEST));
         }
     }
 
@@ -149,7 +152,7 @@ public class EditController extends MainController implements Initializable {
     }
 
     public void choiceBoxes(ArrayList typeList, ArrayList taglist) {
-        typesBox.setValue("Types");
+        typesBox.setValue(clickedItem.getType());
         typesBox.getItems().addAll(typeList);
 
         tagsBox.setValue("Tags");
