@@ -4,14 +4,16 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import java.io.IOException;
+
+import java.io.*;
 import java.util.ArrayList;
 
 public class Catalog extends Application {
 
-    private BST types = new BST();
-    private BST tags = new BST();
-    private BST items = new BST();
+    private static BST types = new BST();
+    private static BST tags = new BST();
+    private static BST items = new BST();
+
 
     public BST getTypes() {
         return types;
@@ -37,61 +39,78 @@ public class Catalog extends Application {
         this.items = items;
     }
 
-    public void createType(String typeName){
+    public void createType(String typeName) {
         Type type = new Type(typeName);
         addType(type);
     }
-    public void createTag(String tagName){
+
+    public void createTag(String tagName) {
         Tag tag = new Tag(tagName);
         addTag(tag);
     }
-    public void createItem(Type type,String itemName){
-        Item item = new Item(type,itemName);
+
+    public void createItem(Type type, String itemName) {
+        Item item = new Item(type, itemName);
         addItem(item);
     }
-    public void editType(Type type, String name){
+
+    public void editType(Type type, String name) {
         type.setType(name);
     }
-    public void editTag(Tag tag, String name){
+
+    public void editTag(Tag tag, String name) {
         tag.setTag(name);
     }
-    public void deleteItem(Item item){
+
+    public void deleteItem(Item item) {
         for (Tag tag : item.getTags())
             tag.getItems().remove(item);
         item.getType().getItems().remove(item);
         items.remove(item);
     }
-    public void deleteTag(Tag tag){
+
+    public void deleteTag(Tag tag) {
         for (Item item : tag.getItems())
             item.getTags().remove(tag);
         tags.remove(tag);
     }
-    public void deleteType(Type type, ArrayList itemsForType){
-        types.remove(type);
+
+    public void deleteType(Type type, ArrayList itemsForType) {
         for (Item item : type.getItems()) {
             for (Tag tag : item.getTags())
                 tag.getItems().remove(item);
             items.remove(item);
             itemsForType.remove(item);
         }
+        types.remove(type);
     }
-    public ArrayList searchType(String type){
+
+    public ArrayList searchType(String type) {
         return types.find(type);
     }
-    public ArrayList searchItem(String item){
+
+    public ArrayList searchItem(String item) {
         return items.find(item);
     }
-    public ArrayList searchTag(String tag){
+
+    public ArrayList searchTag(String tag) {
         return tags.find(tag);
     }
 
-    public void addType(Type type){
+    public void addType(Type type) {
         types.insert(type);
     }
-    public void addItem(Item item){
+
+    public void addItem(Item item) {
         items.insert(item);
+        item.getType().getItems().add(item);
+
+        for (Tag tag : item.getTags())
+            if (!tag.getItems().contains(item))
+                tag.getItems().add(item);
     }
-    public void addTag(Tag tag){
+
+    public void addTag(Tag tag) {
         tags.insert(tag);
     }
 
@@ -102,12 +121,11 @@ public class Catalog extends Application {
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Catalog");
         stage.setScene(scene);
-        stage.setResizable(false);
         stage.show();
     }
-    public static void main(String[] args) {
+
+    public static void main(String[] args) throws IOException {
         launch();
     }
-
 
 }

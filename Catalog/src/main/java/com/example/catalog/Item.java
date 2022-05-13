@@ -2,7 +2,7 @@ package com.example.catalog;
 
 import java.util.ArrayList;
 
-public class Item {
+public class Item{
 
     private Type type;
     private String name;

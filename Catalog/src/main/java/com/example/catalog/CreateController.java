@@ -12,19 +12,19 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class CreateController extends MainController implements Initializable {
-    @FXML
     private Item item;
     @FXML
     private ChoiceBox typesBox, tagsBox;
     @FXML
     private TextField itemName, typeNameField, propertyLabel, propertyContent, tagNameField;
-
     @FXML
     private Button create;
     @FXML
     private TableView propertyTable;
     @FXML
     private ListView tagListView;
+    @FXML
+    private ListView<String> fieldListView;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -34,19 +34,25 @@ public class CreateController extends MainController implements Initializable {
     @FXML
     public void createItem() {
         if (!itemName.getText().isBlank()) {
-            item.setName(itemName.getText());
-            if (item.getType() != null) {
-                MainController.itemList.add(item);
-                catalog.addItem(item);
-                item.getType().getItems().add(item);
-                if (item.getTags() != null)
-                    for (int i = 0; i < item.getTags().size(); i++)
-                        item.getTags().get(i).getItems().add(item);
-                alertSuccessWindow("Item Created!!", "Item is successfully created");
-                Stage stage = (Stage) create.getScene().getWindow();
-                stage.fireEvent(new WindowEvent(stage,WindowEvent.WINDOW_CLOSE_REQUEST));
+            boolean isExists = false;
+            for (Object i : MainController.itemList)
+                if (itemName.getText().equals(i.toString())) {
+                    isExists = true;
+                    break;
+                }
+            if (!isExists) {
+                item.setName(itemName.getText());
+                if (item.getType() != null) {
+                    MainController.itemList.add(item);
+                    catalog.addItem(item);
+                    alertSuccessWindow("Item Created!!", "Item is successfully created");
+
+                    Stage stage = (Stage) create.getScene().getWindow();
+                    stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
+                } else
+                    alertErrorWindow("Type is null", "Please press the 'Add Item Type' button to add a type");
             } else
-                alertErrorWindow("Type is null", "Please press the 'Add Item Type' button to add a type");
+                alertErrorWindow("Name exists", "Please change the name of the item");
         } else
             alertErrorWindow("Enter a name", "Please enter an item name");
     }
@@ -56,7 +62,10 @@ public class CreateController extends MainController implements Initializable {
         boolean isRepeated = false;
         if (!typesBox.getValue().equals("Types")) {
             Type type = (Type) MainController.typeList.get(MainController.typeList.indexOf(typesBox.getValue()));
+            if (item.getType() != null)
+                item.getType().deleteFieldLabels(item.getProperties());
             item.setType(type);
+            fieldListView(item);
         } else if (!typeNameField.getText().isBlank()) {
             for (int i = 0; i < MainController.typeList.size(); i++)
                 if (MainController.typeList.get(i).toString().equals(typeNameField.getText())) {
@@ -84,13 +93,15 @@ public class CreateController extends MainController implements Initializable {
                 if (property.toString().equals(item.getProperties().get(i).toString())) {
                     isRepeated = true;
                     alertErrorWindow("This property exists", "You have already added this property!!");
-                    propertyContent.clear();
-                    propertyLabel.clear();
+                } else if (property.getLabel().equals(item.getProperties().get(i).getLabel())) {
+                    isRepeated = true;
+                    alertErrorWindow("This label exists", "You have already created a property with this label!!");
                 }
             }
             if (!isRepeated) {
                 item.createProperty(property);
                 propertyTable.getItems().add(property);
+                fieldListView(item);
                 propertyContent.clear();
                 propertyLabel.clear();
             }
@@ -146,9 +157,27 @@ public class CreateController extends MainController implements Initializable {
         Property selectedProperty = (Property) propertyTable.getSelectionModel().getSelectedItem();
         if (selectedProperty != null) {
             propertyTable.getItems().remove(selectedProperty);
-            item.getProperties().remove(item.getProperties().indexOf(selectedProperty));
+            item.getProperties().remove(selectedProperty);
+            item.getType().deleteFieldLabel(selectedProperty.getLabel());
+            fieldListView.getItems().remove(selectedProperty.getLabel());
         } else
             alertErrorWindow("Nothing selected!", "You must select a property to delete it.");
+    }
+
+    public void fieldListView(Item item) {
+        fieldListView.getItems().clear();
+        if (item.getType() != null) {
+            for (Property p: item.getProperties())
+                if (!item.getType().getFieldLabels().contains(p.getLabel()))
+                    item.getType().addFieldLabel(p.getLabel());
+
+            for (String string : item.getType().getFieldLabels())
+                if (!fieldListView.getItems().contains(string))
+                    fieldListView.getItems().add(string);
+                fieldListView.setVisible(true);
+        }
+        if (fieldListView.getItems().size() == 0)
+            fieldListView.setVisible(false);
     }
 
     public void tableView() {

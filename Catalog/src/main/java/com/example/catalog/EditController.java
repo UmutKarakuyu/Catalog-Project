@@ -23,13 +23,19 @@ public class EditController extends MainController implements Initializable {
     private TableView propertyTable;
 
     @FXML
-    private ListView tagListView;
+    private ListView tagListView, fieldListView;
     @FXML
     private Button addTag, deleteTag, addProperty, deleteProperty, changeType, close;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         clickedItem = (Item) MainController.selectedItem.getValue();
+    }
+
+    @FXML
+    private void listViewSelection() {
+        if (fieldListView.getSelectionModel().getSelectedItem() != null)
+            propertyLabel.setText(fieldListView.getSelectionModel().getSelectedItem().toString());
     }
 
     @FXML
@@ -41,13 +47,17 @@ public class EditController extends MainController implements Initializable {
                 if (property.toString().equals(clickedItem.getProperties().get(i).toString())) {
                     isRepeated = true;
                     alertErrorWindow("This property exists", "You have already added this property!!");
-                    propertyContent.clear();
-                    propertyLabel.clear();
+                } else if (property.getLabel().equals(clickedItem.getProperties().get(i).getLabel())) {
+                    isRepeated = true;
+                    alertErrorWindow("This label exists", "You have already created a property with this label!!");
                 }
+                propertyContent.clear();
+                propertyLabel.clear();
             }
             if (!isRepeated) {
                 clickedItem.createProperty(property);
                 propertyTable.getItems().add(property);
+                fieldListView(clickedItem);
                 propertyContent.clear();
                 propertyLabel.clear();
             }
@@ -61,6 +71,8 @@ public class EditController extends MainController implements Initializable {
         if (selectedProperty != null) {
             propertyTable.getItems().remove(selectedProperty);
             clickedItem.getProperties().remove(clickedItem.getProperties().indexOf(selectedProperty));
+            clickedItem.getType().deleteFieldLabel(selectedProperty.getLabel());
+            fieldListView.getItems().remove(selectedProperty.getLabel());
         } else
             alertErrorWindow("Nothing selected!", "You must select a property to delete it.");
     }
@@ -111,15 +123,18 @@ public class EditController extends MainController implements Initializable {
     @FXML
     private void changeType() {
         if (typesBox.getValue() != clickedItem.getType() && !typeNameField.getText().equals(clickedItem.getType().toString())) {
-            clickedItem.getType().getItems().remove(clickedItem);
-            if (!typesBox.getValue().equals(clickedItem.getType()))
+            clickedItem.getType().deleteItem(clickedItem);
+            clickedItem.getType().deleteFieldLabels(clickedItem.getProperties());
+            if (!typesBox.getValue().equals(clickedItem.getType())) {
                 clickedItem.setType((Type) typesBox.getValue());
-            else if (!typeNameField.getText().isBlank()) {
+                fieldListView(clickedItem);
+            } else if (!typeNameField.getText().isBlank()) {
                 Type type = new Type(typeNameField.getText());
                 clickedItem.setType(type);
                 MainController.typeList.add(type);
                 typeNameField.clear();
                 typesBox.getItems().add(type);
+                fieldListView(clickedItem);
             } else
                 alertErrorWindow("Type is null", "Please press the 'Change Type' button to add a type");
         }
@@ -130,10 +145,17 @@ public class EditController extends MainController implements Initializable {
         if (!clickedItem.getType().toString().equals(typeNameField.getText()) && !clickedItem.getType().toString().equals(typesBox.getValue().toString()))
             alertErrorWindow("Click the Button", "If you want to change type, you must press 'Change Type' button!!");
         else {
-            clickedItem.getType().getItems().add(clickedItem);
-            alertSuccessWindow("Item Editted!!", "Item is successfully editted");
+            if (!clickedItem.getType().getItems().contains(clickedItem))
+                clickedItem.getType().addItem(clickedItem);
+
+            for (Property p : clickedItem.getProperties())
+                if (!clickedItem.getType().getFieldLabels().contains(p.getLabel()))
+                    clickedItem.getType().addFieldLabel(p.getLabel());
+
+            alertSuccessWindow("Item Edited!!", "Item is successfully edited");
+
             Stage stage = (Stage) close.getScene().getWindow();
-            stage.fireEvent(new WindowEvent(stage,WindowEvent.WINDOW_CLOSE_REQUEST));
+            stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
         }
     }
 
@@ -142,6 +164,7 @@ public class EditController extends MainController implements Initializable {
         contentColumn.setCellValueFactory(new PropertyValueFactory<Property, ArrayList<String>>("content"));
         propertyTable.getColumns().add(labelColumn);
         propertyTable.getColumns().add(contentColumn);
+        propertyTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         for (int i = 0; i < t.getItems().size(); i++)
             propertyTable.getItems().add(t.getItems().get(i));
     }
@@ -151,11 +174,27 @@ public class EditController extends MainController implements Initializable {
             tagListView.getItems().add(tag);
     }
 
-    public void choiceBoxes(ArrayList typeList, ArrayList taglist) {
+    public void fieldListView(Item item) {
+        fieldListView.getItems().clear();
+        if (item.getType() != null) {
+            for (Property p: item.getProperties())
+                if (!item.getType().getFieldLabels().contains(p.getLabel()))
+                    item.getType().addFieldLabel(p.getLabel());
+
+            for (String string : item.getType().getFieldLabels())
+                if (!fieldListView.getItems().contains(string))
+                    fieldListView.getItems().add(string);
+            fieldListView.setVisible(true);
+        }
+        if (fieldListView.getItems().size() == 0)
+            fieldListView.setVisible(false);
+    }
+
+    public void choiceBoxes(ArrayList typeList, ArrayList tagList) {
         typesBox.setValue(clickedItem.getType());
         typesBox.getItems().addAll(typeList);
 
         tagsBox.setValue("Tags");
-        tagsBox.getItems().addAll(taglist);
+        tagsBox.getItems().addAll(tagList);
     }
 }

@@ -3,7 +3,7 @@ package com.example.catalog;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Property {
+public class Property{
 
 
     private String label;

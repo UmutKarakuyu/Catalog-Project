@@ -42,6 +42,8 @@ public class MainController {
     @FXML
     protected TableView tableView;
 
+    @FXML protected ListView<String> fieldList;
+
     protected TableColumn<Property, String> labelColumn = new TableColumn<>("Label");
     protected TableColumn<Property, ArrayList<String>> contentColumn = new TableColumn<>("Content");
 
@@ -204,6 +206,15 @@ public class MainController {
                     tableView(item);
                     displayItem();
                 }
+                else if (selectedItem.getValue().getClass().getName().equals("com.example.catalog.Type")) {
+                    Type type = (Type) selectedItem.getValue();
+
+                    for (String string : type.getFieldLabels())
+                        if (!fieldList.getItems().contains(string))
+                            fieldList.getItems().add(string);
+                    if (fieldList.getItems().size() != 0)
+                        fieldList.setVisible(true);
+                }
                 anchorPane.setVisible(true);
             }
         }
@@ -226,6 +237,8 @@ public class MainController {
         itemTags.setVisible(false);
         tableView.setVisible(false);
         editButton.setVisible(false);
+        fieldList.setVisible(false);
+        fieldList.getItems().clear();
     }
 
     public void displayItem() {
@@ -238,7 +251,7 @@ public class MainController {
     }
 
     @FXML
-    private void initialize() {
+    private void initialize(){
         catalog = new Catalog();
         anchorPane.setVisible(false);
 
@@ -292,6 +305,7 @@ public class MainController {
         editControllerScene.tableView(tableView);
         editControllerScene.listView();
         editControllerScene.choiceBoxes(typeList, tagList);
+        editControllerScene.fieldListView((Item) selectedItem.getValue());
     }
 
     @FXML

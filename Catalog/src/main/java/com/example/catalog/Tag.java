@@ -3,9 +3,9 @@ package com.example.catalog;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Tag {
+public class Tag{
     private String tag;
-    private List<Item> items=new ArrayList<Item>();
+    private List<Item> items=new ArrayList<>();
 
     public String toString(){
         return tag;
@@ -33,4 +33,5 @@ public class Tag {
     public void setItems(List<Item> items) {
         this.items = items;
     }
+
 }
