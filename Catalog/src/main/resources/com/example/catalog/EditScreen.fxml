@@ -34,7 +34,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Button fx:id="addProperty" layoutX="241.0" layoutY="328.0" mnemonicParsing="false" onAction="#addProperty" onMousePressed="#listViewSelection" prefHeight="25.0" prefWidth="142.0" style="-fx-background-radius: 15;" text="Add Property" />
+      <Button fx:id="addProperty" layoutX="241.0" layoutY="328.0" mnemonicParsing="false" onAction="#addProperty" prefHeight="25.0" prefWidth="142.0" style="-fx-background-radius: 15;" text="Add Property" />
       <Button fx:id="addTag" layoutX="442.0" layoutY="328.0" mnemonicParsing="false" onAction="#addTag" prefHeight="25.0" prefWidth="142.0" style="-fx-background-radius: 15;" text="Add Tag" />
       <Button fx:id="changeType" layoutX="28.0" layoutY="137.0" mnemonicParsing="false" onAction="#changeType" prefHeight="25.0" prefWidth="142.0" style="-fx-background-radius: 15;" text="Change Type" />
       <ChoiceBox fx:id="tagsBox" layoutX="439.0" layoutY="289.0" prefWidth="150.0" style="-fx-background-radius: 15;" />

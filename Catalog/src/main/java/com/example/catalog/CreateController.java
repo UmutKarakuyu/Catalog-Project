@@ -119,7 +119,7 @@ public class CreateController extends MainController implements Initializable {
                     alertErrorWindow("Tag Exists", "This tag already exists in choice box. Please choose different tag or create new tag!");
                 }
             }
-            if (!isRepeated) {
+            if (!isRepeated){
                 Tag tag = new Tag(tagNameField.getText());
                 item.addTag(tag);
                 tagListView.getItems().add(tag);
@@ -158,8 +158,18 @@ public class CreateController extends MainController implements Initializable {
         if (selectedProperty != null) {
             propertyTable.getItems().remove(selectedProperty);
             item.getProperties().remove(selectedProperty);
-            item.getType().deleteFieldLabel(selectedProperty.getLabel());
-            fieldListView.getItems().remove(selectedProperty.getLabel());
+            boolean isAlone = true;
+            for (Item item: item.getType().getItems())
+                if (isAlone)
+                    for (Property property : item.getProperties())
+                        if (property.getLabel().equals(selectedProperty.getLabel())) {
+                            isAlone = false;
+                            break;
+                        }
+            if (isAlone) {
+                item.getType().deleteFieldLabel(selectedProperty.getLabel());
+                fieldListView.getItems().remove(selectedProperty.getLabel());
+            }
         } else
             alertErrorWindow("Nothing selected!", "You must select a property to delete it.");
     }
@@ -167,14 +177,13 @@ public class CreateController extends MainController implements Initializable {
     public void fieldListView(Item item) {
         fieldListView.getItems().clear();
         if (item.getType() != null) {
-            for (Property p: item.getProperties())
-                if (!item.getType().getFieldLabels().contains(p.getLabel()))
-                    item.getType().addFieldLabel(p.getLabel());
+            item.getType().addFieldLabels(item.getProperties());
 
             for (String string : item.getType().getFieldLabels())
                 if (!fieldListView.getItems().contains(string))
                     fieldListView.getItems().add(string);
                 fieldListView.setVisible(true);
+
         }
         if (fieldListView.getItems().size() == 0)
             fieldListView.setVisible(false);

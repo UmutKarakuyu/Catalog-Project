@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.print.PrinterJob;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -249,7 +250,6 @@ public class MainController {
         itemTags.setVisible(true);
         editButton.setVisible(true);
     }
-
     @FXML
     private void initialize(){
         catalog = new Catalog();

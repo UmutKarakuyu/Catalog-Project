@@ -22,12 +22,13 @@ public class Type implements Serializable {
 
     public void addFieldLabels(ArrayList<Property> s) {
         for (Property property : s)
-            if (!fieldLabels.contains(property.toString()))
+            if (!fieldLabels.contains(property.getLabel()))
                 fieldLabels.add(property.getLabel());
     }
 
     public void addFieldLabel(String s) {
-        fieldLabels.add(s);
+        if (!fieldLabels.contains(s))
+            fieldLabels.add(s);
     }
 
     public void deleteFieldLabels(ArrayList<Property> s) {

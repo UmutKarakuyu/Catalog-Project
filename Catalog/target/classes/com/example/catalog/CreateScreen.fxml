@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="405.0" prefWidth="708.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.catalog.CreateController">
+<AnchorPane prefHeight="426.0" prefWidth="708.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.catalog.CreateController">
    <children>
       <Label layoutX="26.0" layoutY="25.0" prefHeight="46.0" prefWidth="213.0" text="Create" textFill="#9f9f9f">
          <font>
@@ -32,7 +32,7 @@
       </Label>
       <TextField fx:id="propertyContent" layoutX="250.0" layoutY="277.0" prefHeight="26.0" prefWidth="124.0" promptText="Content" style="-fx-background-radius: 15;" />
       <TextField fx:id="tagNameField" layoutX="458.0" layoutY="239.0" prefHeight="17.0" prefWidth="122.0" promptText="new Tag" style="-fx-background-radius: 15;" />
-      <Button fx:id="addProperty" layoutX="253.0" layoutY="313.0" mnemonicParsing="false" onAction="#addProperty" prefHeight="26.0" prefWidth="115.0" style="-fx-background-radius: 15;" text="Add Tag" />
+      <Button fx:id="addProperty" layoutX="253.0" layoutY="313.0" mnemonicParsing="false" onAction="#addProperty" prefHeight="26.0" prefWidth="115.0" style="-fx-background-radius: 15;" text="Add Property" />
       <Button fx:id="addTag" layoutX="459.0" layoutY="313.0" mnemonicParsing="false" onAction="#addTag" prefHeight="26.0" prefWidth="115.0" style="-fx-background-radius: 15;" text="Add Tag" />
       <TableView fx:id="propertyTable" layoutX="228.0" layoutY="73.0" prefHeight="151.0" prefWidth="166.0" style="-fx-background-radius: 0;" />
       <TextField fx:id="propertyLabel" layoutX="249.0" layoutY="239.0" prefHeight="26.0" prefWidth="124.0" promptText="Label" style="-fx-background-radius: 15;" />
@@ -52,5 +52,6 @@
       <Button fx:id="deleteTag" layoutX="459.0" layoutY="350.0" mnemonicParsing="false" onAction="#deleteTag" prefHeight="26.0" prefWidth="115.0" style="-fx-background-radius: 15;" text="Remove Tag" />
       <Button fx:id="changeType" layoutX="55.0" layoutY="226.0" mnemonicParsing="false" onAction="#createType" prefHeight="26.0" prefWidth="105.0" style="-fx-background-radius: 15;" text=" Add Item Type" />
       <Label layoutX="47.0" layoutY="267.0" prefHeight="46.0" prefWidth="200.0" text="Use &quot;,&quot; to enter more than 1 content" textFill="#9f9f9f" />
+      <ListView fx:id="fieldListView" layoutX="43.0" layoutY="306.0" prefHeight="97.0" prefWidth="132.0" />
    </children>
 </AnchorPane>

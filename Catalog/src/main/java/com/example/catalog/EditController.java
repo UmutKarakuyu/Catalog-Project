@@ -70,9 +70,21 @@ public class EditController extends MainController implements Initializable {
         Property selectedProperty = (Property) propertyTable.getSelectionModel().getSelectedItem();
         if (selectedProperty != null) {
             propertyTable.getItems().remove(selectedProperty);
-            clickedItem.getProperties().remove(clickedItem.getProperties().indexOf(selectedProperty));
-            clickedItem.getType().deleteFieldLabel(selectedProperty.getLabel());
-            fieldListView.getItems().remove(selectedProperty.getLabel());
+            clickedItem.getProperties().remove(selectedProperty);
+
+            boolean isAlone = true;
+            for (Item item : clickedItem.getType().getItems())
+                if (isAlone)
+                    for (Property property : item.getProperties())
+                        if (property.getLabel().equals(selectedProperty.getLabel())) {
+                            isAlone = false;
+                            break;
+                        }
+
+            if (isAlone) {
+                clickedItem.getType().deleteFieldLabel(selectedProperty.getLabel());
+                fieldListView.getItems().remove(selectedProperty.getLabel());
+            }
         } else
             alertErrorWindow("Nothing selected!", "You must select a property to delete it.");
     }
@@ -122,7 +134,7 @@ public class EditController extends MainController implements Initializable {
 
     @FXML
     private void changeType() {
-        if (typesBox.getValue() != clickedItem.getType() && !typeNameField.getText().equals(clickedItem.getType().toString())) {
+        if (!typeNameField.getText().equals(clickedItem.getType().toString()) || typesBox.getValue() != clickedItem.getType()) {
             clickedItem.getType().deleteItem(clickedItem);
             clickedItem.getType().deleteFieldLabels(clickedItem.getProperties());
             if (!typesBox.getValue().equals(clickedItem.getType())) {
@@ -134,15 +146,15 @@ public class EditController extends MainController implements Initializable {
                 MainController.typeList.add(type);
                 typeNameField.clear();
                 typesBox.getItems().add(type);
+                typesBox.setValue(type);
                 fieldListView(clickedItem);
-            } else
-                alertErrorWindow("Type is null", "Please press the 'Change Type' button to add a type");
+            }
         }
     }
 
     @FXML
     public void editItem() {
-        if (!clickedItem.getType().toString().equals(typeNameField.getText()) && !clickedItem.getType().toString().equals(typesBox.getValue().toString()))
+        if (!typeNameField.getText().isBlank() || clickedItem.getType() != typesBox.getValue())
             alertErrorWindow("Click the Button", "If you want to change type, you must press 'Change Type' button!!");
         else {
             if (!clickedItem.getType().getItems().contains(clickedItem))
@@ -177,9 +189,7 @@ public class EditController extends MainController implements Initializable {
     public void fieldListView(Item item) {
         fieldListView.getItems().clear();
         if (item.getType() != null) {
-            for (Property p: item.getProperties())
-                if (!item.getType().getFieldLabels().contains(p.getLabel()))
-                    item.getType().addFieldLabel(p.getLabel());
+            item.getType().addFieldLabels(item.getProperties());
 
             for (String string : item.getType().getFieldLabels())
                 if (!fieldListView.getItems().contains(string))

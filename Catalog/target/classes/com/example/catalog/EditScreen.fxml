@@ -41,5 +41,6 @@
       <Button fx:id="close" layoutX="626.0" layoutY="366.0" mnemonicParsing="false" onAction="#editItem" prefHeight="25.0" prefWidth="61.0" style="-fx-background-radius: 15;" text="Edit" />
       <Button fx:id="deleteProperty" layoutX="241.0" layoutY="366.0" mnemonicParsing="false" onAction="#deleteProperty" prefHeight="26.0" prefWidth="142.0" style="-fx-background-radius: 15;" text="Delete Property" />
       <Label layoutX="24.0" layoutY="279.0" prefHeight="46.0" prefWidth="200.0" text="Use &quot;,&quot; to enter more than 1 content" textFill="#9f9f9f" />
+      <ListView fx:id="fieldListView" layoutX="34.0" layoutY="188.0" onMouseClicked="#listViewSelection" prefHeight="91.0" prefWidth="142.0" />
    </children>
 </AnchorPane>
