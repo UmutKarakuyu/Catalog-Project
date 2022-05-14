@@ -29,18 +29,13 @@ public class CreateController extends MainController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         item = new Item(null, null);
+        fieldListView.setVisible(false);
     }
 
     @FXML
     public void createItem() {
         if (!itemName.getText().isBlank()) {
-            boolean isExists = false;
-            for (Object i : MainController.itemList)
-                if (itemName.getText().equals(i.toString())) {
-                    isExists = true;
-                    break;
-                }
-            if (!isExists) {
+            if (catalog.searchItem(itemName.getText()).size() == 0) {
                 item.setName(itemName.getText());
                 if (item.getType() != null) {
                     MainController.itemList.add(item);
@@ -59,27 +54,26 @@ public class CreateController extends MainController implements Initializable {
 
     @FXML
     private void createType() {
-        boolean isRepeated = false;
-        if (!typesBox.getValue().equals("Types")) {
+        if ((typeNameField.getText().isBlank() && typesBox.getValue().equals("Types") )|| (item.getType() != null && !typesBox.getValue().equals(item.getType()))) {
             Type type = (Type) MainController.typeList.get(MainController.typeList.indexOf(typesBox.getValue()));
             if (item.getType() != null)
                 item.getType().deleteFieldLabels(item.getProperties());
             item.setType(type);
             fieldListView(item);
+            typesBox.setValue(type);
         } else if (!typeNameField.getText().isBlank()) {
-            for (int i = 0; i < MainController.typeList.size(); i++)
-                if (MainController.typeList.get(i).toString().equals(typeNameField.getText())) {
-                    isRepeated = true;
-                    alertErrorWindow("Type Exists", "This type already exists. Please choose it from choice box!");
-                }
-            if (!isRepeated) {
+            if (catalog.searchType(typeNameField.getText()).size() != 0) {
+                alertErrorWindow("Type Exists", "This type already exists. Please choose it from choice box!");
+            } else {
                 Type type = new Type(typeNameField.getText());
                 item.setType(type);
                 typesBox.getItems().add(type);
                 MainController.typeList.add(type);
                 catalog.addType(type);
+                typesBox.setValue(type);
             }
             typeNameField.clear();
+
         } else
             alertErrorWindow("Error", "You must enter a new Type name and press the 'Add Item Type' button or choose it from the choice box!");
     }
@@ -93,9 +87,15 @@ public class CreateController extends MainController implements Initializable {
                 if (property.toString().equals(item.getProperties().get(i).toString())) {
                     isRepeated = true;
                     alertErrorWindow("This property exists", "You have already added this property!!");
+                    propertyContent.clear();
+                    propertyLabel.clear();
+                    break;
                 } else if (property.getLabel().equals(item.getProperties().get(i).getLabel())) {
                     isRepeated = true;
                     alertErrorWindow("This label exists", "You have already created a property with this label!!");
+                    propertyContent.clear();
+                    propertyLabel.clear();
+                    break;
                 }
             }
             if (!isRepeated) {
@@ -110,16 +110,34 @@ public class CreateController extends MainController implements Initializable {
     }
 
     @FXML
+    private void deleteProperty() {
+        Property selectedProperty = (Property) propertyTable.getSelectionModel().getSelectedItem();
+        if (selectedProperty != null) {
+            propertyTable.getItems().remove(selectedProperty);
+            item.getProperties().remove(selectedProperty);
+            boolean isAlone = true;
+            loop:
+            for (Item item : item.getType().getItems())
+                for (Property property : item.getProperties())
+                    if (property.getLabel().equals(selectedProperty.getLabel())) {
+                        isAlone = false;
+                        break loop;
+                    }
+            if (isAlone) {
+                item.getType().deleteFieldLabel(selectedProperty.getLabel());
+                fieldListView.getItems().remove(selectedProperty.getLabel());
+            }
+        } else
+            alertErrorWindow("Nothing selected!", "You must select a property to delete it.");
+    }
+
+    @FXML
     private void addTag() {
         boolean isRepeated = false;
         if (!tagNameField.getText().isBlank()) {
-            for (int i = 0; i < MainController.tagList.size(); i++) {
-                if (MainController.tagList.get(i).toString().equals(tagNameField.getText())) {
-                    isRepeated = true;
-                    alertErrorWindow("Tag Exists", "This tag already exists in choice box. Please choose different tag or create new tag!");
-                }
-            }
-            if (!isRepeated){
+            if (catalog.searchTag(tagNameField.getText()).size() != 0) {
+                alertErrorWindow("Tag Exists", "This tag already exists in choice box. Please choose different tag or create new tag!");
+            } else {
                 Tag tag = new Tag(tagNameField.getText());
                 item.addTag(tag);
                 tagListView.getItems().add(tag);
@@ -129,12 +147,11 @@ public class CreateController extends MainController implements Initializable {
             }
             tagNameField.clear();
         } else if (!tagsBox.getValue().equals("Tags")) {
-            for (int i = 0; i < item.getTags().size(); i++) {
-                if (item.getTags().get(i).toString().equals(tagsBox.getValue().toString())) {
+            for (Tag tag : item.getTags())
+                if (tag.toString().equals(tagsBox.getValue().toString())) {
                     isRepeated = true;
                     alertErrorWindow("Tag Exists", "This tag already exists. Please choose another tag from choice box or create new tag!");
                 }
-            }
             if (!isRepeated) {
                 tagListView.getItems().add(MainController.tagList.get(MainController.tagList.indexOf(tagsBox.getValue())));
                 item.getTags().add((Tag) MainController.tagList.get(MainController.tagList.indexOf(tagsBox.getValue())));
@@ -147,31 +164,16 @@ public class CreateController extends MainController implements Initializable {
         Tag selectedTag = (Tag) tagListView.getSelectionModel().getSelectedItem();
         if (selectedTag != null) {
             tagListView.getItems().remove(selectedTag);
+            selectedTag.getItems().remove(item);
             item.getTags().remove(selectedTag);
         } else
             alertErrorWindow("Nothing selected!", "You must select a type to delete it.");
     }
 
     @FXML
-    private void deleteProperty() {
-        Property selectedProperty = (Property) propertyTable.getSelectionModel().getSelectedItem();
-        if (selectedProperty != null) {
-            propertyTable.getItems().remove(selectedProperty);
-            item.getProperties().remove(selectedProperty);
-            boolean isAlone = true;
-            for (Item item: item.getType().getItems())
-                if (isAlone)
-                    for (Property property : item.getProperties())
-                        if (property.getLabel().equals(selectedProperty.getLabel())) {
-                            isAlone = false;
-                            break;
-                        }
-            if (isAlone) {
-                item.getType().deleteFieldLabel(selectedProperty.getLabel());
-                fieldListView.getItems().remove(selectedProperty.getLabel());
-            }
-        } else
-            alertErrorWindow("Nothing selected!", "You must select a property to delete it.");
+    private void listViewSelection() {
+        if (fieldListView.getSelectionModel().getSelectedItem() != null)
+            propertyLabel.setText(fieldListView.getSelectionModel().getSelectedItem().toString());
     }
 
     public void fieldListView(Item item) {
@@ -182,8 +184,8 @@ public class CreateController extends MainController implements Initializable {
             for (String string : item.getType().getFieldLabels())
                 if (!fieldListView.getItems().contains(string))
                     fieldListView.getItems().add(string);
-                fieldListView.setVisible(true);
 
+            fieldListView.setVisible(true);
         }
         if (fieldListView.getItems().size() == 0)
             fieldListView.setVisible(false);

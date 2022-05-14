@@ -52,6 +52,6 @@
       <Button fx:id="deleteTag" layoutX="459.0" layoutY="350.0" mnemonicParsing="false" onAction="#deleteTag" prefHeight="26.0" prefWidth="115.0" style="-fx-background-radius: 15;" text="Remove Tag" />
       <Button fx:id="changeType" layoutX="55.0" layoutY="226.0" mnemonicParsing="false" onAction="#createType" prefHeight="26.0" prefWidth="105.0" style="-fx-background-radius: 15;" text=" Add Item Type" />
       <Label layoutX="47.0" layoutY="267.0" prefHeight="46.0" prefWidth="200.0" text="Use &quot;,&quot; to enter more than 1 content" textFill="#9f9f9f" />
-      <ListView fx:id="fieldListView" layoutX="43.0" layoutY="306.0" prefHeight="97.0" prefWidth="132.0" />
+      <ListView fx:id="fieldListView" layoutX="43.0" layoutY="306.0" onMouseClicked="#listViewSelection" prefHeight="97.0" prefWidth="132.0" />
    </children>
 </AnchorPane>

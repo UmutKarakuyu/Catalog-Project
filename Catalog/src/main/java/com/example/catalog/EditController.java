@@ -47,12 +47,16 @@ public class EditController extends MainController implements Initializable {
                 if (property.toString().equals(clickedItem.getProperties().get(i).toString())) {
                     isRepeated = true;
                     alertErrorWindow("This property exists", "You have already added this property!!");
+                    propertyContent.clear();
+                    propertyLabel.clear();
+                    break;
                 } else if (property.getLabel().equals(clickedItem.getProperties().get(i).getLabel())) {
                     isRepeated = true;
                     alertErrorWindow("This label exists", "You have already created a property with this label!!");
+                    propertyContent.clear();
+                    propertyLabel.clear();
+                    break;
                 }
-                propertyContent.clear();
-                propertyLabel.clear();
             }
             if (!isRepeated) {
                 clickedItem.createProperty(property);
@@ -71,16 +75,14 @@ public class EditController extends MainController implements Initializable {
         if (selectedProperty != null) {
             propertyTable.getItems().remove(selectedProperty);
             clickedItem.getProperties().remove(selectedProperty);
-
             boolean isAlone = true;
+            loop:
             for (Item item : clickedItem.getType().getItems())
-                if (isAlone)
-                    for (Property property : item.getProperties())
-                        if (property.getLabel().equals(selectedProperty.getLabel())) {
-                            isAlone = false;
-                            break;
-                        }
-
+                for (Property property : item.getProperties())
+                    if (property.getLabel().equals(selectedProperty.getLabel())) {
+                        isAlone = false;
+                        break loop;
+                    }
             if (isAlone) {
                 clickedItem.getType().deleteFieldLabel(selectedProperty.getLabel());
                 fieldListView.getItems().remove(selectedProperty.getLabel());
@@ -93,13 +95,9 @@ public class EditController extends MainController implements Initializable {
     private void addTag() {
         boolean isRepeated = false;
         if (!tagNameField.getText().isBlank()) {
-            for (int i = 0; i < MainController.tagList.size(); i++) {
-                if (MainController.tagList.get(i).toString().equals(tagNameField.getText())) {
-                    isRepeated = true;
-                    alertErrorWindow("Tag Exists", "This tag already exists. Please choose it from choice box!");
-                }
-            }
-            if (!isRepeated) {
+            if (catalog.searchTag(tagNameField.getText()).size() != 0) {
+                alertErrorWindow("Tag Exists", "This tag already exists in choice box. Please choose different tag or create new tag!");
+            } else {
                 Tag tag = new Tag(tagNameField.getText());
                 clickedItem.addTag(tag);
                 tagListView.getItems().add(tag);
@@ -108,11 +106,13 @@ public class EditController extends MainController implements Initializable {
                 tagsBox.getItems().add(tag);
             }
             tagNameField.clear();
-        } else if (tagsBox.getValue() != null || tagsBox.getValue().equals("Tags")) {
-            for (int i = 0; i < clickedItem.getTags().size(); i++) {
-                if (clickedItem.getTags().get(i).toString().equals(tagsBox.getValue().toString()))
+        } else if (!tagsBox.getValue().equals(clickedItem.getType())) {
+            for (Tag tag : clickedItem.getTags())
+                if (tag.toString().equals(tagsBox.getValue().toString())) {
                     isRepeated = true;
-            }
+                    alertErrorWindow("Tag Exists", "This tag already exists. Please choose another tag from choice box or create new tag!");
+                }
+
             if (!isRepeated) {
                 tagListView.getItems().add(MainController.tagList.get(MainController.tagList.indexOf(tagsBox.getValue())));
                 ((Tag) MainController.tagList.get(MainController.tagList.indexOf(tagsBox.getValue()))).addItems(clickedItem);

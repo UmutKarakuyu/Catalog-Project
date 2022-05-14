@@ -20,7 +20,7 @@ public class Catalog extends Application {
     }
 
     public void setTypes(BST types) {
-        this.types = types;
+        Catalog.types = types;
     }
 
     public BST getTags() {
@@ -28,7 +28,7 @@ public class Catalog extends Application {
     }
 
     public void setTags(BST tags) {
-        this.tags = tags;
+        Catalog.tags = tags;
     }
 
     public BST getItems() {
@@ -36,7 +36,7 @@ public class Catalog extends Application {
     }
 
     public void setItems(BST items) {
-        this.items = items;
+        Catalog.items = items;
     }
 
     public void createType(String typeName) {
