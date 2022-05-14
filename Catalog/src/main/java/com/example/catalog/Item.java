@@ -37,6 +37,9 @@ public class Item{
         property.setLabel(label);
         property.setContent(content);
     }
+    public void deleteProperty(Property property){
+        properties.remove(property);
+    }
 
     public void editTag(Tag tag, String name){
         tag.setTag(name);

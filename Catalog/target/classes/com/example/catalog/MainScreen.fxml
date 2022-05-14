@@ -108,6 +108,7 @@
                            </font>
                         </Label>
                         <ListView fx:id="fieldList" layoutX="177.0" layoutY="193.0" prefHeight="255.0" prefWidth="168.0" visible="false" />
+                        <Button fx:id="deleteFieldButton" layoutX="412.0" layoutY="430.0" mnemonicParsing="false" onAction="#deleteFieldLabel" prefHeight="37.0" prefWidth="142.0" style="-fx-background-radius: 15;" text="Delete Field Label" visible="false" />
                      </children>
                   </AnchorPane>
                </content>

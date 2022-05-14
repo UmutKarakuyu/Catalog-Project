@@ -30,6 +30,7 @@ public class EditController extends MainController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         clickedItem = (Item) MainController.selectedItem.getValue();
+        fieldListView.setVisible(false);
     }
 
     @FXML

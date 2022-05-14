@@ -38,12 +38,13 @@ public class MainController {
     private Label typeName, itemTags, typeLabel, tagsLabel;
 
     @FXML
-    private Button editButton;
+    private Button editButton, deleteFieldButton;
 
     @FXML
     protected TableView tableView;
 
-    @FXML protected ListView<String> fieldList;
+    @FXML
+    protected ListView<String> fieldList;
 
     protected TableColumn<Property, String> labelColumn = new TableColumn<>("Label");
     protected TableColumn<Property, ArrayList<String>> contentColumn = new TableColumn<>("Content");
@@ -206,18 +207,32 @@ public class MainController {
 
                     tableView(item);
                     displayItem();
-                }
-                else if (selectedItem.getValue().getClass().getName().equals("com.example.catalog.Type")) {
+                } else if (selectedItem.getValue().getClass().getName().equals("com.example.catalog.Type")) {
                     Type type = (Type) selectedItem.getValue();
 
                     for (String string : type.getFieldLabels())
                         if (!fieldList.getItems().contains(string))
                             fieldList.getItems().add(string);
-                    if (fieldList.getItems().size() != 0)
+                    if (fieldList.getItems().size() != 0) {
                         fieldList.setVisible(true);
+                        deleteFieldButton.setVisible(true);
+                    }
                 }
                 anchorPane.setVisible(true);
             }
+        }
+    }
+
+    @FXML
+    private void deleteFieldLabel() {
+        String s = fieldList.getSelectionModel().getSelectedItem();
+        Type type = (Type) selectedItem.getValue();
+        fieldList.getItems().remove(s);
+        type.deleteFieldLabel(s);
+        for (Item item : type.getItems()) {
+            for (Property property : item.getProperties())
+                if (property.getLabel().equals(s))
+                    item.deleteProperty(property);
         }
     }
 
@@ -250,8 +265,9 @@ public class MainController {
         itemTags.setVisible(true);
         editButton.setVisible(true);
     }
+
     @FXML
-    private void initialize(){
+    private void initialize() {
         catalog = new Catalog();
         anchorPane.setVisible(false);
 
@@ -352,7 +368,8 @@ public class MainController {
         a.setContentText(contentText);
         a.showAndWait();
     }
-    public void alertSuccessWindow(String title, String contentText){
+
+    public void alertSuccessWindow(String title, String contentText) {
         Alert a = new Alert(Alert.AlertType.INFORMATION);
         a.setResizable(false);
         a.setTitle(title);

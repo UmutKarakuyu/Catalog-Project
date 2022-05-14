@@ -54,7 +54,7 @@ public class CreateController extends MainController implements Initializable {
 
     @FXML
     private void createType() {
-        if ((typeNameField.getText().isBlank() && typesBox.getValue().equals("Types") )|| (item.getType() != null && !typesBox.getValue().equals(item.getType()))) {
+        if ((typeNameField.getText().isBlank() && item.getType() == null)|| (item.getType() != null && !typesBox.getValue().equals(item.getType()))) {
             Type type = (Type) MainController.typeList.get(MainController.typeList.indexOf(typesBox.getValue()));
             if (item.getType() != null)
                 item.getType().deleteFieldLabels(item.getProperties());
@@ -68,12 +68,11 @@ public class CreateController extends MainController implements Initializable {
                 Type type = new Type(typeNameField.getText());
                 item.setType(type);
                 typesBox.getItems().add(type);
+                typesBox.setValue(type);
                 MainController.typeList.add(type);
                 catalog.addType(type);
-                typesBox.setValue(type);
             }
             typeNameField.clear();
-
         } else
             alertErrorWindow("Error", "You must enter a new Type name and press the 'Add Item Type' button or choose it from the choice box!");
     }
