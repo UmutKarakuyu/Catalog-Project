@@ -98,7 +98,7 @@ public class EditController extends MainController implements Initializable {
     private void addTag() {
         boolean isRepeated = false;
         if (!tagNameField.getText().isBlank()) {
-            if (catalog.searchTag(tagNameField.getText()).size() != 0) {
+            if (catalog.searchTag(tagNameField.getText()).contains(tagNameField.getText())) {
                 alertErrorWindow("Tag Exists", "This tag already exists in choice box. Please choose different tag or create new tag!");
             } else {
                 Tag tag = new Tag(tagNameField.getText());

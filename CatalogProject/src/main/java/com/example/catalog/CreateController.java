@@ -134,7 +134,7 @@ public class CreateController extends MainController implements Initializable {
     private void addTag() {
         boolean isRepeated = false;
         if (!tagNameField.getText().isBlank()) {
-            if (catalog.searchTag(tagNameField.getText()).size() != 0) {
+            if (catalog.searchTag(tagNameField.getText()).contains(tagNameField.getText())) {
                 alertErrorWindow("Tag Exists", "This tag already exists in choice box. Please choose different tag or create new tag!");
             } else {
                 Tag tag = new Tag(tagNameField.getText());
@@ -148,7 +148,7 @@ public class CreateController extends MainController implements Initializable {
             tagNameField.clear();
         } else if (!tagsBox.getValue().equals("Tags")) {
             for (Tag tag : item.getTags())
-                if (tag.toString().equals(tagsBox.getValue().toString())) {
+                if (tag.getTag().equals(tagsBox.getValue().toString())) {
                     isRepeated = true;
                     alertErrorWindow("Tag Exists", "This tag already exists. Please choose another tag from choice box or create new tag!");
                 }

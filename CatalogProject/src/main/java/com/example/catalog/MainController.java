@@ -1,5 +1,6 @@
 package com.example.catalog;
 
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -27,7 +28,7 @@ public class MainController {
 
     @FXML
     private ChoiceBox<String> searchChoice;
-    protected static ArrayList<Tag> tempTagList, filterTypeList;
+    protected static ArrayList<Tag> tempTagList;
     private final String[] objectList = {"type", "tag", "item"};
 
     @FXML
@@ -40,7 +41,7 @@ public class MainController {
     private Label typeName, itemTags, typeLabel, tagsLabel;
 
     @FXML
-    private Button editButton, deleteFieldButton, filterButton;
+    private Button editButton, deleteFieldButton;
 
     @FXML
     protected TableView tableView;
@@ -315,9 +316,9 @@ public class MainController {
         catalog = new Catalog();
         anchorPane.setVisible(false);
 
-        itemList = new ArrayList<Object>(catalog.getItems().inOrder());
-        typeList = new ArrayList<Object>(catalog.getTypes().inOrder());
-        tagList = new ArrayList<Object>(catalog.getTags().inOrder());
+        itemList = new ArrayList<>(catalog.getItems().inOrder());
+        typeList = new ArrayList<>(catalog.getTypes().inOrder());
+        tagList = new ArrayList<>(catalog.getTags().inOrder());
 
         tempTagList = new ArrayList<>();
 
@@ -327,7 +328,12 @@ public class MainController {
 
 
         tagNames.getItems().addAll(tagList);
-        tagNames.setTitle("Filter by tags");
+        tagNames.getCheckModel().getCheckedItems().addListener(new ListChangeListener<Tag>() {
+            @Override
+            public void onChanged(Change<? extends Tag> change) {
+                filterByTags();
+            }
+        });
 
         labelColumn.setCellValueFactory(new PropertyValueFactory<Property, String>("label"));
         contentColumn.setCellValueFactory(new PropertyValueFactory<Property, ArrayList<String>>("content"));
@@ -352,10 +358,9 @@ public class MainController {
         EditController editControllerScene = fxmlLoader.getController();
         editScreen(editControllerScene);
 
-        Scene scene = new Scene(root, 700, 450);
+        Scene scene = new Scene(root, 740, 450);
         stage.setTitle("Edit");
         stage.setScene(scene);
-        stage.setResizable(false);
         stage.show();
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
@@ -385,7 +390,6 @@ public class MainController {
         createScreen(createControllerScene);
 
         Scene scene = new Scene(root, 740, 450);
-        stage.setResizable(false);
         stage.setTitle("Create");
         stage.setScene(scene);
         stage.show();

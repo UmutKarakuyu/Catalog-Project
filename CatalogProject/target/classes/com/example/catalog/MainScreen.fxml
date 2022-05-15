@@ -33,6 +33,7 @@
 -->
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
@@ -45,7 +46,10 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TreeView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.CheckComboBox?>
@@ -68,13 +72,13 @@
     </MenuBar>
     <SplitPane dividerPositions="0.30066815144766146" focusTraversable="true" prefHeight="506.0" prefWidth="900.0" VBox.vgrow="ALWAYS">
       <items>
-        <AnchorPane prefHeight="571.0" prefWidth="73.0" style="-fx-background-radius: 15;">
+        <AnchorPane maxWidth="-Infinity" prefHeight="571.0" prefWidth="250.0" style="-fx-background-radius: 15;">
           <children>
                   <VBox alignment="CENTER" prefHeight="574.0" prefWidth="279.0" AnchorPane.bottomAnchor="0.8000000000000682" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <HBox prefHeight="49.0" prefWidth="267.0" VBox.vgrow="ALWAYS">
+                        <HBox prefHeight="50.0" prefWidth="267.0">
                            <children>
-                              <TextField fx:id="textField" alignment="CENTER" onInputMethodTextChanged="#searched" onKeyTyped="#searched" prefHeight="26.0" prefWidth="143.0" promptText="Tags, Types or Items" style="-fx-background-radius: 15;">
+                              <TextField fx:id="textField" alignment="BOTTOM_LEFT" onInputMethodTextChanged="#searched" onKeyTyped="#searched" prefHeight="26.0" prefWidth="143.0" promptText="Tags, Types or Items" style="-fx-background-radius: 15;">
                                  <HBox.margin>
                                     <Insets left="10.0" top="10.0" />
                                  </HBox.margin>
@@ -89,23 +93,24 @@
                               <Insets />
                            </VBox.margin>
                         </HBox>
-                        <HBox prefHeight="30.0" prefWidth="57.0" VBox.vgrow="ALWAYS">
+                        <HBox alignment="BOTTOM_LEFT" prefHeight="57.0" prefWidth="267.0">
                            <children>
-                              <CheckComboBox fx:id="tagNames" prefHeight="26.0" prefWidth="134.0">
+                              <CheckComboBox fx:id="tagNames" onMouseClicked="#filterByTags" onMousePressed="#filterByTags" prefHeight="26.0" prefWidth="218.0" showCheckedCount="true" title="Filter by tags">
                                  <HBox.margin>
-                                    <Insets left="20.0" />
+                                    <Insets bottom="10.0" left="20.0" />
                                  </HBox.margin>
                               </CheckComboBox>
-                              <Button fx:id="filterButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#filterByTags" prefHeight="26.0" prefWidth="96.0" style="-fx-background-radius: 15;" text="Filter">
-                                 <HBox.margin>
-                                    <Insets left="7.0" />
-                                 </HBox.margin>
-                              </Button>
                            </children>
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="502.0" prefWidth="267.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <TreeView fx:id="treeView" editable="true" onContextMenuRequested="#selected" onInputMethodTextChanged="#searched" onKeyPressed="#searched" onMouseClicked="#selected" prefHeight="485.0" prefWidth="241.0" style="-fx-background-radius: 5;" HBox.hgrow="ALWAYS" />
+                              <TreeView fx:id="treeView" editable="true" onContextMenuRequested="#selected" onInputMethodTextChanged="#searched" onKeyPressed="#searched" onMouseClicked="#selected" prefHeight="485.0" prefWidth="241.0" HBox.hgrow="ALWAYS">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <cursor>
+                                    <Cursor fx:constant="DEFAULT" />
+                                 </cursor></TreeView>
                            </children>
                         </HBox>
                      </children>
@@ -123,70 +128,93 @@
                      <children>
                         <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
                            <children>
-                              <Label alignment="CENTER" prefHeight="46.0" prefWidth="142.0" text="VIEW" textFill="#9f9f9f">
+                              <Label alignment="CENTER" prefHeight="70.0" prefWidth="142.0" text="VIEW" textFill="#9f9f9f">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </Label>
                            </children>
                         </HBox>
-                        <HBox alignment="CENTER_LEFT" VBox.vgrow="ALWAYS">
+                        <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="595.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <TextField fx:id="name" onAction="#renameButton" prefHeight="26.0" prefWidth="167.0" promptText="name" style="-fx-background-radius: 15;" />
-                              <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#renameButton" prefHeight="26.0" prefWidth="71.0" style="-fx-background-radius: 15;" text="Rename" />
+                              <TextField fx:id="name" onAction="#renameButton" prefHeight="25.0" prefWidth="167.0" promptText="name" style="-fx-background-radius: 15;">
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin></TextField>
+                              <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#renameButton" prefHeight="70.0" prefWidth="71.0" style="-fx-background-radius: 15;" text="Rename" HBox.hgrow="ALWAYS" />
                            </children>
                            <VBox.margin>
                               <Insets left="30.0" />
                            </VBox.margin>
                         </HBox>
-                        <HBox alignment="CENTER_LEFT" VBox.vgrow="ALWAYS">
+                        <HBox alignment="CENTER_LEFT" prefHeight="150.0" prefWidth="605.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <Label fx:id="typeLabel" prefHeight="46.0" prefWidth="62.0" text="Type :" textFill="#9f9f9f">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="typeName" prefHeight="26.0" prefWidth="122.0">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Label>
+                              <GridPane prefHeight="120.0" prefWidth="558.0">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="229.0" minWidth="10.0" prefWidth="125.0" />
+                                  <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="434.0" minWidth="10.0" prefWidth="433.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints maxHeight="80.0" minHeight="10.0" prefHeight="59.0" vgrow="SOMETIMES" />
+                                  <RowConstraints maxHeight="59.0" minHeight="10.0" prefHeight="59.0" vgrow="ALWAYS" />
+                                </rowConstraints>
+                                 <children>
+                                    <Label fx:id="tagsLabel" contentDisplay="CENTER" prefHeight="46.0" prefWidth="55.0" text="Tags :" textFill="#9f9f9f" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="typeLabel" prefHeight="46.0" prefWidth="55.0" text="Type :" textFill="#9f9f9f" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="typeName" prefHeight="26.0" prefWidth="122.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                       <GridPane.margin>
+                                          <Insets left="25.0" />
+                                       </GridPane.margin>
+                                    </Label>
+                                    <Label fx:id="itemTags" contentDisplay="CENTER" prefHeight="27.0" prefWidth="438.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                       <GridPane.margin>
+                                          <Insets left="20.0" />
+                                       </GridPane.margin>
+                                    </Label>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </GridPane>
                            </children>
                            <VBox.margin>
                               <Insets left="20.0" />
                            </VBox.margin>
                         </HBox>
-                        <HBox alignment="CENTER_LEFT" VBox.vgrow="ALWAYS">
+                        <HBox alignment="CENTER" prefHeight="218.0" prefWidth="566.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <Label fx:id="tagsLabel" contentDisplay="CENTER" prefHeight="46.0" prefWidth="46.0" text="Tags :" textFill="#9f9f9f">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="itemTags" contentDisplay="CENTER" prefHeight="27.0" prefWidth="438.0">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                           <VBox.margin>
-                              <Insets left="20.0" />
-                           </VBox.margin>
-                        </HBox>
-                        <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
-                           <children>
-                              <TableView fx:id="tableView" prefHeight="200.0" prefWidth="330.0" />
+                              <TableView fx:id="tableView" prefHeight="196.0" prefWidth="279.0" />
                            </children>
                            <VBox.margin>
                               <Insets bottom="100.0" left="60.0" right="60.0" />
                            </VBox.margin>
+                           <padding>
+                              <Insets top="20.0" />
+                           </padding>
                         </HBox>
-                        <HBox alignment="CENTER_RIGHT" VBox.vgrow="ALWAYS">
+                        <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="625.0" spacing="30.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <Button fx:id="editButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#edit" prefHeight="37.0" prefWidth="78.0" style="-fx-background-radius: 15;" text="Edit" />
-                              <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#deleteButton" prefHeight="37.0" prefWidth="78.0" style="-fx-background-radius: 15;" text="Delete" />
+                              <Button fx:id="editButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#edit" prefHeight="37.0" prefWidth="78.0" style="-fx-background-radius: 15;" text="Edit" HBox.hgrow="ALWAYS" />
+                              <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#deleteButton" prefHeight="37.0" prefWidth="78.0" style="-fx-background-radius: 15;" text="Delete" HBox.hgrow="ALWAYS" />
                               <Button fx:id="deleteFieldButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#deleteFieldLabel" prefHeight="40.0" prefWidth="142.0" style="-fx-background-radius: 15;" text="Delete Field Label" visible="false" />
                            </children>
+                           <padding>
+                              <Insets left="185.0" right="50.0" top="20.0" />
+                           </padding>
                         </HBox>
                      </children>
                   </VBox>
