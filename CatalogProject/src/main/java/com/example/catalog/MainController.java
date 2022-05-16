@@ -327,6 +327,7 @@ public class MainController {
     @FXML
     private void initialize() {
         catalog = new Catalog();
+        catalog.readFromFile();
         anchorPane.setVisible(false);
 
         itemList = new ArrayList<>(catalog.getItems().inOrder());

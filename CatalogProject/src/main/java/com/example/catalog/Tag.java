@@ -1,9 +1,10 @@
 package com.example.catalog;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Tag{
+public class Tag implements Serializable {
     private String tag;
     private List<Item> items=new ArrayList<>();
 

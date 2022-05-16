@@ -1,9 +1,10 @@
 package com.example.catalog;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Property{
+public class Property implements Serializable {
 
 
     private String label;

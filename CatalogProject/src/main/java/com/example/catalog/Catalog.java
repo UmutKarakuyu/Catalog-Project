@@ -1,11 +1,13 @@
 package com.example.catalog;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
 public class Catalog extends Application {
@@ -14,6 +16,9 @@ public class Catalog extends Application {
     private static BST tags = new BST();
     private static BST items = new BST();
 
+    private String itemFileName = "items.txt";
+    private String typeFileName = "types.txt";
+    private String tagFileName = "tags.txt";
 
     public BST getTypes() {
         return types;
@@ -123,9 +128,61 @@ public class Catalog extends Application {
         stage.setTitle("Catalog");
         stage.setScene(scene);
         stage.show();
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent windowEvent) {
+                writeToFile(items.inOrder(), itemFileName);
+                writeToFile(types.inOrder(),typeFileName);
+                writeToFile(tags.inOrder(),tagFileName);
+            }
+        });
     }
 
     public static void main(String[] args) throws IOException {
         launch();
+
+    }
+    public void readFromFile(){
+        readFromFile(items,itemFileName);
+        readFromFile(types,typeFileName);
+        readFromFile(tags,tagFileName);
+    }
+    private void readFromFile(BST tree,String fileName) {
+        ObjectInputStream ois = null;
+        FileInputStream fis = null;
+        try {
+            fis = new FileInputStream(fileName);
+            ois = new ObjectInputStream(fis);
+            try {
+                while (true)
+                    tree.insert(ois.readObject());
+            }
+            catch (EOFException e) { // eof
+            }
+            ois.close();
+        }
+        catch (EOFException e) { // eof
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            // file not found
+        }
+    }
+    private void writeToFile(ArrayList<Object> arrayList, String filename) {
+        ObjectOutputStream oos = null;
+        try {
+            FileOutputStream fos = new FileOutputStream(filename);
+            oos = new ObjectOutputStream(fos);
+            try {
+                for (Object item : arrayList)
+                    oos.writeObject(item);
+                oos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
