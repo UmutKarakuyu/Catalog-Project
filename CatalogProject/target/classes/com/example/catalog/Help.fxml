@@ -10,7 +10,7 @@
 
 <AnchorPane prefHeight="584.0" prefWidth="734.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.catalog.HelpController">
    <children>
-      <Pane fx:id="help" layoutX="-10.0" layoutY="3.0" prefHeight="608.0" prefWidth="770.0" AnchorPane.bottomAnchor="3.3999999999999773" AnchorPane.leftAnchor="-10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="3.0">
+      <Pane fx:id="help" layoutX="-10.0" layoutY="3.0" prefHeight="608.0" prefWidth="770.0" visible="false" AnchorPane.bottomAnchor="3.3999999999999773" AnchorPane.leftAnchor="-10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="3.0">
          <children>
             <Button fx:id="create" layoutX="385.0" layoutY="367.0" mnemonicParsing="false" onAction="#create" prefHeight="40.0" prefWidth="87.0" style="-fx-background-color: #60bbc9; -fx-background-radius: 15;" text="Create" textFill="WHITE" />
             <Text layoutX="268.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ABOUT CATALOG PROGRAM" wrappingWidth="301.0">
@@ -27,7 +27,7 @@
             <Button fx:id="edit" layoutX="551.0" layoutY="367.0" mnemonicParsing="false" onAction="#edit" prefHeight="40.0" prefWidth="99.0" style="-fx-background-radius: 15; -fx-background-color: #60bbc9;" text="Edit" textFill="WHITE" />
          </children>
       </Pane>
-      <Pane fx:id="mainHelp" layoutX="-87.0" layoutY="29.0" prefHeight="570.0" prefWidth="806.0" visible="false" AnchorPane.bottomAnchor="3.3999999999999773" AnchorPane.leftAnchor="-10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="3.0">
+      <Pane fx:id="mainHelp" layoutX="-87.0" layoutY="29.0" prefHeight="570.0" prefWidth="806.0" AnchorPane.bottomAnchor="3.3999999999999773" AnchorPane.leftAnchor="-10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="3.0">
          <children>
             <ImageView fitHeight="179.0" fitWidth="143.0" layoutX="131.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -36,12 +36,12 @@
             </ImageView>
             <ImageView fitHeight="269.0" fitWidth="301.0" layoutX="442.0" layoutY="260.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@deneme3.jpeg" />
+                  <Image url="@MainScreenRight.jpeg" />
                </image>
             </ImageView>
-            <ImageView fitHeight="278.0" fitWidth="301.0" layoutX="114.0" layoutY="256.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="276.0" fitWidth="301.0" layoutX="114.0" layoutY="256.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@deneme4.jpeg" />
+                  <Image url="@MainScreenRight.jpeg" />
                </image>
             </ImageView>
             <Text layoutX="310.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="  With the search button on the top left of the main screen, the items created by the user before in the program can be searched by item type or tag names. In the same way, a choice box has been added to filter with more than one tag. This filtering process can be done by clicking the Filter button. The results will appear in the list on the left.In order to create a new system, create must be pressed from the top left menu." wrappingWidth="405.14651489257807" />
@@ -63,7 +63,7 @@
             </Text>
             <ImageView fitHeight="336.0" fitWidth="571.0" layoutX="108.0" layoutY="225.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@deneme5.jpeg" />
+                  <Image url="@CreateScreen.jpeg" />
                </image>
             </ImageView>
             <Text layoutX="71.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="    The Create screen is used to create a new item or new type. Type can be created and this screen can be closed without creating a new item. While creating the item, the item name is required. The tag creation and property sections on the right are optional. Two properties cannot be created from the same label. Likewise, the same two tags are not created. Previously created types and tags can be assigned to a new item. If the item's type has been used before and the user has entered certain properties before, these properties are displayed on the screen and their content can be written.As soon as the Create Item button is pressed, the item is created with the entered values. The create screen closes after an alert box." wrappingWidth="586.1041870117188" />
@@ -77,9 +77,9 @@
                   <Font size="20.0" />
                </font>
             </Text>
-            <ImageView fitHeight="319.0" fitWidth="541.0" layoutX="84.0" layoutY="221.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="345.0" fitWidth="356.0" layoutX="84.0" layoutY="221.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@deneme6.jpeg" />
+                  <Image url="@editScreen.jpeg" />
                </image>
             </ImageView>
             <Text layoutX="84.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="   On the edit screen, a new type can be created for the item in the upper left corner and assigned to the item. Or the type can be replaced with another existing type. In the property and tag sections, there are operations to delete them or add new ones. In order to save the changes, it is necessary to click the save changes button. Just like in the creat screen, an alert box is given that the edit has been done successfully, and the screen is closed." wrappingWidth="489.9830570220947" />
