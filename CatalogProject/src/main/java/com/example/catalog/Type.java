@@ -30,11 +30,23 @@ public class Type implements Serializable {
         if (!fieldLabels.contains(s))
             fieldLabels.add(s);
     }
+    public void deleteAllFieldLabel() {
+        fieldLabels.clear();
+    }
 
     public void deleteFieldLabels(ArrayList<Property> s) {
-        for (Property property : s)
-            if (!fieldLabels.contains(property.getLabel()))
+        int counter = 0;
+
+        for (Property property : s) {
+            for(Item item: items){
+                for (Property property1: item.getProperties()){
+                    if (property1.getLabel().equals(property.getLabel()))
+                        counter++;
+                }
+            }
+            if (counter==1)
                 fieldLabels.remove(property.getLabel());
+        }
     }
 
     public void deleteFieldLabel(String s) {

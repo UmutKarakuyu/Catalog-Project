@@ -9,65 +9,105 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.catalog.EditController">
    <children>
-      <HBox alignment="CENTER" prefHeight="442.0" prefWidth="706.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <HBox alignment="CENTER" prefHeight="444.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <VBox alignment="CENTER" prefHeight="429.0" prefWidth="221.0" HBox.hgrow="ALWAYS">
                <children>
-                  <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
+                  <HBox alignment="BASELINE_LEFT">
                      <children>
-                        <Label alignment="CENTER" prefHeight="39.0" prefWidth="131.0" text="Edit Types" textFill="#9f9f9f">
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="46.0" prefWidth="326.0" text="Create New Type" textFill="#9f9f9f">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="40.0" right="50.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="43.0" prefWidth="236.0">
+                     <children>
+                        <TextField fx:id="typeNameField" alignment="CENTER" prefHeight="26.0" prefWidth="126.0" promptText="enter new Type" style="-fx-background-radius: 15;">
+                           <HBox.margin>
+                              <Insets left="10.0" right="60.0" />
+                           </HBox.margin>
+                        </TextField>
+                     </children>
+                     <padding>
+                        <Insets left="50.0" />
+                     </padding>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="46.0" prefWidth="235.0">
+                     <children>
+                        <Button fx:id="changeType" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#createType" prefHeight="32.0" prefWidth="126.0" style="-fx-background-radius: 15;" text="Create New Type" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="20.0" prefWidth="237.0">
+                     <children>
+                        <Line endX="134.2928924560547" endY="0.2928932309150696" startX="-100.0" stroke="#b9b0b0" HBox.hgrow="ALWAYS" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="22.0" prefWidth="236.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="26.0" prefWidth="131.0" text="Edit Types" textFill="#9f9f9f">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
+                  <HBox alignment="CENTER">
                      <children>
-                        <ChoiceBox fx:id="typesBox" prefHeight="26.0" prefWidth="114.0" style="-fx-background-radius: 15;">
-                           <HBox.margin>
-                              <Insets right="15.0" />
-                           </HBox.margin>
-                        </ChoiceBox>
+                        <GridPane>
+                           <columnConstraints>
+                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <ChoiceBox fx:id="typesBox" onKeyPressed="#createType" prefHeight="26.0" prefWidth="122.0" style="-fx-background-radius: 15;" GridPane.columnIndex="1" />
+                              <Label text="Type:">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </GridPane>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
+                  <HBox alignment="CENTER">
                      <children>
-                        <TextField fx:id="typeNameField" alignment="CENTER" prefHeight="26.0" prefWidth="107.0" promptText="New Type Name" style="-fx-background-radius: 15;">
-                           <HBox.margin>
-                              <Insets left="15.0" right="15.0" />
-                           </HBox.margin>
-                        </TextField>
+                        <Label fx:id="fieldName" alignment="CENTER" minHeight="0.0" minWidth="0.0" prefHeight="46.0" prefWidth="200.0" text="Type's Field Name" textFill="#9f9f9f">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
+                  <HBox alignment="CENTER" prefHeight="96.0" prefWidth="236.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <Button fx:id="changeType" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#changeType" prefHeight="26.0" prefWidth="110.0" style="-fx-background-radius: 15;" text="Change Type">
-                           <HBox.margin>
-                              <Insets right="15.0" />
-                           </HBox.margin>
-                        </Button>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
-                     <children>
-                        <ListView fx:id="fieldListView" onMouseClicked="#listViewSelection" prefHeight="91.0" prefWidth="142.0">
+                        <ListView fx:id="fieldListView" onMouseClicked="#listViewSelection" prefHeight="103.0" prefWidth="144.0">
                            <HBox.margin>
                               <Insets left="15.0" right="15.0" />
                            </HBox.margin>
                         </ListView>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
+                  <HBox alignment="CENTER" prefHeight="58.0" prefWidth="236.0">
                      <children>
-                        <Label alignment="CENTER" prefHeight="46.0" prefWidth="190.0" text="Use &quot;,&quot;for more  than 1 content" textFill="#9f9f9f" />
+                        <Button fx:id="close" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#editItem" prefHeight="26.0" prefWidth="116.0" style="-fx-background-radius: 15;" text="Save Changes" />
                      </children>
                   </HBox>
                </children>
@@ -91,9 +131,9 @@
                         <Insets />
                      </VBox.margin>
                   </HBox>
-                  <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
+                  <HBox alignment="CENTER" prefHeight="173.0" prefWidth="165.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <TableView fx:id="propertyTable" prefHeight="187.0" prefWidth="150.0">
+                        <TableView fx:id="propertyTable" prefHeight="188.0" prefWidth="150.0">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
@@ -108,6 +148,11 @@
                   <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
                      <children>
                         <TextField fx:id="propertyContent" alignment="CENTER" prefHeight="26.0" prefWidth="150.0" promptText="New Property Content" style="-fx-background-radius: 15;" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="5.0" prefWidth="190.0" text="Use &quot;,&quot;for more  than 1 content" textFill="#9f9f9f" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
@@ -137,13 +182,34 @@
                         </Label>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
+                  <HBox alignment="CENTER" prefHeight="166.0" prefWidth="234.0" VBox.vgrow="ALWAYS">
                      <children>
                         <ListView fx:id="tagListView" prefHeight="171.0" prefWidth="182.0" style="-fx-background-radius: 15;">
                            <HBox.margin>
                               <Insets left="20.0" right="20.0" />
                            </HBox.margin>
                         </ListView>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="36.0" prefWidth="209.0">
+                     <children>
+                        <GridPane prefHeight="37.0" prefWidth="200.0">
+                           <columnConstraints>
+                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <Label text="Tag:">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <ChoiceBox fx:id="tagsBox" prefHeight="26.0" prefWidth="114.0" style="-fx-background-radius: 15;" GridPane.columnIndex="1" />
+                           </children>
+                        </GridPane>
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
@@ -158,11 +224,6 @@
                         <Insets left="10.0" right="30.0" />
                      </VBox.margin>
                   </HBox>
-                  <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
-                     <children>
-                        <ChoiceBox fx:id="tagsBox" prefHeight="26.0" prefWidth="146.0" style="-fx-background-radius: 15;" />
-                     </children>
-                  </HBox>
                   <HBox alignment="CENTER" VBox.vgrow="SOMETIMES">
                      <children>
                         <Button fx:id="addTag" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#addTag" prefHeight="25.0" prefWidth="142.0" style="-fx-background-radius: 15;" text="Add Tag" />
@@ -174,11 +235,6 @@
                   <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
                      <children>
                         <Button fx:id="deleteTag" contentDisplay="CENTER" mnemonicParsing="false" onAction="#deleteTag" prefHeight="26.0" prefWidth="142.0" style="-fx-background-radius: 15;" text="Delete Tag" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
-                     <children>
-                        <Button fx:id="close" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#editItem" prefHeight="25.0" prefWidth="61.0" style="-fx-background-radius: 15;" text="Edit" />
                      </children>
                   </HBox>
                </children>

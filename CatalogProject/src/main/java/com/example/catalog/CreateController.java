@@ -1,5 +1,9 @@
 package com.example.catalog;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -13,8 +17,10 @@ import java.util.ResourceBundle;
 
 public class CreateController extends MainController implements Initializable {
     private Item item;
+    private Type tempType;
     @FXML
-    private ChoiceBox typesBox, tagsBox;
+    private ChoiceBox<Type> typesBox;
+    @FXML ChoiceBox<Tag> tagsBox;
     @FXML
     private TextField itemName, typeNameField, propertyLabel, propertyContent, tagNameField;
     @FXML
@@ -25,56 +31,74 @@ public class CreateController extends MainController implements Initializable {
     private ListView tagListView;
     @FXML
     private ListView<String> fieldListView;
+    @FXML
+    private Label fieldName;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         item = new Item(null, null);
-        fieldListView.setVisible(false);
+        item.setType(tempType);
+        typesBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number number2) {
+                fieldListView(item);
+            }
+        });
+        fieldListView.setPlaceholder(new Label("No Content In List"));
     }
 
     @FXML
     public void createItem() {
-        if (!itemName.getText().isBlank()) {
-            if (catalog.searchItem(itemName.getText()).size() == 0) {
-                item.setName(itemName.getText());
-                if (item.getType() != null) {
-                    MainController.itemList.add(item);
-                    catalog.addItem(item);
-                    alertSuccessWindow("Item Created!!", "Item is successfully created");
+        if (typesBox.getValue() != null) {
+            item.setName(itemName.getText());
+            item.setType((Type) typesBox.getValue());
+            MainController.itemList.add(item);
+            catalog.addItem(item);
+            for (Object type: MainController.typeList){
+                Type t = (Type) type;
+                if (t.getItems().size() == 0)
+                    t.deleteAllFieldLabel();
+            }
+            alertSuccessWindow("Item Created!!", "Item is successfully created");
 
-                    Stage stage = (Stage) create.getScene().getWindow();
-                    stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
-                } else
-                    alertErrorWindow("Type is null", "Please press the 'Add Item Type' button to add a type");
-            } else
-                alertErrorWindow("Name exists", "Please change the name of the item");
+            Stage stage = (Stage) create.getScene().getWindow();
+            stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
         } else
-            alertErrorWindow("Enter a name", "Please enter an item name");
+            alertErrorWindow("Type is null", "Please press the 'Add Item Type' button to add a type");
     }
 
     @FXML
     private void createType() {
-        if ((typeNameField.getText().isBlank() && item.getType() == null)|| (item.getType() != null && !typesBox.getValue().equals(item.getType()))) {
-            Type type = (Type) MainController.typeList.get(MainController.typeList.indexOf(typesBox.getValue()));
-            if (item.getType() != null)
-                item.getType().deleteFieldLabels(item.getProperties());
-            item.setType(type);
-            fieldListView(item);
-            typesBox.setValue(type);
-        } else if (!typeNameField.getText().isBlank()) {
-            if (catalog.searchType(typeNameField.getText()).size() != 0) {
+
+        if (!typeNameField.getText().isBlank()) {
+            if (catalog.searchType(typeNameField.getText()).contains(typeNameField.getText())) {
                 alertErrorWindow("Type Exists", "This type already exists. Please choose it from choice box!");
             } else {
                 Type type = new Type(typeNameField.getText());
-                item.setType(type);
-                typesBox.getItems().add(type);
-                typesBox.setValue(type);
-                MainController.typeList.add(type);
+                fieldListView(item);
+                tempType = type;
+                typesBox.getItems().add(tempType);
+                typesBox.setValue(tempType);
+                MainController.typeList.add(tempType);
+
                 catalog.addType(type);
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("You have created a new type");
+                alert.setContentText("Would you like to continue creating an item?");
+
+                ButtonType yesButton = new ButtonType("Yes", ButtonBar.ButtonData.YES);
+                ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.NO);
+                alert.getButtonTypes().setAll(yesButton, noButton);
+                alert.showAndWait().ifPresent(choice -> {
+                    if (choice == noButton) {
+                        Stage stage = (Stage) create.getScene().getWindow();
+                        stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
+                    } else {
+                        alert.close();
+                    }
+                });
             }
-            typeNameField.clear();
-        } else
-            alertErrorWindow("Error", "You must enter a new Type name and press the 'Add Item Type' button or choose it from the choice box!");
+        }
     }
 
     @FXML
@@ -112,18 +136,19 @@ public class CreateController extends MainController implements Initializable {
     private void deleteProperty() {
         Property selectedProperty = (Property) propertyTable.getSelectionModel().getSelectedItem();
         if (selectedProperty != null) {
+            Type type = (Type) typesBox.getValue();
             propertyTable.getItems().remove(selectedProperty);
             item.getProperties().remove(selectedProperty);
             boolean isAlone = true;
             loop:
-            for (Item item : item.getType().getItems())
+            for (Item item : type.getItems())
                 for (Property property : item.getProperties())
                     if (property.getLabel().equals(selectedProperty.getLabel())) {
                         isAlone = false;
                         break loop;
                     }
             if (isAlone) {
-                item.getType().deleteFieldLabel(selectedProperty.getLabel());
+                type.deleteFieldLabel(selectedProperty.getLabel());
                 fieldListView.getItems().remove(selectedProperty.getLabel());
             }
         } else
@@ -144,6 +169,7 @@ public class CreateController extends MainController implements Initializable {
                 MainController.tempTagList.add(tag);
                 catalog.addTag(tag);
                 tagsBox.getItems().add(tag);
+                tagsBox.setValue(tag);
             }
             tagNameField.clear();
         } else if (!tagsBox.getValue().equals("Tags")) {
@@ -177,18 +203,15 @@ public class CreateController extends MainController implements Initializable {
     }
 
     public void fieldListView(Item item) {
-        fieldListView.getItems().clear();
-        if (item.getType() != null) {
-            item.getType().addFieldLabels(item.getProperties());
+        Type type = typesBox.getValue();
+        if (type != null) {
+            fieldListView.getItems().clear();
+            type.addFieldLabels(item.getProperties());
 
-            for (String string : item.getType().getFieldLabels())
+            for (String string : type.getFieldLabels())
                 if (!fieldListView.getItems().contains(string))
                     fieldListView.getItems().add(string);
-
-            fieldListView.setVisible(true);
         }
-        if (fieldListView.getItems().size() == 0)
-            fieldListView.setVisible(false);
     }
 
     public void tableView() {
@@ -200,10 +223,10 @@ public class CreateController extends MainController implements Initializable {
     }
 
     public void choiceBoxes(ArrayList typeList, ArrayList tagList) {
-        typesBox.setValue("Types");
+        typesBox.setValue(null);
         typesBox.getItems().addAll(typeList);
 
-        tagsBox.setValue("Tags");
+        tagsBox.setValue(null);
         tagsBox.getItems().addAll(tagList);
     }
 }

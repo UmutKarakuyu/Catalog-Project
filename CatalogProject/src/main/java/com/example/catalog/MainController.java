@@ -1,5 +1,10 @@
 package com.example.catalog;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -11,12 +16,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import org.controlsfx.control.CheckComboBox;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainController {
     protected static Catalog catalog;
@@ -38,7 +45,7 @@ public class MainController {
     private AnchorPane anchorPane;
 
     @FXML
-    private Label typeName, itemTags, typeLabel, tagsLabel;
+    private Label typeName, itemTags, typeLabel, tagsLabel, listTitle;
 
     @FXML
     private Button editButton, deleteFieldButton;
@@ -47,6 +54,8 @@ public class MainController {
     protected TableView tableView;
 
     @FXML private CheckComboBox<Tag> tagNames;
+
+    @FXML private StackPane stackPane;
 
     @FXML
     protected ListView<String> fieldList;
@@ -247,7 +256,9 @@ public class MainController {
                     displayItem();
                 } else if (selectedItem.getValue().getClass().getName().equals("com.example.catalog.Type")) {
                     Type type = (Type) selectedItem.getValue();
-
+                    stackPane.getChildren().get(0).setVisible(false);
+                    stackPane.getChildren().get(1).setVisible(true);
+                    listTitle.setVisible(true);
                     for (String string : type.getFieldLabels())
                         if (!fieldList.getItems().contains(string))
                             fieldList.getItems().add(string);
@@ -283,6 +294,8 @@ public class MainController {
 
     public void clearPage() {
         tableView.getItems().clear();
+        fieldList.getItems().clear();
+        listTitle.setVisible(false);
         name.setText(null);
         typeName.setText(null);
         itemTags.setText(null);
@@ -291,19 +304,19 @@ public class MainController {
         typeLabel.setVisible(false);
         typeName.setVisible(false);
         itemTags.setVisible(false);
-        tableView.setVisible(false);
         editButton.setVisible(false);
-        fieldList.setVisible(false);
-        fieldList.getItems().clear();
+        deleteFieldButton.setVisible(false);
+
     }
 
     public void displayItem() {
-        tableView.setVisible(true);
         tagsLabel.setVisible(true);
         typeLabel.setVisible(true);
         typeName.setVisible(true);
         itemTags.setVisible(true);
         editButton.setVisible(true);
+        stackPane.getChildren().get(0).setVisible(true);
+        stackPane.getChildren().get(1).setVisible(false);
     }
     public void addTags(Tag t){
         tagList.add(t);
