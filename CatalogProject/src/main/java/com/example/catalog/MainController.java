@@ -424,15 +424,16 @@ public class MainController {
     }
 
     @FXML
-    private void helpMenu() {
-        Alert a = new Alert(Alert.AlertType.INFORMATION);
-        a.setResizable(false);
-        a.setTitle("About Catalog Program");
-        a.setHeaderText("Details will be here soon...");
-        a.setContentText("Details will be here soon...");
-        a.showAndWait();
+    private void helpMenu(ActionEvent event) throws IOException {
+        Stage stage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Help.fxml"));
+        Parent root = fxmlLoader.load();
+        Scene scene = new Scene(root, 770, 600);
+        stage.setTitle("Help");
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.showAndWait();
     }
-
     public void alertErrorWindow(String title, String contentText) {
         Alert a = new Alert(Alert.AlertType.ERROR);
         a.setResizable(false);

@@ -1,14 +1,90 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.catalog.Help"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="584.0" prefWidth="734.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.catalog.HelpController">
+   <children>
+      <Pane fx:id="help" layoutX="-10.0" layoutY="3.0" prefHeight="608.0" prefWidth="770.0" visible="false" AnchorPane.bottomAnchor="3.3999999999999773" AnchorPane.leftAnchor="-10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="3.0">
+         <children>
+            <Button fx:id="create" layoutX="385.0" layoutY="367.0" mnemonicParsing="false" onAction="#create" prefHeight="40.0" prefWidth="87.0" style="-fx-background-color: #60bbc9; -fx-background-radius: 15;" text="Create" textFill="WHITE" />
+            <Text layoutX="268.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ABOUT CATALOG PROGRAM" wrappingWidth="301.0">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Text>
+            <Text layoutX="125.0" layoutY="161.0" strokeType="OUTSIDE" strokeWidth="0.0" text="   The program is a catalog program that allows various items to be stored, edited deleted and categorized with types, features and tags. The desired item or items can be accessed by knowing their name, type or tags. The program consists of 3 screens." wrappingWidth="541.0535888671875">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Text>
+            <Button fx:id="main" layoutX="196.0" layoutY="367.0" mnemonicParsing="false" onAction="#main" prefHeight="40.0" prefWidth="99.0" style="-fx-background-radius: 15; -fx-background-color: #60bbc9;" text="Main Screen" textFill="WHITE" />
+            <Button fx:id="edit" layoutX="551.0" layoutY="367.0" mnemonicParsing="false" onAction="#edit" prefHeight="40.0" prefWidth="99.0" style="-fx-background-radius: 15; -fx-background-color: #60bbc9;" text="Edit" textFill="WHITE" />
+         </children>
+      </Pane>
+      <Pane fx:id="mainHelp" layoutX="-87.0" layoutY="29.0" prefHeight="570.0" prefWidth="806.0" AnchorPane.bottomAnchor="3.3999999999999773" AnchorPane.leftAnchor="-10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="3.0">
+         <children>
+            <ImageView fitHeight="179.0" fitWidth="143.0" layoutX="131.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="C:\Users\melik\IdeaProjects\CatalogProject\src\main\resources\com\example\catalog\MainScreen.jpeg" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="269.0" fitWidth="301.0" layoutX="442.0" layoutY="260.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@MainScreenRight.jpeg" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="276.0" fitWidth="301.0" layoutX="114.0" layoutY="256.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@MainScreenRight.jpeg" />
+               </image>
+            </ImageView>
+            <Text layoutX="310.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="  With the search button on the top left of the main screen, the items created by the user before in the program can be searched by item type or tag names. In the same way, a choice box has been added to filter with more than one tag. This filtering process can be done by clicking the Filter button. The results will appear in the list on the left.In order to create a new system, create must be pressed from the top left menu." wrappingWidth="405.14651489257807" />
+            <Text layoutX="324.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MAIN SCREEN" wrappingWidth="203.83050537109375">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+            <Text layoutX="303.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" text="    To edit and delete items, tags and types on the left side of the screen, click on them. The user can perform their request with the edit and delte button on the right of the screen." wrappingWidth="448.3831272125244" />
+            <Button fx:id="mainBack" layoutX="466.0" layoutY="4.0" mnemonicParsing="false" onAction="#back" prefHeight="27.0" prefWidth="66.0" style="-fx-background-radius: 15; -fx-background-color: #60bbc9;" text="Back" textFill="WHITE" />
+         </children>
+      </Pane>
+      <Pane fx:id="createHelp" prefHeight="614.0" prefWidth="770.0" visible="false" AnchorPane.bottomAnchor="3.3999999999999773" AnchorPane.leftAnchor="-10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="3.0">
+         <children>
+            <Text layoutX="304.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CREATE SCREEN" wrappingWidth="178.0035400390625">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+            <ImageView fitHeight="336.0" fitWidth="571.0" layoutX="108.0" layoutY="225.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@CreateScreen.jpeg" />
+               </image>
+            </ImageView>
+            <Text layoutX="71.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="    The Create screen is used to create a new item or new type. Type can be created and this screen can be closed without creating a new item. While creating the item, the item name is required. The tag creation and property sections on the right are optional. Two properties cannot be created from the same label. Likewise, the same two tags are not created. Previously created types and tags can be assigned to a new item. If the item's type has been used before and the user has entered certain properties before, these properties are displayed on the screen and their content can be written.As soon as the Create Item button is pressed, the item is created with the entered values. The create screen closes after an alert box." wrappingWidth="586.1041870117188" />
+            <Button fx:id="createBack" layoutX="461.0" layoutY="30.0" mnemonicParsing="false" onAction="#back" prefHeight="27.0" prefWidth="66.0" style="-fx-background-radius: 15; -fx-background-color: #60bbc9;" text="Back" textFill="WHITE" />
+         </children>
+      </Pane>
+      <Pane fx:id="editHelp" prefHeight="614.0" prefWidth="770.0" visible="false" AnchorPane.bottomAnchor="3.3999999999999773" AnchorPane.leftAnchor="-10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="3.0">
+         <children>
+            <Text layoutX="264.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="EDIT SCREEN" wrappingWidth="253.464111328125">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+            <ImageView fitHeight="345.0" fitWidth="356.0" layoutX="84.0" layoutY="221.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@editScreen.jpeg" />
+               </image>
+            </ImageView>
+            <Text layoutX="84.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="   On the edit screen, a new type can be created for the item in the upper left corner and assigned to the item. Or the type can be replaced with another existing type. In the property and tag sections, there are operations to delete them or add new ones. In order to save the changes, it is necessary to click the save changes button. Just like in the creat screen, an alert box is given that the edit has been done successfully, and the screen is closed." wrappingWidth="489.9830570220947" />
+            <Button fx:id="editBack" layoutX="414.0" layoutY="33.0" mnemonicParsing="false" onAction="#back" prefHeight="27.0" prefWidth="66.0" style="-fx-background-radius: 15; -fx-background-color: #60bbc9;" text="Back" textFill="WHITE" />
+         </children>
+      </Pane>
+   </children>
 </AnchorPane>
