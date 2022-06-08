@@ -1,94 +1,81 @@
 package com.example.catalog;
 
-import javafx.application.Application;
-import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
-
 import java.io.*;
 import java.util.ArrayList;
 
-public class Catalog extends Application {
-
+public class Catalog {
     private static BST types = new BST();
     private static BST tags = new BST();
     private static BST items = new BST();
 
-    private String itemFileName = "items.txt";
-    private String typeFileName = "types.txt";
-    private String tagFileName = "tags.txt";
+    protected static ArrayList<Type> typeList;
+    protected static ArrayList<Tag> tagList;
+    protected static ArrayList<Item> itemList;
 
-    public BST getTypes() {
-        return types;
+    private static Catalog catalog = null;
+
+    public static Catalog getCatalog() {
+        if (catalog == null)
+            catalog = new Catalog();
+        return catalog;
     }
 
-    public void setTypes(BST types) {
-        Catalog.types = types;
+    private Catalog() {
+        readFromFile(types, items, tags);
+        itemList = new ArrayList(items.inOrder());
+        typeList = new ArrayList(types.inOrder());
+        tagList = new ArrayList(tags.inOrder());
     }
 
-    public BST getTags() {
-        return tags;
-    }
+    public void createItem(Item item) {
+        items.insert(item);
+        itemList.add(item);
 
-    public void setTags(BST tags) {
-        Catalog.tags = tags;
-    }
-
-    public BST getItems() {
-        return items;
-    }
-
-    public void setItems(BST items) {
-        Catalog.items = items;
-    }
-
-    public void createType(String typeName) {
-        Type type = new Type(typeName);
-        addType(type);
-    }
-
-    public void createTag(String tagName) {
-        Tag tag = new Tag(tagName);
-        addTag(tag);
-    }
-
-    public void createItem(Type type, String itemName) {
-        Item item = new Item(type, itemName);
-        addItem(item);
-    }
-
-    public void editType(Type type, String name) {
-        type.setType(name);
-    }
-
-    public void editTag(Tag tag, String name) {
-        tag.setTag(name);
-    }
-
-    public void deleteItem(Item item) {
-        for (Tag tag : item.getTags())
-            tag.getItems().remove(item);
-        item.getType().getItems().remove(item);
-        item.getType().deleteFieldLabels(item.getProperties());
-        items.remove(item);
-    }
-
-    public void deleteTag(Tag tag) {
-        for (Item item : tag.getItems())
-            item.getTags().remove(tag);
-        tags.remove(tag);
-    }
-
-    public void deleteType(Type type, ArrayList itemsForType) {
-        for (Item item : type.getItems()) {
-            for (Tag tag : item.getTags())
-                tag.getItems().remove(item);
-            items.remove(item);
-            itemsForType.remove(item);
+        if (item.getType() != null) {
+            createType(item.getType());
+            item.getType().addItem(item);
         }
+
+        for (Tag tag: item.getTags())
+            createTag(tag);
+    }
+    public void deleteItem(Item item) {
+        item.getType().deleteItem(item);
+        for (Tag tag : item.getTags())
+            tag.deleteItem(item);
+        items.remove(item);
+        itemList.remove(item);
+    }
+
+    public void createType(Type type){
+        if (!typeList.contains(type)) {
+            types.insert(type);
+            typeList.add(type);
+        }
+    }
+    public void deleteType(Type type){
+        type.deleteAllFieldLabels();
+        ArrayList<Item> tempItems = new ArrayList(type.getItems());
+        for (Item item: tempItems)
+            deleteItem(item);
+
         types.remove(type);
+        typeList.remove(type);
+
+
+    }
+
+    public void createTag(Tag tag){
+        if (!tagList.contains(tag)) {
+            tags.insert(tag);
+            tagList.add(tag);
+        }
+    }
+    public void deleteTag(Tag tag){
+        for (Item item: tag.getItems())
+            item.deleteTag(tag);
+        tags.remove(tag);
+        tagList.remove(tag);
     }
 
     public ArrayList searchType(String type) {
@@ -103,86 +90,57 @@ public class Catalog extends Application {
         return tags.find(tag);
     }
 
-    public void addType(Type type) {
-        types.insert(type);
+    public void writeToFile(){
+        writeToFile(types.inOrder());
     }
 
-    public void addItem(Item item) {
-        items.insert(item);
-        item.getType().getItems().add(item);
-
-        for (Tag tag : item.getTags())
-            if (!tag.getItems().contains(item))
-                tag.getItems().add(item);
-    }
-
-    public void addTag(Tag tag) {
-        tags.insert(tag);
-    }
-
-
-    @Override
-    public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Catalog.class.getResource("MainScreen.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Catalog");
-        stage.setScene(scene);
-        stage.show();
-        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-            @Override
-            public void handle(WindowEvent windowEvent) {
-                writeToFile(items.inOrder(), itemFileName);
-                writeToFile(types.inOrder(),typeFileName);
-                writeToFile(tags.inOrder(),tagFileName);
-            }
-        });
-    }
-
-    public static void main(String[] args) throws IOException {
-        launch();
-
-    }
-    public void readFromFile(){
-        readFromFile(items,itemFileName);
-        readFromFile(types,typeFileName);
-        readFromFile(tags,tagFileName);
-    }
-    private void readFromFile(BST tree,String fileName) {
-        ObjectInputStream ois = null;
-        FileInputStream fis = null;
-        try {
-            fis = new FileInputStream(fileName);
-            ois = new ObjectInputStream(fis);
+    private void readFromFile(BST typeTree, BST itemTree, BST tagTree) {
+        File file = new File("CatalogProject/src/main/resources/files/types.txt");
+        if(file.exists()) {
+            ObjectInputStream ois = null;
+            FileInputStream fis = null;
             try {
-                while (true)
-                    tree.insert(ois.readObject());
+                fis = new FileInputStream("CatalogProject/src/main/resources/files/types.txt");
+                ois = new ObjectInputStream(fis);
+                try {
+                    while (true) {
+                        Type type = (Type) ois.readObject();
+                        typeTree.insert(type);
+                        for (Item item: type.getItems()) {
+                            itemTree.insert(item);
+                            for (Tag tag: item.getTags())
+                                tagTree.insert(tag);
+                        }
+
+                    }
+                } catch (EOFException e) { // eof
+                }
+                ois.close();
+            } catch (EOFException e) { // eof
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                // file not found
             }
-            catch (EOFException e) { // eof
-            }
-            ois.close();
-        }
-        catch (EOFException e) { // eof
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            // file not found
         }
     }
-    private void writeToFile(ArrayList<Object> arrayList, String filename) {
-        ObjectOutputStream oos = null;
-        try {
-            FileOutputStream fos = new FileOutputStream(filename);
-            oos = new ObjectOutputStream(fos);
+    private void writeToFile(ArrayList<Object> arrayList) {
+        File file = new File("CatalogProject/src/main/resources/files/types.txt");
+        if (file.exists()) {
+            ObjectOutputStream oos = null;
             try {
-                for (Object item : arrayList)
-                    oos.writeObject(item);
-                oos.close();
+                FileOutputStream fos = new FileOutputStream("CatalogProject/src/main/resources/files/types.txt");
+                oos = new ObjectOutputStream(fos);
+                try {
+                    for (Object item : arrayList)
+                        oos.writeObject(item);
+                    oos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 }

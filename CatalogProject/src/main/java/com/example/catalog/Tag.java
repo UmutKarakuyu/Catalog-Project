@@ -2,37 +2,37 @@ package com.example.catalog;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Tag implements Serializable {
-    private String tag;
-    private List<Item> items=new ArrayList<>();
+    private String name;
+    private ArrayList<Item> items=new ArrayList<>();
 
     public String toString(){
-        return tag;
+        return name;
     }
     public void addItems(Item item){
         items.add(item);
     }
 
+    public void deleteItem(Item item){ items.remove(item);}
+
     public Tag(String tagName) {
-        tag = tagName;
+        name = tagName;
     }
 
-    public String getTag() {
-        return tag;
+    public String getName() {
+        return name;
     }
 
-    public void setTag(String tag) {
-        this.tag =tag;
+    public void setName(String tag) {
+        this.name =tag;
     }
 
-    public List<Item> getItems() {
+    public ArrayList<Item> getItems() {
         return items;
     }
 
-    public void setItems(List<Item> items) {
+    public void setItems(ArrayList<Item> items) {
         this.items = items;
     }
-
 }

@@ -2,244 +2,361 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.catalog.EditController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="601.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.catalog.EditController">
    <children>
-      <HBox alignment="CENTER" prefHeight="444.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
          <children>
-            <VBox alignment="CENTER" prefHeight="429.0" prefWidth="221.0" HBox.hgrow="ALWAYS">
+            <StackPane fx:id="stackPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="459.0" prefWidth="600.0" HBox.hgrow="ALWAYS">
                <children>
-                  <HBox alignment="BASELINE_LEFT">
+                  <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="464.0" prefWidth="582.0">
                      <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="46.0" prefWidth="326.0" text="Create New Type" textFill="#9f9f9f">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets left="40.0" right="50.0" />
-                           </HBox.margin>
-                        </Label>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="43.0" prefWidth="236.0">
-                     <children>
-                        <TextField fx:id="typeNameField" alignment="CENTER" prefHeight="26.0" prefWidth="126.0" promptText="enter new Type" style="-fx-background-radius: 15;">
-                           <HBox.margin>
-                              <Insets left="10.0" right="60.0" />
-                           </HBox.margin>
-                        </TextField>
-                     </children>
-                     <padding>
-                        <Insets left="50.0" />
-                     </padding>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="46.0" prefWidth="235.0">
-                     <children>
-                        <Button fx:id="changeType" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#createType" prefHeight="32.0" prefWidth="126.0" style="-fx-background-radius: 15;" text="Create New Type" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="20.0" prefWidth="237.0">
-                     <children>
-                        <Line endX="134.2928924560547" endY="0.2928932309150696" startX="-100.0" stroke="#b9b0b0" HBox.hgrow="ALWAYS" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="22.0" prefWidth="236.0" VBox.vgrow="ALWAYS">
-                     <children>
-                        <Label alignment="CENTER" prefHeight="26.0" prefWidth="131.0" text="Edit Types" textFill="#9f9f9f">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER">
-                     <children>
-                        <GridPane>
-                           <columnConstraints>
-                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                           </columnConstraints>
-                           <rowConstraints>
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
-                           </rowConstraints>
+                        <HBox alignment="CENTER" prefHeight="48.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <ChoiceBox fx:id="typesBox" onKeyPressed="#createType" prefHeight="26.0" prefWidth="122.0" style="-fx-background-radius: 15;" GridPane.columnIndex="1" />
-                              <Label text="Type:">
+                              <Label text="Edit Type">
                                  <font>
-                                    <Font size="16.0" />
+                                    <Font size="18.0" />
                                  </font>
                               </Label>
                            </children>
-                        </GridPane>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER">
-                     <children>
-                        <Label fx:id="fieldName" alignment="CENTER" minHeight="0.0" minWidth="0.0" prefHeight="46.0" prefWidth="200.0" text="Type's Field Name" textFill="#9f9f9f">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="96.0" prefWidth="236.0" VBox.vgrow="ALWAYS">
-                     <children>
-                        <ListView fx:id="fieldListView" onMouseClicked="#listViewSelection" prefHeight="103.0" prefWidth="144.0">
-                           <HBox.margin>
-                              <Insets left="15.0" right="15.0" />
-                           </HBox.margin>
-                        </ListView>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="58.0" prefWidth="236.0">
-                     <children>
-                        <Button fx:id="close" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#editItem" prefHeight="26.0" prefWidth="116.0" style="-fx-background-radius: 15;" text="Save Changes" />
-                     </children>
-                  </HBox>
-               </children>
-            </VBox>
-            <BorderPane HBox.hgrow="ALWAYS">
-               <center>
-                  <Line endX="5.557363510131836" endY="441.6000061035156" startX="6.8000030517578125" startY="6.86645489622606E-6" stroke="#a19e9e" />
-               </center>
-            </BorderPane>
-            <VBox alignment="CENTER" prefHeight="444.0" prefWidth="217.0" HBox.hgrow="ALWAYS">
-               <children>
-                  <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
-                     <children>
-                        <Label alignment="CENTER" prefHeight="39.0" prefWidth="131.0" text="Edit Properties" textFill="#9f9f9f">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
-                     </children>
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="173.0" prefWidth="165.0" VBox.vgrow="ALWAYS">
-                     <children>
-                        <TableView fx:id="propertyTable" prefHeight="188.0" prefWidth="150.0">
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                        </TableView>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
-                     <children>
-                        <TextField fx:id="propertyLabel" alignment="CENTER" prefHeight="26.0" prefWidth="150.0" promptText="New Property Label" style="-fx-background-radius: 15;" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
-                     <children>
-                        <TextField fx:id="propertyContent" alignment="CENTER" prefHeight="26.0" prefWidth="150.0" promptText="New Property Content" style="-fx-background-radius: 15;" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
-                     <children>
-                        <Label alignment="CENTER" prefHeight="5.0" prefWidth="190.0" text="Use &quot;,&quot;for more  than 1 content" textFill="#9f9f9f" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
-                     <children>
-                        <Button fx:id="addProperty" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#addProperty" prefHeight="25.0" prefWidth="142.0" style="-fx-background-radius: 15;" text="Add Property" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
-                     <children>
-                        <Button fx:id="deleteProperty" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#deleteProperty" prefHeight="26.0" prefWidth="142.0" style="-fx-background-radius: 15;" text="Delete Property" />
-                     </children>
-                  </HBox>
-               </children>
-               <HBox.margin>
-                  <Insets left="25.0" right="25.0" />
-               </HBox.margin>
-            </VBox>
-            <Line endX="7.692872047424316" endY="442.492919921875" startX="6.8000030517578125" startY="6.86645489622606E-6" stroke="#a19e9e" HBox.hgrow="ALWAYS" />
-            <VBox alignment="CENTER" prefHeight="443.0" prefWidth="275.0" HBox.hgrow="ALWAYS">
-               <children>
-                  <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
-                     <children>
-                        <Label alignment="CENTER" prefHeight="26.0" prefWidth="103.0" text="Edit Tags" textFill="#9f9f9f">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="166.0" prefWidth="234.0" VBox.vgrow="ALWAYS">
-                     <children>
-                        <ListView fx:id="tagListView" prefHeight="171.0" prefWidth="182.0" style="-fx-background-radius: 15;">
-                           <HBox.margin>
-                              <Insets left="20.0" right="20.0" />
-                           </HBox.margin>
-                        </ListView>
-                     </children>
-                  </HBox>
-                  <HBox prefHeight="36.0" prefWidth="209.0">
-                     <children>
-                        <GridPane prefHeight="37.0" prefWidth="200.0">
-                           <columnConstraints>
-                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                           </columnConstraints>
-                           <rowConstraints>
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
-                           </rowConstraints>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="338.0" prefWidth="600.0" spacing="20.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <Label text="Tag:">
+                              <VBox prefHeight="342.0" prefWidth="104.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                       <children>
+                                          <TextField fx:id="editTypeName" prefHeight="26.0" prefWidth="94.0" promptText="Change type name" style="-fx-background-radius: 15;" />
+                                          <Button mnemonicParsing="false" onAction="#renameType" text="rename" />
+                                       </children>
+                                    </HBox>
+                                    <HBox prefHeight="100.0" prefWidth="200.0">
+                                       <children>
+                                          <Label prefHeight="65.0" prefWidth="185.0" text="Enter a new type name or  select a type from the right list" textAlignment="CENTER" wrapText="true" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER" prefHeight="66.0" prefWidth="169.0">
+                                       <children>
+                                          <GridPane alignment="CENTER" prefHeight="64.0" prefWidth="169.0" HBox.hgrow="ALWAYS">
+                                             <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                             </rowConstraints>
+                                             <children>
+                                                <Label alignment="CENTER" contentDisplay="CENTER" text="Item's Type:" wrapText="true" />
+                                                <Label fx:id="currType" wrapText="true" GridPane.columnIndex="1" />
+                                             </children>
+                                          </GridPane>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                              <HBox prefHeight="342.0" prefWidth="304.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <GridPane HBox.hgrow="ALWAYS">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints maxHeight="59.566368103027344" minHeight="10.0" prefHeight="59.566368103027344" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="154.0" minHeight="10.0" prefHeight="138.43363189697266" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="73.1083984375" minHeight="0.0" prefHeight="39.810272216796875" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="57.1083984375" minHeight="10.0" prefHeight="54.189727783203125" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <HBox alignment="CENTER" prefHeight="55.0" prefWidth="167.0">
+                                             <children>
+                                                <Label prefHeight="28.0" prefWidth="56.0" text="Types" HBox.hgrow="ALWAYS">
+                                                   <font>
+                                                      <Font size="16.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" prefHeight="87.0" prefWidth="194.0" GridPane.rowIndex="1">
+                                             <children>
+                                                <ListView fx:id="typeListView" onContextMenuRequested="#selectedType" onMouseClicked="#selectedType" prefHeight="94.0" prefWidth="156.0" style="-fx-background-radius: 15;" />
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" prefHeight="25.0" prefWidth="167.0" GridPane.rowIndex="2">
+                                             <children>
+                                                <Button mnemonicParsing="false" onAction="#deleteType" prefHeight="25.0" prefWidth="167.0" style="-fx-background-radius: 15;" text="Delete Type From Catalog" />
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" prefHeight="82.0" prefWidth="167.0" GridPane.rowIndex="3">
+                                             <children>
+                                                <Label text="You can delete field names of selected types from the right list" textAlignment="CENTER" wrapText="true" />
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" prefHeight="77.0" prefWidth="188.0" GridPane.columnIndex="1">
+                                             <children>
+                                                <Label prefHeight="50.0" prefWidth="186.0" text="Field Names of Selected Type" textAlignment="CENTER" wrapText="true" HBox.hgrow="ALWAYS">
+                                                   <font>
+                                                      <Font size="17.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" prefHeight="123.0" prefWidth="188.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                             <children>
+                                                <ListView fx:id="typeFieldNames" prefHeight="94.0" prefWidth="156.0" style="-fx-background-radius: 15;" />
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" prefHeight="33.0" prefWidth="207.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                             <children>
+                                                <Button mnemonicParsing="false" onAction="#deleteFieldName" prefHeight="25.0" prefWidth="167.0" style="-fx-background-radius: 15;" text="Delete Field Name" />
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                             <children>
+                                                <Label text="Delete field name from selected type" textAlignment="CENTER" wrapText="true" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </GridPane>
+                                 </children>
+                              </HBox>
+                           </children>
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding>
+                        </HBox>
+                        <HBox alignment="CENTER_RIGHT" prefHeight="41.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#close" prefHeight="26.0" prefWidth="112.0" text="Close" />
+                           </children>
+                           <padding>
+                              <Insets right="20.0" />
+                           </padding>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="100.0" visible="false">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="88.0" prefWidth="600.0">
+                           <children>
+                              <Label text="Edit Item'sTags">
                                  <font>
-                                    <Font size="16.0" />
+                                    <Font size="21.0" />
                                  </font>
                               </Label>
-                              <ChoiceBox fx:id="tagsBox" prefHeight="26.0" prefWidth="114.0" style="-fx-background-radius: 15;" GridPane.columnIndex="1" />
                            </children>
-                        </GridPane>
+                        </HBox>
+                        <HBox prefHeight="291.0" prefWidth="600.0">
+                           <children>
+                              <GridPane prefHeight="291.0" prefWidth="601.0">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints maxHeight="204.15707397460938" minHeight="10.0" prefHeight="200.26547241210938" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="133.1083984375" minHeight="10.0" prefHeight="74.73452758789062" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <VBox prefHeight="291.0" prefWidth="170.0">
+                                       <children>
+                                          <HBox alignment="CENTER" prefHeight="63.0" prefWidth="301.0">
+                                             <children>
+                                                <TextField fx:id="editTagName" prefHeight="26.0" prefWidth="183.0" promptText="Select a tag from item's tags" />
+                                                <Button mnemonicParsing="false" onAction="#renameTag" text="rename" />
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" prefHeight="47.0" prefWidth="301.0" VBox.vgrow="ALWAYS">
+                                             <children>
+                                                <ComboBox fx:id="tagComboBox" prefWidth="150.0" promptText="Catalog's Tags" style="-fx-background-radius: 15;" />
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" prefHeight="35.0" prefWidth="301.0">
+                                             <children>
+                                                <Button mnemonicParsing="false" onAction="#addTag" text="Add Tag to Item" />
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" prefHeight="45.0" prefWidth="301.0">
+                                             <children>
+                                                <Label prefHeight="36.0" prefWidth="154.0" text="You can select a tag from choicebox to add in item" wrapText="true" HBox.hgrow="ALWAYS">
+                                                   <padding>
+                                                      <Insets left="5.0" />
+                                                   </padding>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" prefHeight="24.0" prefWidth="301.0">
+                                             <children>
+                                                <Label text="or" />
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="BOTTOM_CENTER" prefHeight="0.0" prefWidth="301.0" VBox.vgrow="ALWAYS">
+                                             <children>
+                                                <TextField fx:id="newTagName" prefHeight="26.0" prefWidth="145.0" promptText="Enter a new Tag Name" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                    <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
+                                       <children>
+                                          <HBox alignment="CENTER" prefHeight="45.0" prefWidth="300.0">
+                                             <children>
+                                                <Label text="Item's Tags" textAlignment="CENTER">
+                                                   <font>
+                                                      <Font size="16.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" prefHeight="182.0" prefWidth="300.0">
+                                             <children>
+                                                <ListView fx:id="itemsTagsListView" onContextMenuRequested="#selectedTag" onMouseClicked="#selectedTag" prefHeight="160.0" prefWidth="164.0" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                    <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                       <children>
+                                          <HBox alignment="CENTER" prefHeight="36.0" prefWidth="301.0">
+                                             <children>
+                                                <Button mnemonicParsing="false" onAction="#deleteTagFromCatalog" prefHeight="26.0" prefWidth="223.0" text="Delete Selected Tag From Catalog" />
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" prefHeight="36.0" prefWidth="301.0">
+                                             <children>
+                                                <Button mnemonicParsing="false" onAction="#deleteTagFromItem" prefHeight="26.0" prefWidth="205.0" text="Delete Selected Tag From Item" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                    <HBox alignment="CENTER" prefHeight="76.0" prefWidth="301.0" GridPane.rowIndex="1">
+                                       <children>
+                                          <Button mnemonicParsing="false" onAction="#createNewTag" prefHeight="26.0" prefWidth="110.0" text="Create New Tag" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </GridPane>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_RIGHT" prefHeight="48.0" prefWidth="600.0">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#close" text="Close" />
+                           </children>
+                           <padding>
+                              <Insets right="20.0" />
+                           </padding>
+                        </HBox>
                      </children>
-                  </HBox>
-                  <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
+                  </VBox>
+                  <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="100.0" visible="false">
                      <children>
-                        <TextField fx:id="tagNameField" alignment="CENTER" prefHeight="26.0" prefWidth="163.0" promptText="New Tag Name" style="-fx-background-radius: 15;">
-                           <HBox.margin>
-                              <Insets left="25.0" />
-                           </HBox.margin>
-                        </TextField>
+                        <HBox alignment="CENTER" prefHeight="88.0" prefWidth="600.0">
+                           <children>
+                              <Label prefHeight="27.0" prefWidth="213.0" text="Edit Item's Properties" textAlignment="CENTER" wrapText="true">
+                                 <font>
+                                    <Font size="21.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="300.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <GridPane alignment="CENTER" prefHeight="298.0" prefWidth="600.0" HBox.hgrow="ALWAYS">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints maxHeight="267.7560729980469" minHeight="10.0" prefHeight="200.31585693359375" vgrow="ALWAYS" />
+                                    <RowConstraints maxHeight="157.75607299804688" minHeight="10.0" prefHeight="111.68414306640625" vgrow="NEVER" />
+                                 </rowConstraints>
+                                 <children>
+                                    <VBox prefHeight="203.0" prefWidth="300.0">
+                                       <children>
+                                          <HBox alignment="CENTER" prefHeight="35.0" prefWidth="300.0">
+                                             <children>
+                                                <TextField fx:id="propertyLabel" promptText="Enter a Property Label" />
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" prefHeight="51.0" prefWidth="300.0">
+                                             <children>
+                                                <TextField fx:id="propertyContent" prefHeight="25.0" prefWidth="162.0" promptText="Enter a Property Content" />
+                                             </children>
+                                          </HBox>
+                                          <HBox prefHeight="26.0" prefWidth="300.0">
+                                             <children>
+                                                <Label alignment="CENTER" prefHeight="21.0" prefWidth="298.0" text="use  &quot;,&quot; to add more than  1 content" textAlignment="CENTER" wrapText="true" />
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" prefHeight="40.0" prefWidth="300.0">
+                                             <children>
+                                                <Button mnemonicParsing="false" onAction="#createProperty" text="Add Property" />
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" prefHeight="20.0" prefWidth="300.0">
+                                             <children>
+                                                <Label text="Field Names(Labels)">
+                                                   <HBox.margin>
+                                                      <Insets top="30.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                    <TableView fx:id="propertyTableView" prefHeight="205.0" prefWidth="290.0" GridPane.columnIndex="1">
+                                       <GridPane.margin>
+                                          <Insets right="10.0" />
+                                       </GridPane.margin>
+                                    </TableView>
+                                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                       <children>
+                                          <Button alignment="CENTER" mnemonicParsing="false" onAction="#deleteProperty" text="Delete Property from Item" />
+                                       </children>
+                                    </HBox>
+                                    <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
+                                       <children>
+                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                             <children>
+                                                <ListView fx:id="typeFieldLabel" onContextMenuRequested="#selectedFieldName" onMouseClicked="#selectedFieldName" prefHeight="125.0" prefWidth="160.0" />
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" prefHeight="32.0" prefWidth="300.0">
+                                             <children>
+                                                <Label text="You can select  field names as your property label " wrapText="true" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </GridPane>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="600.0">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#close" text="Close" />
+                           </children>
+                           <padding>
+                              <Insets right="20.0" />
+                           </padding>
+                        </HBox>
                      </children>
-                     <VBox.margin>
-                        <Insets left="10.0" right="30.0" />
-                     </VBox.margin>
-                  </HBox>
-                  <HBox alignment="CENTER" VBox.vgrow="SOMETIMES">
-                     <children>
-                        <Button fx:id="addTag" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#addTag" prefHeight="25.0" prefWidth="142.0" style="-fx-background-radius: 15;" text="Add Tag" />
-                     </children>
-                     <VBox.margin>
-                        <Insets bottom="5.0" />
-                     </VBox.margin>
-                  </HBox>
-                  <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
-                     <children>
-                        <Button fx:id="deleteTag" contentDisplay="CENTER" mnemonicParsing="false" onAction="#deleteTag" prefHeight="26.0" prefWidth="142.0" style="-fx-background-radius: 15;" text="Delete Tag" />
-                     </children>
-                  </HBox>
+                  </VBox>
                </children>
-            </VBox>
+            </StackPane>
          </children>
       </HBox>
    </children>
-</AnchorPane>
+</VBox>

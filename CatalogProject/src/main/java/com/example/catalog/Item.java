@@ -28,11 +28,15 @@ public class Item implements Serializable {
     }
     public void createProperty(Property property){
         properties.add(property);
+        if (!type.getFieldLabels().contains(property.getLabel()))
+            type.getFieldLabels().add(property.getLabel());
     }
 
     public void addTag(Tag tag){
         tags.add(tag);
     }
+
+    public void deleteTag(Tag tag){ tags.remove(tag);}
 
     public void editProperty(Property property, String label, String content){
         property.setLabel(label);
@@ -43,7 +47,7 @@ public class Item implements Serializable {
     }
 
     public void editTag(Tag tag, String name){
-        tag.setTag(name);
+        tag.setName(name);
     }
 
     public void setName(String name) { this.name = name; }

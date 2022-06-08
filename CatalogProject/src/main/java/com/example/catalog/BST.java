@@ -86,7 +86,7 @@ public class BST {
         return r;
     }
 
-    public ArrayList find(ArrayList<Object> list , String s, Node f){
+    public ArrayList<Object> find(ArrayList<Object> list , String s, Node f){
         if (f != null){
             int compare;
 
