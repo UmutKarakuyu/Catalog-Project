@@ -74,6 +74,12 @@ public class MainController {
     @FXML
     private StackPane stackPane;
 
+    @FXML
+    private Button exportButton;
+
+    @FXML
+    private Button printButton;
+
     protected static int tempState;
 
     @FXML
@@ -286,6 +292,8 @@ public class MainController {
                         stackPane.setVisible(true);
                         stackPane.getChildren().get(1).setVisible(true);
                         listTitle.setVisible(true);
+                        exportButton.setVisible(false);
+                        printButton.setVisible(false);
                     }
                     for (String string : type.getFieldLabels())
                         if (!fieldList.getItems().contains(string))
@@ -293,6 +301,9 @@ public class MainController {
                     if (fieldList.getItems().size() != 0) {
                         fieldList.setVisible(true);
                         deleteFieldButton.setVisible(true);
+                        exportButton.setVisible(false);
+                        printButton.setVisible(false);
+
                     }
                 }
                 anchorPane.setVisible(true);
@@ -512,6 +523,8 @@ public class MainController {
         anchorPane.setVisible(false);
         deleteFieldButton.setVisible(false);
         stackPane.setVisible(false);
+        exportButton.setVisible(false);
+        printButton.setVisible(false);
     }
 
     public void displayItem() {
@@ -519,5 +532,8 @@ public class MainController {
         stackPane.setVisible(true);
         stackPane.getChildren().get(0).setVisible(true);
         stackPane.getChildren().get(1).setVisible(false);
+        exportButton.setVisible(true);
+        printButton.setVisible(true);
+
     }
 }

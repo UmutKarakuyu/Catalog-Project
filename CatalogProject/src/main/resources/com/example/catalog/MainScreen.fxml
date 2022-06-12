@@ -82,7 +82,7 @@
             </Menu>
          </menus>
       </MenuBar>
-      <SplitPane dividerPositions="0.30066815144766146" focusTraversable="true" prefHeight="506.0" prefWidth="900.0" style="-fx-background-image: white;" VBox.vgrow="ALWAYS">
+      <SplitPane dividerPositions="0.30066815144766146" focusTraversable="true" prefHeight="506.0" prefWidth="900.0" VBox.vgrow="ALWAYS">
          <items>
             <AnchorPane maxWidth="-Infinity" prefHeight="571.0" prefWidth="250.0" style="-fx-background-radius: 15; -fx-background-color: white;">
                <children>
@@ -289,21 +289,6 @@
                         </HBox>
                         <HBox alignment="TOP_CENTER" prefHeight="109.0" prefWidth="642.0" spacing="30.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#deleteButton" prefHeight="26.0" prefWidth="102.0" style="-fx-background-color: transparent;" text="Delete">
-                                 <padding>
-                                    <Insets bottom="5.0" left="-80.0" right="-10.0" top="-10.0" />
-                                 </padding>
-                                 <graphic>
-                                    <ImageView accessibleRole="BUTTON" fitHeight="28.0" fitWidth="38.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@images/deleteIcon.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                                 <HBox.margin>
-                                    <Insets top="8.0" />
-                                 </HBox.margin>
-                              </Button>
                               <Button fx:id="deleteFieldButton" mnemonicParsing="false" onAction="#deleteFieldLabel" prefHeight="26.0" prefWidth="102.0" style="-fx-background-color: transparent;" text="Delete Field Label">
                                  <padding>
                                     <Insets bottom="5.0" left="-80.0" right="-10.0" top="-10.0" />
@@ -319,7 +304,22 @@
                                     <Insets top="8.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="89.0" style="-fx-background-color: white;" text="Export">
+                              <Button mnemonicParsing="false" onAction="#deleteButton" prefHeight="26.0" prefWidth="102.0" style="-fx-background-color: transparent;" text="Delete">
+                                 <padding>
+                                    <Insets bottom="5.0" left="-80.0" right="-10.0" top="-10.0" />
+                                 </padding>
+                                 <graphic>
+                                    <ImageView accessibleRole="BUTTON" fitHeight="28.0" fitWidth="38.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@images/deleteIcon.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <HBox.margin>
+                                    <Insets top="8.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button fx:id="exportButton" mnemonicParsing="false" onAction="#exportItem" prefHeight="30.0" prefWidth="89.0" style="-fx-background-color: white;" text="Export">
                                  <graphic>
                                     <ImageView fitHeight="21.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -331,7 +331,7 @@
                                     <Insets />
                                  </HBox.margin>
                               </Button>
-                              <Button mnemonicParsing="false" style="-fx-background-color: white;">
+                              <Button fx:id="printButton" mnemonicParsing="false" onAction="#printPDF" style="-fx-background-color: white;">
                                  <graphic>
                                     <ImageView fitHeight="20.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                                        <image>

@@ -115,7 +115,7 @@
                                              <children>
                                                 <ImageView fitHeight="35.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
-                                                      <Image url="@../../../../../../../../../Downloads/Catalog-Project-main/CatalogProject/src/main/resources/com/example/catalog/images/deleteIcon.png" />
+                                                      <Image url="@images/deleteIcon.png" />
                                                    </image>
                                                 </ImageView>
                                                 <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#deleteType" prefHeight="30.0" prefWidth="129.0" style="-fx-background-radius: 15; -fx-background-color: white; -fx-border-width: 2; -fx-border-color: #D3D3D3; -fx-border-radius: 15;" text="Delete Type">
@@ -151,7 +151,7 @@
                                              <children>
                                                 <ImageView fitHeight="29.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
-                                                      <Image url="@../../../../../../../../../Downloads/Catalog-Project-main/CatalogProject/src/main/resources/com/example/catalog/images/deleteIcon.png" />
+                                                      <Image url="@images/deleteIcon.png" />
                                                    </image>
                                                 </ImageView>
                                                 <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#deleteFieldName" prefHeight="27.0" prefWidth="135.0" style="-fx-background-radius: 15; -fx-background-color: white; -fx-border-width: 2; -fx-border-color: #D3D3D3; -fx-border-radius: 15;" text="Delete Field Name">
@@ -184,7 +184,7 @@
                                  <graphic>
                                     <ImageView accessibleRole="BUTTON" fitHeight="38.0" fitWidth="39.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../../../../../../../../Downloads/Catalog-Project-main/CatalogProject/src/main/resources/com/example/catalog/images/closeIcon.png" />
+                                          <Image url="@images/closeIcon.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -329,7 +329,7 @@
                                  <graphic>
                                     <ImageView accessibleRole="BUTTON" fitHeight="38.0" fitWidth="39.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../../../../../../../../Downloads/Catalog-Project-main/CatalogProject/src/main/resources/com/example/catalog/images/closeIcon.png" />
+                                          <Image url="@images/closeIcon.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -428,7 +428,7 @@
                                              <graphic>
                                                 <ImageView fitHeight="36.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
-                                                      <Image url="@../../../../../../../../../Downloads/Catalog-Project-main/CatalogProject/src/main/resources/com/example/catalog/images/deleteIcon.png" />
+                                                      <Image url="@images/deleteIcon.png" />
                                                    </image>
                                                 </ImageView>
                                              </graphic>
@@ -469,7 +469,7 @@
                                  <graphic>
                                     <ImageView accessibleRole="BUTTON" fitHeight="38.0" fitWidth="39.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../../../../../../../../Downloads/Catalog-Project-main/CatalogProject/src/main/resources/com/example/catalog/images/closeIcon.png" />
+                                          <Image url="@images/closeIcon.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>

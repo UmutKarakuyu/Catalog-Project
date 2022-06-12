@@ -49,7 +49,7 @@
                            <graphic>
                               <ImageView fitHeight="41.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../../../../../../../../Downloads/Catalog-Project-main/CatalogProject/src/main/resources/com/example/catalog/images/saveIcon.png" />
+                                    <Image url="@images/saveIcon.png" />
                                  </image>
                               </ImageView>
                            </graphic></Button>
@@ -107,7 +107,7 @@
                            <graphic>
                               <ImageView fitHeight="36.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../../../../../../../../Downloads/Catalog-Project-main/CatalogProject/src/main/resources/com/example/catalog/images/saveIcon.png" />
+                                    <Image url="@images/saveIcon.png" />
                                  </image>
                               </ImageView>
                            </graphic>
