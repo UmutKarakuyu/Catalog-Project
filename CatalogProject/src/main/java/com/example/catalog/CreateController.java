@@ -16,10 +16,8 @@ public class CreateController extends MainController implements Initializable {
 
     @FXML
     private StackPane stackPane;
-
     @FXML
     private TextField newTypeName;
-
     @FXML
     private TextField newItemName;
     @FXML
@@ -40,8 +38,21 @@ public class CreateController extends MainController implements Initializable {
             if (newTypeName.getText().isBlank())
                 alertErrorWindow("Error", "Error");
             else {
-                catalog.createType(new Type(newTypeName.getText()));
-                error = true;
+                boolean isExists = false;
+                for (Type type : Catalog.typeList){
+                    if (type.getName().equals(newTypeName.getText())) {
+                        isExists = true;
+                        break;
+                    }
+                }
+                if (!isExists) {
+                    catalog.createType(new Type(newTypeName.getText()));
+                    error = true;
+                }
+                else {
+                    alertErrorWindow("Error", "Error");
+                    newTypeName.clear();
+                }
             }
         } else if (state == 1) {
             if (newItemName.getText().isBlank())

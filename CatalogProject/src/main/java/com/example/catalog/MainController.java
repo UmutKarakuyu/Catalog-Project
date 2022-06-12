@@ -4,17 +4,23 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import java.net.MalformedURLException;
+import javafx.print.*;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
+import javafx.stage.FileChooser;
+import javafx.scene.web.*;
 import javafx.stage.Stage;
 import org.controlsfx.control.CheckComboBox;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -50,7 +56,8 @@ public class MainController {
     @FXML
     private Label listTitle;
 
-    @FXML private GridPane gridPane;
+    @FXML
+    private GridPane gridPane;
 
     @FXML
     private Button deleteFieldButton;
@@ -58,7 +65,8 @@ public class MainController {
     @FXML
     private TableView<Property> tableView;
 
-    @FXML private ListView<String> fieldList;
+    @FXML
+    private ListView<String> fieldList;
 
     @FXML
     private CheckComboBox<Tag> filterTagNames;
@@ -235,16 +243,17 @@ public class MainController {
 
     @FXML
     private void deleteButton() {
-        if (selectedObject.getValue().getClass().getName().equals("com.example.catalog.Type"))
-            catalog.deleteType((Type) selectedObject.getValue());
-        else if (selectedObject.getValue().getClass().getName().equals("com.example.catalog.Tag")) {
-            catalog.deleteTag((Tag) selectedObject.getValue());
-            filterTagNames.getItems().remove((Tag) selectedObject.getValue());
+        if( alertYesNoWindow("Delete","Are you sure you want to delete")) {
+            if (selectedObject.getValue().getClass().getName().equals("com.example.catalog.Type"))
+                catalog.deleteType((Type) selectedObject.getValue());
+            else if (selectedObject.getValue().getClass().getName().equals("com.example.catalog.Tag")) {
+                catalog.deleteTag((Tag) selectedObject.getValue());
+                filterTagNames.getItems().remove((Tag) selectedObject.getValue());
+            } else if (selectedObject.getValue().getClass().getName().equals("com.example.catalog.Item"))
+                catalog.deleteItem((Item) selectedObject.getValue());
+            anchorPane.setVisible(false);
+            treeView();
         }
-        else if (selectedObject.getValue().getClass().getName().equals("com.example.catalog.Item"))
-            catalog.deleteItem((Item) selectedObject.getValue());
-        anchorPane.setVisible(false);
-        treeView();
     }
 
     @FXML
@@ -290,6 +299,7 @@ public class MainController {
             }
         }
     }
+
     @FXML
     private void deleteFieldLabel() {
         String s = fieldList.getSelectionModel().getSelectedItem();
@@ -297,9 +307,55 @@ public class MainController {
         type.deleteFieldLabel(s);
         fieldList.getItems().remove(s);
     }
+
     private void tableView(Item item) {
         for (Property property : item.getProperties())
             tableView.getItems().add(property);
+    }
+
+    @FXML
+    private void exportItem() {
+        FileChooser fileChooser = new FileChooser();
+        File pathFile = fileChooser.showSaveDialog((Stage) tableView.getScene().getWindow());
+        Item exportItem = (Item) selectedObject.getValue();
+
+
+        try {
+            File f = !pathFile.getAbsolutePath().contains(".") ? new File(pathFile.toPath() + ".html") : pathFile;
+            Files.writeString(f.toPath(), exportItem.exportItem(), StandardOpenOption.CREATE);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void printPDF() {
+        print();
+    }
+
+    private void print() {
+        Item printItem = (Item) selectedObject.getValue();
+        AnchorPane pane  = new AnchorPane();
+        WebView webView = new WebView();
+        pane.getChildren().add(webView);
+
+        Stage stage = (Stage) anchorPane.getScene().getWindow();
+        printItem.printFile();
+        WebEngine webEngine = webView.getEngine();
+        File f = new File("CatalogProject/src/main/resources/files/template.html");
+        if (f.exists()) {
+            try {
+                webEngine.load(f.toURI().toURL().toString());
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+        }
+        PrinterJob job = PrinterJob.createPrinterJob();
+        if (job != null && job.showPrintDialog(stage)) {
+            boolean success = job.printPage(pane);
+            if (success)
+                job.endJob();
+        }
     }
     @FXML
     private void initialize() {
@@ -315,6 +371,18 @@ public class MainController {
         filterTagNames.getItems().addAll(Catalog.tagList);
         filterTagNames.getCheckModel().getCheckedItems().addListener((ListChangeListener<Tag>) change -> filterByTags());
 
+        tableViewCreator(tableView);
+
+        root = new TreeItem<>();
+        treeView.setRoot(root);
+        treeView.setShowRoot(false);
+
+        anchorPane.setVisible(false);
+
+        treeView();
+    }
+
+    public static void tableViewCreator(TableView<Property> tableView) {
         TableColumn<Property, String> labelColumn = new TableColumn<>("Label");
         TableColumn<Property, ArrayList<String>> contentColumn = new TableColumn<>("Content");
 
@@ -326,33 +394,30 @@ public class MainController {
         tableView.getColumns().add(labelColumn);
         tableView.getColumns().add(contentColumn);
         tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-
-        root = new TreeItem<>();
-        treeView.setRoot(root);
-        treeView.setShowRoot(false);
-
-        anchorPane.setVisible(false);
-
-        treeView();
     }
-    @FXML private void editType() throws IOException {
+
+    @FXML
+    private void editType() throws IOException {
         tempState = 0;
         edit();
     }
-    @FXML private void editTag() throws IOException {
+
+    @FXML
+    private void editTag() throws IOException {
         tempState = 1;
         edit();
     }
-    @FXML private void editProperty() throws IOException {
+
+    @FXML
+    private void editProperty() throws IOException {
         tempState = 2;
         edit();
     }
+
     private void edit() throws IOException {
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("EditScreen.fxml"));
         Parent root = fxmlLoader.load();
-        EditController editControllerScene = fxmlLoader.getController();
-        //editScreen(editControllerScene);
 
         Scene scene = new Scene(root);
         stage.setTitle("Edit");
@@ -365,30 +430,23 @@ public class MainController {
             tempTagList.clear();
         });
     }
-/*
-    public void editScreen(EditController editControllerScene) {
-        editControllerScene.tableView(tableView);
-        editControllerScene.listView();
-        editControllerScene.choiceBoxes(Catalog.typeList, Catalog.tagList);
-        editControllerScene.fieldListView((Item) selectedItem.getValue());
-    }*/
 
-    @FXML private void createNewType() throws IOException {
+    @FXML
+    private void createNewType() throws IOException {
         tempState = 0;
         create();
     }
-    @FXML private void createNewItem() throws IOException {
+
+    @FXML
+    private void createNewItem() throws IOException {
         tempState = 1;
         create();
     }
+
     private void create() throws IOException {
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("CreateScreen.fxml"));
         Parent root = fxmlLoader.load();
-        CreateController createControllerScene = fxmlLoader.getController();
-        //createControllerScene.setState(state);
-        //createScreen(createControllerScene);
-
         Scene scene = new Scene(root);
         stage.setTitle("Create");
         stage.setScene(scene);
@@ -399,10 +457,6 @@ public class MainController {
             filterTagNames.getItems().addAll(tempTagList);
             tempTagList.clear();
         });
-    }
-
-    public void createScreen(CreateController createControllerScene) {
-        //createControllerScene.choiceBoxes(Catalog.typeList, Catalog.tagList);
     }
 
     @FXML
@@ -432,7 +486,8 @@ public class MainController {
         a.setContentText(contentText);
         a.showAndWait();
     }
-    public boolean alertYesNoWindow(String title, String contentText){
+
+    public boolean alertYesNoWindow(String title, String contentText) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle(title);
         alert.setContentText(contentText);
@@ -445,7 +500,8 @@ public class MainController {
         });
         return b.get();
     }
-    private void clearPage(){
+
+    private void clearPage() {
         tableView.getItems().clear();
         fieldList.getItems().clear();
         listTitle.setVisible(false);
@@ -457,6 +513,7 @@ public class MainController {
         deleteFieldButton.setVisible(false);
         stackPane.setVisible(false);
     }
+
     public void displayItem() {
         gridPane.setVisible(true);
         stackPane.setVisible(true);

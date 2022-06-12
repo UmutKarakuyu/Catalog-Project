@@ -210,7 +210,7 @@
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="57.0" prefWidth="641.0">
                            <children>
-                              <Label fx:id="listTitle" alignment="CENTER" text="Field Names" textFill="#9f9f9f" HBox.hgrow="ALWAYS">
+                              <Label fx:id="listTitle" alignment="CENTER" text="Field Names" textFill="#9f9f9f" wrapText="true" HBox.hgrow="ALWAYS">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -245,6 +245,8 @@
                         <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="625.0" spacing="30.0" VBox.vgrow="ALWAYS">
                            <children>
                               <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#deleteButton" prefHeight="37.0" prefWidth="78.0" style="-fx-background-radius: 15;" text="Delete" HBox.hgrow="ALWAYS" />
+                              <Button mnemonicParsing="false" onAction="#exportItem" text="export item" />
+                              <Button mnemonicParsing="false" onAction="#printPDF" prefHeight="25.0" prefWidth="73.0" text="print" wrapText="true" />
                               <Button fx:id="deleteFieldButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#deleteFieldLabel" prefHeight="37.0" prefWidth="142.0" style="-fx-background-radius: 15;" text="Delete Field Label" visible="false" />
                            </children>
                            <padding>

@@ -26,8 +26,6 @@ public class HelpController {
         mainHelp.setVisible(false);
         editHelp.setVisible(false);
         createHelp.setVisible(true);
-
-
     }
     @FXML
     private void edit(){

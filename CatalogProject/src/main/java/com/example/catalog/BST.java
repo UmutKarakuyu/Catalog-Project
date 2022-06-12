@@ -2,30 +2,30 @@ package com.example.catalog;
 
 import java.util.ArrayList;
 
-class Node {
+class TreeNode {
     private Object object;
-    private Node left;
-    private Node right;
+    private TreeNode left;
+    private TreeNode right;
 
-    public Node(Object object, Node left, Node right){
+    public TreeNode(Object object, TreeNode left, TreeNode right){
         this.object = object;
         this.left = left;
         this.right = right;
     }
 
-    public void setLeft(Node left) {
+    public void setLeft(TreeNode left) {
         this.left = left;
     }
 
-    public Node getLeft() {
+    public TreeNode getLeft() {
         return left;
     }
 
-    public void setRight(Node right) {
+    public void setRight(TreeNode right) {
         this.right = right;
     }
 
-    public Node getRight() {
+    public TreeNode getRight() {
         return right;
     }
     
@@ -39,16 +39,16 @@ class Node {
 }
 
 public class BST {
-    private Node root;
+    private TreeNode root;
 
     public void insert(Object object){ root = insert(object,root); }
     public void remove(Object object){ root = remove(object, root); }
     public ArrayList<Object> find(String string){ return find(new ArrayList<>(), string, root); }
     public ArrayList<Object> inOrder(){ return inOrder(new ArrayList<>(),root); }
 
-    public Node insert(Object o, Node n){
+    public TreeNode insert(Object o, TreeNode n){
         if (n == null) 
-            n = new Node(o, null, null);
+            n = new TreeNode(o, null, null);
         else {
             int compare = o.toString().compareToIgnoreCase(n.getObject().toString());
             if (compare < 0)
@@ -59,7 +59,7 @@ public class BST {
         return n;		
     }
     
-    public Node remove(Object o, Node r) {
+    public TreeNode remove(Object o, TreeNode r) {
         if (r != null){
             int compare = o.toString().compareToIgnoreCase(r.getObject().toString());
 
@@ -70,7 +70,7 @@ public class BST {
             
             else { // compare == 0
                 if (r.getLeft() != null && r.getRight() != null) {
-                    Node pointer = r.getRight();
+                    TreeNode pointer = r.getRight();
                     while (pointer.getLeft() != null)
                         pointer = pointer.getLeft();
 
@@ -86,7 +86,7 @@ public class BST {
         return r;
     }
 
-    public ArrayList<Object> find(ArrayList<Object> list , String s, Node f){
+    public ArrayList<Object> find(ArrayList<Object> list , String s, TreeNode f){
         if (f != null){
             int compare;
 
@@ -110,7 +110,7 @@ public class BST {
         return list;
     }
 
-    public ArrayList<Object> inOrder(ArrayList<Object> arrayList, Node i){
+    public ArrayList<Object> inOrder(ArrayList<Object> arrayList, TreeNode i){
         if (i != null){
             inOrder(arrayList, i.getLeft());
             arrayList.add(i.getObject());

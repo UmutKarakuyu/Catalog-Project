@@ -36,9 +36,10 @@ public class Catalog {
             item.getType().addItem(item);
         }
 
-        for (Tag tag: item.getTags())
+        for (Tag tag : item.getTags())
             createTag(tag);
     }
+
     public void deleteItem(Item item) {
         item.getType().deleteItem(item);
         for (Tag tag : item.getTags())
@@ -47,32 +48,31 @@ public class Catalog {
         itemList.remove(item);
     }
 
-    public void createType(Type type){
+    public void createType(Type type) {
         if (!typeList.contains(type)) {
             types.insert(type);
             typeList.add(type);
         }
     }
-    public void deleteType(Type type){
-        type.deleteAllFieldLabels();
-        ArrayList<Item> tempItems = new ArrayList(type.getItems());
-        for (Item item: tempItems)
-            deleteItem(item);
 
+    public void deleteType(Type type) {
+        type.deleteAllFieldLabels();
+        ArrayList<Item> tempItems = new ArrayList<Item>(type.getItems());
+        for (Item item : tempItems)
+            deleteItem(item);
         types.remove(type);
         typeList.remove(type);
-
-
     }
 
-    public void createTag(Tag tag){
+    public void createTag(Tag tag) {
         if (!tagList.contains(tag)) {
             tags.insert(tag);
             tagList.add(tag);
         }
     }
-    public void deleteTag(Tag tag){
-        for (Item item: tag.getItems())
+
+    public void deleteTag(Tag tag) {
+        for (Item item : tag.getItems())
             item.deleteTag(tag);
         tags.remove(tag);
         tagList.remove(tag);
@@ -90,15 +90,15 @@ public class Catalog {
         return tags.find(tag);
     }
 
-    public void writeToFile(){
+    public void writeToFile() {
         writeToFile(types.inOrder());
     }
 
     private void readFromFile(BST typeTree, BST itemTree, BST tagTree) {
         File file = new File("CatalogProject/src/main/resources/files/types.txt");
-        if(file.exists()) {
-            ObjectInputStream ois = null;
-            FileInputStream fis = null;
+        if (file.exists()) {
+            ObjectInputStream ois;
+            FileInputStream fis;
             try {
                 fis = new FileInputStream("CatalogProject/src/main/resources/files/types.txt");
                 ois = new ObjectInputStream(fis);
@@ -106,24 +106,22 @@ public class Catalog {
                     while (true) {
                         Type type = (Type) ois.readObject();
                         typeTree.insert(type);
-                        for (Item item: type.getItems()) {
+                        for (Item item : type.getItems()) {
                             itemTree.insert(item);
-                            for (Tag tag: item.getTags())
+                            for (Tag tag : item.getTags())
                                 tagTree.insert(tag);
                         }
-
                     }
-                } catch (EOFException e) { // eof
-                }
+                } catch (EOFException | ClassNotFoundException ignored) {}
                 ois.close();
-            } catch (EOFException e) { // eof
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                // file not found
             }
+            catch (IOException e) {
+                e.printStackTrace();
+            }// file not found
+
         }
     }
+
     private void writeToFile(ArrayList<Object> arrayList) {
         File file = new File("CatalogProject/src/main/resources/files/types.txt");
         if (file.exists()) {

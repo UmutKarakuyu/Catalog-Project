@@ -1,15 +1,15 @@
 package com.example.catalog;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class EditController extends MainController implements Initializable {
@@ -62,19 +62,10 @@ public class EditController extends MainController implements Initializable {
             tagComboBox.getItems().addAll(Catalog.tagList);
             itemsTagsListView.getItems().addAll(item.getTags());
         } else if (state == 2) {
-
-            TableColumn<Property, String> labelColumn = new TableColumn<>("Label");
-            TableColumn<Property, ArrayList<String>> contentColumn = new TableColumn<>("Content");
-
-            labelColumn.setCellValueFactory(new PropertyValueFactory<>("label"));
-            contentColumn.setCellValueFactory(new PropertyValueFactory<>("content"));
-
-            labelColumn.setStyle("-fx-alignment: CENTER");
-            contentColumn.setStyle("-fx-alignment: CENTER");
-            propertyTableView.getColumns().add(labelColumn);
-            propertyTableView.getColumns().add(contentColumn);
-            propertyTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-            typeFieldNames.getItems().addAll(item.getType().getFieldLabels());
+            tableViewCreator(propertyTableView);
+            for (Property property : item.getProperties())
+                propertyTableView.getItems().add(property);
+            typeFieldLabel.getItems().addAll(item.getType().getFieldLabels());
         }
     }
 
@@ -110,19 +101,19 @@ public class EditController extends MainController implements Initializable {
         else if (propertyContent.getText().isBlank())
             alertErrorWindow("Error", "Error");
     }
-
     @FXML
     private void deleteProperty() {
         Property selectedProperty = propertyTableView.getSelectionModel().getSelectedItem();
         if (selectedProperty != null) {
             item.getType().deleteFieldLabel(selectedProperty.getLabel()); // deletes if there is no other
             item.deleteProperty(selectedProperty);
+            item.getType().deleteFieldLabel(selectedProperty.getLabel());
             propertyTableView.getItems().remove(selectedProperty);
         }
         else
             alertErrorWindow("Error", "Error");
-    }
 
+    }
     @FXML
     private void selectedFieldName() {
         String s = typeFieldLabel.getSelectionModel().getSelectedItem();
