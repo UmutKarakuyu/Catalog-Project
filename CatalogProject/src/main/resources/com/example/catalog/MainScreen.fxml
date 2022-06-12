@@ -45,6 +45,8 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TreeView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -53,11 +55,12 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 <?import org.controlsfx.control.CheckComboBox?>
 
-<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.catalog.MainController">
+<VBox prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.catalog.MainController">
    <children>
-      <MenuBar VBox.vgrow="ALWAYS">
+      <MenuBar prefHeight="6.0" prefWidth="850.0" style="-fx-background-color: white;" VBox.vgrow="ALWAYS">
          <menus>
             <Menu mnemonicParsing="false" text="Create">
                <items>
@@ -65,27 +68,34 @@
                   <MenuItem mnemonicParsing="false" onAction="#createNewItem" text="Create New Item" />
                </items>
             </Menu>
-            <Menu mnemonicParsing="false" onAction="#helpMenu" text="Help">
+            <Menu mnemonicParsing="false" onAction="#helpMenu">
                <items>
                   <MenuItem mnemonicParsing="false" text="About Catalog Program" />
                </items>
+               <graphic>
+                  <ImageView fitHeight="21.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/helpIcon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Menu>
          </menus>
       </MenuBar>
-      <SplitPane dividerPositions="0.30066815144766146" focusTraversable="true" prefHeight="506.0" prefWidth="900.0" VBox.vgrow="ALWAYS">
+      <SplitPane dividerPositions="0.30066815144766146" focusTraversable="true" prefHeight="506.0" prefWidth="900.0" style="-fx-background-image: white;" VBox.vgrow="ALWAYS">
          <items>
-            <AnchorPane maxWidth="-Infinity" prefHeight="571.0" prefWidth="250.0" style="-fx-background-radius: 15;">
+            <AnchorPane maxWidth="-Infinity" prefHeight="571.0" prefWidth="250.0" style="-fx-background-radius: 15; -fx-background-color: white;">
                <children>
                   <VBox alignment="CENTER" prefHeight="574.0" prefWidth="279.0" AnchorPane.bottomAnchor="0.8000000000000682" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <HBox prefHeight="50.0" prefWidth="267.0">
+                        <HBox prefHeight="50.0" prefWidth="267.0" style="-fx-background-color: white;">
                            <children>
                               <TextField fx:id="searchField" alignment="BOTTOM_LEFT" onInputMethodTextChanged="#onSearch" onKeyTyped="#onSearch" prefHeight="26.0" prefWidth="143.0" promptText="Tags, Types or Items" style="-fx-background-radius: 15;">
                                  <HBox.margin>
                                     <Insets left="10.0" top="10.0" />
                                  </HBox.margin>
                               </TextField>
-                              <ChoiceBox fx:id="searchChoice" prefHeight="26.0" prefWidth="81.0" style="-fx-background-radius: 15;">
+                              <ChoiceBox fx:id="searchChoice" prefHeight="26.0" prefWidth="81.0" style="-fx-background-radius: 15; -fx-background-color: white; -fx-border-radius: 15; -fx-border-color: #5a919c;">
                                  <HBox.margin>
                                     <Insets left="5.0" top="10.0" />
                                  </HBox.margin>
@@ -95,7 +105,7 @@
                               <Insets />
                            </VBox.margin>
                         </HBox>
-                        <HBox alignment="BOTTOM_LEFT" prefHeight="57.0" prefWidth="267.0">
+                        <HBox alignment="BOTTOM_LEFT" prefHeight="57.0" prefWidth="267.0" style="-fx-background-color: white;">
                            <children>
                               <CheckComboBox fx:id="filterTagNames" onMouseClicked="#filterByTags" onMousePressed="#filterByTags" prefHeight="26.0" prefWidth="218.0" showCheckedCount="true" title="Filter by tags">
                                  <HBox.margin>
@@ -106,7 +116,7 @@
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="502.0" prefWidth="267.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <TreeView fx:id="treeView" editable="true" onContextMenuRequested="#selected" onMouseClicked="#selected" prefHeight="485.0" prefWidth="241.0" HBox.hgrow="ALWAYS">
+                              <TreeView fx:id="treeView" editable="true" onContextMenuRequested="#selected" onMouseClicked="#selected" prefHeight="490.0" prefWidth="240.0" style="-fx-border-color: #39AEA9; -fx-border-width: 2;" HBox.hgrow="ALWAYS">
                                  <opaqueInsets>
                                     <Insets />
                                  </opaqueInsets>
@@ -119,26 +129,32 @@
                   </VBox>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="anchorPane" prefHeight="544.0" prefWidth="608.0">
+            <AnchorPane fx:id="anchorPane" prefHeight="573.0" prefWidth="570.0" style="-fx-background-color: white;">
                <children>
-                  <VBox layoutY="1.0" prefHeight="546.0" prefWidth="611.0" AnchorPane.bottomAnchor="0.6000000000000227" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
+                  <VBox layoutX="4.0" layoutY="5.0" prefHeight="561.0" prefWidth="635.0" style="-fx-border-width: 2; -fx-border-color: #39AEA9;" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="5.0">
                      <children>
-                        <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
+                        <HBox alignment="CENTER" style="-fx-border-image-width: 15;" VBox.vgrow="ALWAYS">
                            <children>
-                              <Label alignment="CENTER" prefHeight="70.0" prefWidth="142.0" text="VIEW" textFill="#9f9f9f">
+                              <Text disable="true" fill="#5a919c" strokeType="OUTSIDE" strokeWidth="0.0" text="VIEW" textAlignment="CENTER" wrappingWidth="119.20013427734375">
                                  <font>
-                                    <Font size="18.0" />
+                                    <Font name="Baskerville Old Face" size="38.0" />
                                  </font>
-                              </Label>
+                                 <HBox.margin>
+                                    <Insets top="10.0" />
+                                 </HBox.margin>
+                              </Text>
                            </children>
                         </HBox>
-                        <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="595.0" VBox.vgrow="ALWAYS">
+                        <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="595.0" style="-fx-border-width: 5;" VBox.vgrow="ALWAYS">
                            <children>
-                              <TextField fx:id="name" onAction="#renameButton" prefHeight="25.0" prefWidth="167.0" promptText="name" style="-fx-background-radius: 15;">
+                              <TextField fx:id="name" onAction="#renameButton" prefHeight="26.0" prefWidth="135.0" promptText="name" style="-fx-background-radius: 15;">
                                  <HBox.margin>
                                     <Insets left="20.0" />
                                  </HBox.margin></TextField>
-                              <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#renameButton" prefHeight="20.0" prefWidth="71.0" style="-fx-background-radius: 15;" text="Rename" HBox.hgrow="ALWAYS" />
+                              <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#renameButton" prefHeight="20.0" prefWidth="71.0" style="-fx-background-radius: 15; -fx-background-color: white; -fx-border-width: 2; -fx-border-color: #D3D3D3; -fx-border-radius: 15;" text="Rename" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font name="Consolas" size="12.0" />
+                                 </font></Button>
                            </children>
                            <VBox.margin>
                               <Insets left="30.0" />
@@ -166,17 +182,28 @@
                                                 <Insets right="15.0" />
                                              </padding>
                                           </Label>
-                                          <Button mnemonicParsing="false" onAction="#editTag" text="✏️" />
+                                          <Button mnemonicParsing="false" onAction="#editTag" prefHeight="26.0" prefWidth="102.0" style="-fx-background-color: transparent;">
+                                             <padding>
+                                                <Insets bottom="5.0" left="-80.0" right="-10.0" top="-10.0" />
+                                             </padding>
+                                             <graphic>
+                                                <ImageView accessibleRole="BUTTON" fitHeight="28.0" fitWidth="39.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@images/editIcon.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
                                        </children>
                                     </HBox>
-                                    <Label fx:id="tagsLabel" contentDisplay="CENTER" prefHeight="46.0" prefWidth="55.0" text="Tags :" textFill="#9f9f9f" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                    <Label fx:id="tagsLabel" contentDisplay="CENTER" prefHeight="46.0" prefWidth="55.0" text="Tags :" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                                        <font>
-                                          <Font size="18.0" />
+                                          <Font name="Consolas" size="15.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="typeLabel" prefHeight="46.0" prefWidth="55.0" text="Type :" textFill="#9f9f9f" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                    <Label fx:id="typeLabel" prefHeight="46.0" prefWidth="55.0" text="Type :" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                                        <font>
-                                          <Font size="18.0" />
+                                          <Font name="Consolas" size="15.0" />
                                        </font>
                                     </Label>
                                     <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS">
@@ -189,7 +216,18 @@
                                                 <Insets right="15.0" />
                                              </padding>
                                           </Label>
-                                          <Button mnemonicParsing="false" onAction="#editType" text="✏️" />
+                                          <Button mnemonicParsing="false" onAction="#editType" prefHeight="26.0" prefWidth="102.0" style="-fx-background-color: transparent;">
+                                             <padding>
+                                                <Insets bottom="5.0" left="-80.0" right="-10.0" top="-10.0" />
+                                             </padding>
+                                             <graphic>
+                                                <ImageView accessibleRole="BUTTON" fitHeight="28.0" fitWidth="39.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@images/editIcon.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
                                        </children>
                                        <GridPane.margin>
                                           <Insets />
@@ -210,10 +248,14 @@
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="57.0" prefWidth="641.0">
                            <children>
-                              <Label fx:id="listTitle" alignment="CENTER" text="Field Names" textFill="#9f9f9f" wrapText="true" HBox.hgrow="ALWAYS">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
+                              <Label fx:id="listTitle">
+                                 <graphic>
+                                    <Text disable="true" fill="#5a919c" strokeType="OUTSIDE" strokeWidth="0.0" text="FIELD NAMES" wrappingWidth="161.59988474845886">
+                                       <font>
+                                          <Font name="Baskerville Old Face" size="21.0" />
+                                       </font>
+                                    </Text>
+                                 </graphic>
                               </Label>
                            </children>
                         </HBox>
@@ -226,7 +268,10 @@
                                           <TableView fx:id="tableView" prefHeight="188.0" prefWidth="221.0" tableMenuButtonVisible="true" />
                                           <HBox alignment="CENTER" prefHeight="34.0" prefWidth="322.0">
                                              <children>
-                                                <Button mnemonicParsing="false" onAction="#editProperty" text="Edit Properties" />
+                                                <Button mnemonicParsing="false" onAction="#editProperty" style="-fx-background-color: white; -fx-border-color: #D3D3D3; -fx-border-width: 2;" text="Edit Properties">
+                                                   <font>
+                                                      <Font name="Consolas" size="11.0" />
+                                                   </font></Button>
                                              </children>
                                           </HBox>
                                        </children>
@@ -242,12 +287,59 @@
                               <Insets left="60.0" right="60.0" />
                            </VBox.margin>
                         </HBox>
-                        <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="625.0" spacing="30.0" VBox.vgrow="ALWAYS">
+                        <HBox alignment="TOP_CENTER" prefHeight="109.0" prefWidth="642.0" spacing="30.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#deleteButton" prefHeight="37.0" prefWidth="78.0" style="-fx-background-radius: 15;" text="Delete" HBox.hgrow="ALWAYS" />
-                              <Button mnemonicParsing="false" onAction="#exportItem" text="export item" />
-                              <Button mnemonicParsing="false" onAction="#printPDF" prefHeight="25.0" prefWidth="73.0" text="print" wrapText="true" />
-                              <Button fx:id="deleteFieldButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#deleteFieldLabel" prefHeight="37.0" prefWidth="142.0" style="-fx-background-radius: 15;" text="Delete Field Label" visible="false" />
+                              <Button mnemonicParsing="false" onAction="#deleteButton" prefHeight="26.0" prefWidth="102.0" style="-fx-background-color: transparent;" text="Delete">
+                                 <padding>
+                                    <Insets bottom="5.0" left="-80.0" right="-10.0" top="-10.0" />
+                                 </padding>
+                                 <graphic>
+                                    <ImageView accessibleRole="BUTTON" fitHeight="28.0" fitWidth="38.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@images/deleteIcon.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <HBox.margin>
+                                    <Insets top="8.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button fx:id="deleteFieldButton" mnemonicParsing="false" onAction="#deleteFieldLabel" prefHeight="26.0" prefWidth="102.0" style="-fx-background-color: transparent;" text="Delete Field Label">
+                                 <padding>
+                                    <Insets bottom="5.0" left="-80.0" right="-10.0" top="-10.0" />
+                                 </padding>
+                                 <graphic>
+                                    <ImageView accessibleRole="BUTTON" fitHeight="28.0" fitWidth="38.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@images/deleteIcon.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <HBox.margin>
+                                    <Insets top="8.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="89.0" style="-fx-background-color: white;" text="Export">
+                                 <graphic>
+                                    <ImageView fitHeight="21.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@images/exportIcon.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </Button>
+                              <Button mnemonicParsing="false" style="-fx-background-color: white;">
+                                 <graphic>
+                                    <ImageView fitHeight="20.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@images/printIcon.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
                            </children>
                            <padding>
                               <Insets left="185.0" right="50.0" top="20.0" />

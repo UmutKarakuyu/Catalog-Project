@@ -7,6 +7,8 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -14,6 +16,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="601.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.catalog.EditController">
    <children>
@@ -23,28 +26,39 @@
                <children>
                   <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="464.0" prefWidth="582.0" visible="false">
                      <children>
-                        <HBox alignment="CENTER" prefHeight="48.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
+                        <HBox alignment="CENTER" prefHeight="48.0" prefWidth="600.0" style="-fx-background-color: white; -fx-border-color: #5a919c;" VBox.vgrow="ALWAYS">
                            <children>
-                              <Label text="Edit Type">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
+                              <Label>
+                                 <graphic>
+                                    <Text disable="true" fill="#5a919c" strokeType="OUTSIDE" strokeWidth="0.0" text="EDIT TYPE" textAlignment="CENTER" wrappingWidth="161.59988474845886">
+                                       <font>
+                                          <Font name="Baskerville Old Face" size="22.0" />
+                                       </font>
+                                    </Text>
+                                 </graphic>
                               </Label>
                            </children>
                         </HBox>
-                        <HBox alignment="CENTER" prefHeight="338.0" prefWidth="600.0" spacing="20.0" VBox.vgrow="ALWAYS">
+                        <HBox alignment="CENTER" prefHeight="342.0" prefWidth="526.0" spacing="20.0" style="-fx-background-color: white;" VBox.vgrow="ALWAYS">
                            <children>
-                              <VBox prefHeight="342.0" prefWidth="104.0" HBox.hgrow="ALWAYS">
+                              <VBox prefHeight="342.0" prefWidth="104.0" style="-fx-background-color: white;" HBox.hgrow="ALWAYS">
                                  <children>
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                        <children>
-                                          <TextField fx:id="editTypeName" prefHeight="26.0" prefWidth="94.0" promptText="Change type name" style="-fx-background-radius: 15;" />
-                                          <Button mnemonicParsing="false" onAction="#renameType" text="rename" />
+                                          <TextField fx:id="editTypeName" prefHeight="26.0" prefWidth="130.0" promptText="Change type name" />
+                                          <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#renameType" prefHeight="20.0" prefWidth="71.0" style="-fx-background-radius: 15; -fx-background-color: white; -fx-border-width: 2; -fx-border-color: #D3D3D3; -fx-border-radius: 15;" text="Rename">
+                                             <font>
+                                                <Font name="Consolas" size="12.0" />
+                                             </font>
+                                          </Button>
                                        </children>
                                     </HBox>
                                     <HBox prefHeight="100.0" prefWidth="200.0">
                                        <children>
-                                          <Label prefHeight="65.0" prefWidth="185.0" text="Enter a new type name or  select a type from the right list" textAlignment="CENTER" wrapText="true" />
+                                          <Label prefHeight="59.0" prefWidth="180.0" style="-fx-border-color: #5a919c;" text="Enter a new type name or  select a type from the right list" textAlignment="CENTER" wrapText="true">
+                                             <font>
+                                                <Font name="Consolas" size="12.0" />
+                                             </font></Label>
                                        </children>
                                     </HBox>
                                     <HBox alignment="CENTER" prefHeight="66.0" prefWidth="169.0">
@@ -58,7 +72,10 @@
                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                              </rowConstraints>
                                              <children>
-                                                <Label alignment="CENTER" contentDisplay="CENTER" text="Item's Type:" wrapText="true" />
+                                                <Label alignment="CENTER" contentDisplay="CENTER" text="Item's Type:" wrapText="true">
+                                                   <font>
+                                                      <Font name="Consolas" size="12.0" />
+                                                   </font></Label>
                                                 <Label fx:id="currType" wrapText="true" GridPane.columnIndex="1" />
                                              </children>
                                           </GridPane>
@@ -66,7 +83,7 @@
                                     </HBox>
                                  </children>
                               </VBox>
-                              <HBox prefHeight="342.0" prefWidth="304.0" HBox.hgrow="ALWAYS">
+                              <HBox prefHeight="342.0" prefWidth="304.0" style="-fx-background-color: white;" HBox.hgrow="ALWAYS">
                                  <children>
                                     <GridPane HBox.hgrow="ALWAYS">
                                        <columnConstraints>
@@ -84,7 +101,7 @@
                                              <children>
                                                 <Label prefHeight="28.0" prefWidth="56.0" text="Types" HBox.hgrow="ALWAYS">
                                                    <font>
-                                                      <Font size="16.0" />
+                                                      <Font name="Consolas" size="16.0" />
                                                    </font>
                                                 </Label>
                                              </children>
@@ -96,19 +113,31 @@
                                           </HBox>
                                           <HBox alignment="CENTER" prefHeight="25.0" prefWidth="167.0" GridPane.rowIndex="2">
                                              <children>
-                                                <Button mnemonicParsing="false" onAction="#deleteType" prefHeight="25.0" prefWidth="167.0" style="-fx-background-radius: 15;" text="Delete Type From Catalog" />
+                                                <ImageView fitHeight="35.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@images/deleteIcon.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#deleteType" prefHeight="30.0" prefWidth="129.0" style="-fx-background-radius: 15; -fx-background-color: white; -fx-border-width: 2; -fx-border-color: #D3D3D3; -fx-border-radius: 15;" text="Delete Type">
+                                                   <font>
+                                                      <Font name="Consolas" size="12.0" />
+                                                   </font>
+                                                </Button>
                                              </children>
                                           </HBox>
                                           <HBox alignment="CENTER" prefHeight="82.0" prefWidth="167.0" GridPane.rowIndex="3">
                                              <children>
-                                                <Label text="You can delete field names of selected types from the right list" textAlignment="CENTER" wrapText="true" />
+                                                <Label prefHeight="23.0" prefWidth="150.0" style="-fx-border-color: #5a919c;" text=" Delete selected types" textAlignment="CENTER" wrapText="true">
+                                                   <font>
+                                                      <Font name="Consolas" size="12.0" />
+                                                   </font></Label>
                                              </children>
                                           </HBox>
-                                          <HBox alignment="CENTER" prefHeight="77.0" prefWidth="188.0" GridPane.columnIndex="1">
+                                          <HBox alignment="CENTER" prefHeight="60.0" prefWidth="210.0" GridPane.columnIndex="1">
                                              <children>
-                                                <Label prefHeight="50.0" prefWidth="186.0" text="Field Names of Selected Type" textAlignment="CENTER" wrapText="true" HBox.hgrow="ALWAYS">
+                                                <Label prefHeight="50.0" prefWidth="102.0" text="Field Names" textAlignment="CENTER" wrapText="true" HBox.hgrow="ALWAYS">
                                                    <font>
-                                                      <Font size="17.0" />
+                                                      <Font name="Consolas" size="16.0" />
                                                    </font>
                                                 </Label>
                                              </children>
@@ -120,12 +149,21 @@
                                           </HBox>
                                           <HBox alignment="CENTER" prefHeight="33.0" prefWidth="207.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                              <children>
-                                                <Button mnemonicParsing="false" onAction="#deleteFieldName" prefHeight="25.0" prefWidth="167.0" style="-fx-background-radius: 15;" text="Delete Field Name" />
+                                                <ImageView fitHeight="29.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@images/deleteIcon.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#deleteFieldName" prefHeight="27.0" prefWidth="135.0" style="-fx-background-radius: 15; -fx-background-color: white; -fx-border-width: 2; -fx-border-color: #D3D3D3; -fx-border-radius: 15;" text="Delete Field Name">
+                                                   <font>
+                                                      <Font name="Consolas" size="12.0" />
+                                                   </font>
+                                                </Button>
                                              </children>
                                           </HBox>
                                           <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                              <children>
-                                                <Label text="Delete field name from selected type" textAlignment="CENTER" wrapText="true" />
+                                                <Label prefHeight="36.0" prefWidth="212.0" style="-fx-border-color: #5a919c;" text="Delete field name from selected type" textAlignment="CENTER" wrapText="true" />
                                              </children>
                                           </HBox>
                                        </children>
@@ -137,9 +175,20 @@
                               <Insets left="10.0" right="10.0" />
                            </padding>
                         </HBox>
-                        <HBox alignment="CENTER_RIGHT" prefHeight="41.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
+                        <HBox alignment="CENTER_RIGHT" prefHeight="41.0" prefWidth="600.0" style="-fx-background-color: white;" VBox.vgrow="ALWAYS">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#close" prefHeight="26.0" prefWidth="112.0" text="Close" />
+                              <Button mnemonicParsing="false" onAction="#close" prefHeight="26.0" prefWidth="24.0" style="-fx-background-color: transparent;">
+                                 <padding>
+                                    <Insets bottom="5.0" left="-80.0" right="-10.0" top="-10.0" />
+                                 </padding>
+                                 <graphic>
+                                    <ImageView accessibleRole="BUTTON" fitHeight="38.0" fitWidth="39.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@images/closeIcon.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
                            </children>
                            <padding>
                               <Insets right="20.0" />
@@ -147,14 +196,21 @@
                         </HBox>
                      </children>
                   </VBox>
-                  <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="100.0" visible="false">
+                  <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white;" visible="false">
                      <children>
-                        <HBox alignment="CENTER" prefHeight="88.0" prefWidth="600.0">
+                        <HBox alignment="CENTER" prefHeight="68.0" prefWidth="602.0" style="-fx-border-color: #5a919c;">
                            <children>
-                              <Label text="Edit Item'sTags">
+                              <Label>
                                  <font>
                                     <Font size="21.0" />
                                  </font>
+                                 <graphic>
+                                    <Text disable="true" fill="#5a919c" strokeType="OUTSIDE" strokeWidth="0.0" text="EDIT ITEM'S TAGS" wrappingWidth="268.0000305175781">
+                                       <font>
+                                          <Font name="MS Gothic" size="24.0" />
+                                       </font>
+                                    </Text>
+                                 </graphic>
                               </Label>
                            </children>
                         </HBox>
@@ -175,31 +231,33 @@
                                           <HBox alignment="CENTER" prefHeight="63.0" prefWidth="301.0">
                                              <children>
                                                 <TextField fx:id="editTagName" prefHeight="26.0" prefWidth="183.0" promptText="Select a tag from item's tags" />
-                                                <Button mnemonicParsing="false" onAction="#renameTag" text="rename" />
+                                                <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#renameTag" prefHeight="20.0" prefWidth="71.0" style="-fx-background-radius: 15; -fx-background-color: white; -fx-border-width: 2; -fx-border-color: #D3D3D3; -fx-border-radius: 15;" text="Rename">
+                                                   <font>
+                                                      <Font name="Consolas" size="12.0" />
+                                                   </font>
+                                                </Button>
                                              </children>
                                           </HBox>
                                           <HBox alignment="CENTER" prefHeight="47.0" prefWidth="301.0" VBox.vgrow="ALWAYS">
                                              <children>
-                                                <ComboBox fx:id="tagComboBox" prefWidth="150.0" promptText="Catalog's Tags" style="-fx-background-radius: 15;" />
+                                                <ComboBox fx:id="tagComboBox" prefHeight="26.0" prefWidth="128.0" promptText="Catalog's Tags" style="-fx-background-radius: 15; -fx-background-color: white;" />
                                              </children>
                                           </HBox>
-                                          <HBox alignment="CENTER" prefHeight="35.0" prefWidth="301.0">
+                                          <HBox alignment="CENTER" prefHeight="10.0" prefWidth="302.0">
                                              <children>
-                                                <Button mnemonicParsing="false" onAction="#addTag" text="Add Tag to Item" />
-                                             </children>
-                                          </HBox>
-                                          <HBox alignment="CENTER" prefHeight="45.0" prefWidth="301.0">
-                                             <children>
-                                                <Label prefHeight="36.0" prefWidth="154.0" text="You can select a tag from choicebox to add in item" wrapText="true" HBox.hgrow="ALWAYS">
-                                                   <padding>
-                                                      <Insets left="5.0" />
-                                                   </padding>
-                                                </Label>
+                                                <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#addTag" prefHeight="12.0" prefWidth="134.0" style="-fx-background-radius: 15; -fx-background-color: white; -fx-border-width: 2; -fx-border-color: #D3D3D3; -fx-border-radius: 15;" text="Add Tag to Item">
+                                                   <font>
+                                                      <Font name="Consolas" size="12.0" />
+                                                   </font>
+                                                </Button>
                                              </children>
                                           </HBox>
                                           <HBox alignment="CENTER" prefHeight="24.0" prefWidth="301.0">
                                              <children>
-                                                <Label text="or" />
+                                                <Label prefHeight="24.0" prefWidth="25.0" text="or" textFill="#5a919c">
+                                                   <font>
+                                                      <Font name="Consolas Bold" size="16.0" />
+                                                   </font></Label>
                                              </children>
                                           </HBox>
                                           <HBox alignment="BOTTOM_CENTER" prefHeight="0.0" prefWidth="301.0" VBox.vgrow="ALWAYS">
@@ -213,9 +271,9 @@
                                        <children>
                                           <HBox alignment="CENTER" prefHeight="45.0" prefWidth="300.0">
                                              <children>
-                                                <Label text="Item's Tags" textAlignment="CENTER">
+                                                <Label text="Item's Tags" textAlignment="CENTER" textFill="#5a919c">
                                                    <font>
-                                                      <Font size="16.0" />
+                                                      <Font name="Consolas" size="17.0" />
                                                    </font>
                                                 </Label>
                                              </children>
@@ -231,19 +289,31 @@
                                        <children>
                                           <HBox alignment="CENTER" prefHeight="36.0" prefWidth="301.0">
                                              <children>
-                                                <Button mnemonicParsing="false" onAction="#deleteTagFromCatalog" prefHeight="26.0" prefWidth="223.0" text="Delete Selected Tag From Catalog" />
+                                                <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#deleteTagFromCatalog" prefHeight="27.0" prefWidth="245.0" style="-fx-background-radius: 15; -fx-background-color: white; -fx-border-width: 2; -fx-border-color: #D3D3D3; -fx-border-radius: 15;" text="Delete Selected Tag From Catalog">
+                                                   <font>
+                                                      <Font name="Consolas" size="12.0" />
+                                                   </font>
+                                                </Button>
                                              </children>
                                           </HBox>
                                           <HBox alignment="CENTER" prefHeight="36.0" prefWidth="301.0">
                                              <children>
-                                                <Button mnemonicParsing="false" onAction="#deleteTagFromItem" prefHeight="26.0" prefWidth="205.0" text="Delete Selected Tag From Item" />
+                                                <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#deleteTagFromItem" prefHeight="27.0" prefWidth="234.0" style="-fx-background-radius: 15; -fx-background-color: white; -fx-border-width: 2; -fx-border-color: #D3D3D3; -fx-border-radius: 15;" text="Delete Selected Tag From Item">
+                                                   <font>
+                                                      <Font name="Consolas" size="12.0" />
+                                                   </font>
+                                                </Button>
                                              </children>
                                           </HBox>
                                        </children>
                                     </VBox>
-                                    <HBox alignment="CENTER" prefHeight="76.0" prefWidth="301.0" GridPane.rowIndex="1">
+                                    <HBox alignment="CENTER" prefHeight="59.0" prefWidth="302.0" GridPane.rowIndex="1">
                                        <children>
-                                          <Button mnemonicParsing="false" onAction="#createNewTag" prefHeight="26.0" prefWidth="110.0" text="Create New Tag" />
+                                          <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#createNewTag" prefHeight="27.0" prefWidth="125.0" style="-fx-background-radius: 15; -fx-background-color: white; -fx-border-width: 2; -fx-border-color: #D3D3D3; -fx-border-radius: 15;" text="Create New Tag">
+                                             <font>
+                                                <Font name="Consolas" size="12.0" />
+                                             </font>
+                                          </Button>
                                        </children>
                                     </HBox>
                                  </children>
@@ -252,7 +322,18 @@
                         </HBox>
                         <HBox alignment="CENTER_RIGHT" prefHeight="48.0" prefWidth="600.0">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#close" text="Close" />
+                              <Button mnemonicParsing="false" onAction="#close" prefHeight="26.0" prefWidth="24.0" style="-fx-background-color: transparent;">
+                                 <padding>
+                                    <Insets bottom="5.0" left="-80.0" right="-10.0" top="-10.0" />
+                                 </padding>
+                                 <graphic>
+                                    <ImageView accessibleRole="BUTTON" fitHeight="38.0" fitWidth="39.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@images/closeIcon.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
                            </children>
                            <padding>
                               <Insets right="20.0" />
@@ -260,17 +341,25 @@
                         </HBox>
                      </children>
                   </VBox>
-                  <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="100.0" visible="false">
+                  <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white;">
                      <children>
-                        <HBox alignment="CENTER" prefHeight="88.0" prefWidth="600.0">
+                        <HBox alignment="CENTER" prefHeight="50.0" prefWidth="602.0" style="-fx-border-color: #5a919c;">
                            <children>
-                              <Label prefHeight="27.0" prefWidth="213.0" text="Edit Item's Properties" textAlignment="CENTER" wrapText="true">
+                              <Label prefHeight="27.0" prefWidth="213.0" textAlignment="CENTER" wrapText="true">
                                  <font>
                                     <Font size="21.0" />
                                  </font>
+                                 <graphic>
+                                    <Text disable="true" fill="#5a919c" strokeType="OUTSIDE" strokeWidth="0.0" text="EDIT ITEM'S PROPERTIES" wrappingWidth="286.4001078605652">
+                                       <font>
+                                          <Font name="MS Gothic" size="23.0" />
+                                       </font>
+                                    </Text>
+                                 </graphic>
                               </Label>
                            </children>
                         </HBox>
+                        <HBox prefHeight="27.0" prefWidth="602.0" />
                         <HBox prefHeight="300.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
                            <children>
                               <GridPane alignment="CENTER" prefHeight="298.0" prefWidth="600.0" HBox.hgrow="ALWAYS">
@@ -287,22 +376,31 @@
                                        <children>
                                           <HBox alignment="CENTER" prefHeight="35.0" prefWidth="300.0">
                                              <children>
-                                                <TextField fx:id="propertyLabel" promptText="Enter a Property Label" />
+                                                <TextField fx:id="propertyLabel" prefHeight="17.0" prefWidth="150.0" promptText="Enter a Property Label" />
                                              </children>
                                           </HBox>
                                           <HBox alignment="CENTER" prefHeight="51.0" prefWidth="300.0">
                                              <children>
-                                                <TextField fx:id="propertyContent" prefHeight="25.0" prefWidth="162.0" promptText="Enter a Property Content" />
+                                                <TextField fx:id="propertyContent" prefHeight="26.0" prefWidth="154.0" promptText="Enter a Property Content" />
                                              </children>
                                           </HBox>
                                           <HBox prefHeight="26.0" prefWidth="300.0">
                                              <children>
-                                                <Label alignment="CENTER" prefHeight="21.0" prefWidth="298.0" text="use  &quot;,&quot; to add more than  1 content" textAlignment="CENTER" wrapText="true" />
+                                                <Label prefHeight="18.0" prefWidth="26.0" />
+                                                <Label alignment="CENTER" prefHeight="22.0" prefWidth="282.0" style="-fx-border-color: #5a919c;" text="use  &quot;,&quot; to add more than  1 content" textAlignment="CENTER" wrapText="true">
+                                                   <font>
+                                                      <Font name="Consolas" size="12.0" />
+                                                   </font></Label>
+                                                <Label prefHeight="18.0" prefWidth="29.0" />
                                              </children>
                                           </HBox>
                                           <HBox alignment="CENTER" prefHeight="40.0" prefWidth="300.0">
                                              <children>
-                                                <Button mnemonicParsing="false" onAction="#createProperty" text="Add Property" />
+                                                <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#createProperty" prefHeight="27.0" prefWidth="119.0" style="-fx-background-radius: 15; -fx-background-color: white; -fx-border-width: 2; -fx-border-color: #D3D3D3; -fx-border-radius: 15;" text="Add Property">
+                                                   <font>
+                                                      <Font name="Consolas" size="12.0" />
+                                                   </font>
+                                                </Button>
                                              </children>
                                           </HBox>
                                           <HBox alignment="CENTER" prefHeight="20.0" prefWidth="300.0">
@@ -311,31 +409,49 @@
                                                    <HBox.margin>
                                                       <Insets top="30.0" />
                                                    </HBox.margin>
+                                                   <font>
+                                                      <Font name="Consolas" size="12.0" />
+                                                   </font>
                                                 </Label>
                                              </children>
                                           </HBox>
                                        </children>
                                     </VBox>
-                                    <TableView fx:id="propertyTableView" prefHeight="205.0" prefWidth="290.0" GridPane.columnIndex="1">
+                                    <TableView fx:id="propertyTableView" prefHeight="166.0" prefWidth="291.0" GridPane.columnIndex="1">
                                        <GridPane.margin>
                                           <Insets right="10.0" />
                                        </GridPane.margin>
                                     </TableView>
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                        <children>
-                                          <Button alignment="CENTER" mnemonicParsing="false" onAction="#deleteProperty" text="Delete Property from Item" />
+                                          <Button alignment="CENTER" mnemonicParsing="false" onAction="#deleteProperty" prefHeight="44.0" prefWidth="189.0" style="-fx-background-color: white;" text="Delete Property from Item">
+                                             <graphic>
+                                                <ImageView fitHeight="36.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@images/deleteIcon.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                             <font>
+                                                <Font name="Consolas" size="10.0" />
+                                             </font></Button>
                                        </children>
                                     </HBox>
                                     <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
                                        <children>
                                           <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                              <children>
-                                                <ListView fx:id="typeFieldLabel" onContextMenuRequested="#selectedFieldName" onMouseClicked="#selectedFieldName" prefHeight="125.0" prefWidth="160.0" />
+                                                <ListView fx:id="typeFieldLabel" onContextMenuRequested="#selectedFieldName" onMouseClicked="#selectedFieldName" prefHeight="72.0" prefWidth="160.0" />
                                              </children>
                                           </HBox>
+                                          <HBox prefHeight="26.0" prefWidth="302.0" />
                                           <HBox alignment="CENTER" prefHeight="32.0" prefWidth="300.0">
                                              <children>
-                                                <Label text="You can select  field names as your property label " wrapText="true" />
+                                                <Label prefHeight="18.0" prefWidth="22.0" />
+                                                <Label prefHeight="55.0" prefWidth="302.0" style="-fx-border-color: #5a919c;" text="  You can select  field names as property" wrapText="true">
+                                                   <font>
+                                                      <Font name="Consolas" size="12.0" />
+                                                   </font></Label>
                                              </children>
                                           </HBox>
                                        </children>
@@ -346,7 +462,18 @@
                         </HBox>
                         <HBox alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="600.0">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#close" text="Close" />
+                              <Button mnemonicParsing="false" onAction="#close" prefHeight="34.0" prefWidth="62.0" style="-fx-background-color: transparent;">
+                                 <padding>
+                                    <Insets bottom="5.0" left="-80.0" right="-10.0" top="-10.0" />
+                                 </padding>
+                                 <graphic>
+                                    <ImageView accessibleRole="BUTTON" fitHeight="38.0" fitWidth="39.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@images/closeIcon.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
                            </children>
                            <padding>
                               <Insets right="20.0" />
