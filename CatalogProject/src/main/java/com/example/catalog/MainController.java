@@ -326,8 +326,12 @@ public class MainController {
         Item item = (Item) selectedObject.getValue();
 
         try {
-            File f = !pathFile.getAbsolutePath().contains(".") ? new File(pathFile.toPath() + ".html") : pathFile;
-            Files.writeString(f.toPath(), item.exportItem(), StandardOpenOption.CREATE);
+            File f;
+            if (pathFile != null) {
+                f = !pathFile.getAbsolutePath().contains(".") ? new File(pathFile.toPath() + ".html") : pathFile;
+                Files.writeString(f.toPath(), item.exportItem(), StandardOpenOption.CREATE);
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
