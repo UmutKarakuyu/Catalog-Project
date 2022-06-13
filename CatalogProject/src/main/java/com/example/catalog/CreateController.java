@@ -1,9 +1,12 @@
 package com.example.catalog;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -29,6 +32,24 @@ public class CreateController extends MainController implements Initializable {
         stackPane.getChildren().get(state).setVisible(true);
         if (state == 1)
             typesBox.getItems().addAll(Catalog.typeList);
+
+        newTypeName.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent ke) {
+                if (ke.getCode().equals(KeyCode.ENTER)) {
+                   save();
+                }
+            }
+        });
+        newItemName.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent ke) {
+                if (ke.getCode().equals(KeyCode.ENTER)) {
+                    save();
+                }
+            }
+        });
+
     }
 
     @FXML
@@ -56,9 +77,9 @@ public class CreateController extends MainController implements Initializable {
             }
         } else if (state == 1) {
             if (newItemName.getText().isBlank())
-                alertErrorWindow("Error", "Error");
+                alertErrorWindow("Error", "Please enter a item name");
             else if (typesBox.getValue() == null)
-                alertErrorWindow("Error", "Error");
+                alertErrorWindow("Error", "Please choose a type from the choice box.");
             else {
                 catalog.createItem(new Item(typesBox.getValue(), newItemName.getText()));
                 error = true;

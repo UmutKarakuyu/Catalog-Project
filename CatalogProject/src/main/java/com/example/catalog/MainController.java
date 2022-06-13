@@ -343,7 +343,20 @@ public class MainController {
         Stage stage = (Stage) anchorPane.getScene().getWindow();
         printItem.printFile();
         WebEngine webEngine = webView.getEngine();
-        File f = new File("CatalogProject/src/main/resources/files/template.html");
+
+        File f = new File("template.html");
+        if (!f.exists()) {
+            try {
+                f.createNewFile();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            try {
+                Files.writeString(f.toPath(), printItem.exportItem(), StandardOpenOption.CREATE);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
         if (f.exists()) {
             try {
                 webEngine.load(f.toURI().toURL().toString());

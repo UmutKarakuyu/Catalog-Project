@@ -133,7 +133,7 @@ public class Item implements Serializable {
     public File printFile() {
         File file = null;
         try {
-            file = new File("CatalogProject/src/main/resources/files/template.html");
+            file = new File("template.html");
             if (file.exists()) {
                 FileWriter fileWriter = new FileWriter(file);
                 BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);

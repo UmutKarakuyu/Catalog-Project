@@ -90,17 +90,18 @@ public class Catalog {
         return tags.find(tag);
     }
 
-    public void writeToFile() {
+    public void writeToFile(){
         writeToFile(types.inOrder());
     }
 
     private void readFromFile() {
-        File file = new File("CatalogProject/src/main/resources/files/types.txt");
+        File file = new File("catalogObjects.txt");
+
         if (file.exists()) {
             ObjectInputStream ois;
             FileInputStream fis;
             try {
-                fis = new FileInputStream("CatalogProject/src/main/resources/files/types.txt");
+                fis = new FileInputStream("catalogObjects.txt");
                 ois = new ObjectInputStream(fis);
                 try {
                     while (true) {
@@ -123,11 +124,17 @@ public class Catalog {
     }
 
     private void writeToFile(ArrayList<Object> arrayList) {
-        File file = new File("CatalogProject/src/main/resources/files/types.txt");
-        if (file.exists()) {
+        File file = new File("catalogObjects.txt");
+        if(!file.exists()){
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
             ObjectOutputStream oos;
             try {
-                FileOutputStream fos = new FileOutputStream("CatalogProject/src/main/resources/files/types.txt");
+                FileOutputStream fos = new FileOutputStream("catalogObjects.txt");
                 oos = new ObjectOutputStream(fos);
                 try {
                     for (Object item : arrayList)
@@ -139,6 +146,5 @@ public class Catalog {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
     }
 }
