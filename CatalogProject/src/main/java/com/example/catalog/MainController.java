@@ -352,7 +352,10 @@ public class MainController {
             }
         }
         PrinterJob job = PrinterJob.createPrinterJob();
-        if (job != null && job.showPrintDialog(stage)) {
+        if (job == null)
+           alertErrorWindow("Error","There is no printer in your device. Please add a printer to your device.");
+
+        else if(job.showPrintDialog(stage)) {
             boolean success = job.printPage(pane);
             if (success)
                 job.endJob();
