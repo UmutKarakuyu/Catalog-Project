@@ -65,7 +65,7 @@
             </Text>
          </children>
       </Pane>
-      <Pane fx:id="createHelp" disable="true" prefHeight="578.0" prefWidth="741.0" visible="false">
+      <Pane fx:id="createHelp" prefHeight="578.0" prefWidth="741.0" visible="false">
          <children>
             <Text layoutX="207.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CREATE" textAlignment="CENTER" wrappingWidth="333.79998779296875">
                <font>
@@ -101,12 +101,12 @@
                   <Font size="22.0" />
                </font>
             </Text>
-            <ImageView fitHeight="242.0" fitWidth="312.0" layoutX="24.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="231.0" fitWidth="312.0" layoutX="24.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/editItem.jpeg" />
                </image>
             </ImageView>
-            <ImageView fitHeight="242.0" fitWidth="323.0" layoutX="356.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="231.0" fitWidth="312.0" layoutX="356.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/editTag.jpeg" />
                </image>

@@ -1,7 +1,5 @@
 package com.example.catalog;
 
-import javafx.concurrent.Task;
-
 import java.io.*;
 import java.util.ArrayList;
 
@@ -9,8 +7,8 @@ public class Item implements Serializable {
 
     private Type type;
     private String name;
-    private ArrayList<Tag> tags;
-    private ArrayList<Property> properties;
+    private final ArrayList<Tag> tags;
+    private final ArrayList<Property> properties;
 
     public Item(Type type, String name) {
         this.type = type;
@@ -31,8 +29,7 @@ public class Item implements Serializable {
 
     public void createProperty(Property property) {
         properties.add(property);
-        if (!type.getFieldLabels().contains(property.getLabel()))
-            type.getFieldLabels().add(property.getLabel());
+        type.addFieldLabel(property.getLabel());
     }
 
     public void addTag(Tag tag) {
@@ -67,16 +64,9 @@ public class Item implements Serializable {
         return tags;
     }
 
-    public void setTags(ArrayList<Tag> tags) {
-        this.tags = tags;
-    }
 
     public ArrayList<Property> getProperties() {
         return properties;
-    }
-
-    public void setProperties(ArrayList<Property> properties) {
-        this.properties = properties;
     }
 
     @Override
@@ -108,13 +98,13 @@ public class Item implements Serializable {
                 "            width: 500px;\n" +
                 "            text-align: center;\n" +
                 "            font-family: 'Times New Roman', Times, serif;\n" +
-                "            font-size: x-large;" +
+                "            font-size: large;" +
                 "        }\n" +
                 "        h1{\n" +
                 "            color: #66BFBF;\n" +
                 "            margin: 0px auto 10px auto;\n" +
                 "            display: block;\n" +
-                "            font-size: 5em;\n" +
+                "            font-size: 3em;\n" +
                 "        }\n" +
                 "        .propertyTable {\n" +
                 "            margin-left: auto;\n" +
@@ -133,7 +123,7 @@ public class Item implements Serializable {
                 "           <tr>\n" +
                 "               <th>Label</th>\n" +
                 "               <th>Content</th>\n" +
-                "           </tr>\n" + tempProperty.toString() + "\n" +
+                "           </tr>\n" + tempProperty + "\n" +
                 "       </table>\n" +
                 "   </div>\n" +
                 "</body>\n" +

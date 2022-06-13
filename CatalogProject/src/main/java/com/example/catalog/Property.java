@@ -7,8 +7,8 @@ import java.util.Collections;
 public class Property implements Serializable {
 
 
-    private String label;
-    private ArrayList<String> content;
+    private final String label;
+    private final ArrayList<String> content;
 
     public Property(String label, String content) {
         this.label = label;
@@ -23,10 +23,6 @@ public class Property implements Serializable {
 
     public String getLabel() {
         return label;
-    }
-
-    public void setLabel(String label) {
-        this.label = label;
     }
 
     public ArrayList<String> getContent() {

@@ -36,7 +36,7 @@ public class CreateController extends MainController implements Initializable {
         boolean error = false;
         if (state == 0) {
             if (newTypeName.getText().isBlank())
-                alertErrorWindow("Error", "Error");
+                alertErrorWindow("Error", "Please enter a type name to create a type");
             else {
                 boolean isExists = false;
                 for (Type type : Catalog.typeList){
@@ -50,7 +50,7 @@ public class CreateController extends MainController implements Initializable {
                     error = true;
                 }
                 else {
-                    alertErrorWindow("Error", "Error");
+                    alertErrorWindow("Type exists", "Type already exists in");
                     newTypeName.clear();
                 }
             }

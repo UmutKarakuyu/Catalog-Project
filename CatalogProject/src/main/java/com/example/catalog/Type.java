@@ -5,8 +5,8 @@ import java.util.ArrayList;
 
 public class Type implements Serializable {
     private String name; // type's name
-    private ArrayList<Item> items;
-    private ArrayList<String> fieldLabels;
+    private final ArrayList<Item> items;
+    private final ArrayList<String> fieldLabels;
 
     public String toString() {
         return name;
@@ -20,30 +20,9 @@ public class Type implements Serializable {
         items.remove(item);
     }
 
-    public void addFieldLabels(ArrayList<Property> s) {
-        for (Property property : s)
-            if (!fieldLabels.contains(property.getLabel()))
-                fieldLabels.add(property.getLabel());
-    }
-
     public void addFieldLabel(String s) {
         if (!fieldLabels.contains(s))
             fieldLabels.add(s);
-    }
-
-    public void deleteFieldLabels(ArrayList<Property> s) {
-        int counter = 0;
-
-        for (Property property : s) {
-            for(Item item: items){
-                for (Property property1: item.getProperties()){
-                    if (property1.getLabel().equals(property.getLabel()))
-                        counter++;
-                }
-            }
-            if (counter == 1)
-                fieldLabels.remove(property.getLabel());
-        }
     }
     public void deleteAllFieldLabels() {
         int counter = 0;
@@ -59,7 +38,15 @@ public class Type implements Serializable {
                 fieldLabels.remove(string);
         }
     }
-
+    public void removeFieldLabel(String s){
+        for (Item item: items){
+            ArrayList<Property> tempProperties = new ArrayList<>(item.getProperties());
+            for (Property property: tempProperties)
+                if (property.getLabel().equals(s))
+                    item.deleteProperty(property);
+        }
+        fieldLabels.remove(s);
+    }
     public void deleteFieldLabel(String s) {
         int counter = 0;
         for(Item item: items){
@@ -71,7 +58,7 @@ public class Type implements Serializable {
         if (counter == 1) {
             fieldLabels.remove(s);
             for (Item item : items) {
-                ArrayList<Property> tempList = new ArrayList<Property>(item.getProperties());
+                ArrayList<Property> tempList = new ArrayList<>(item.getProperties());
                 for (Property property : tempList) {
                     if (property.getLabel().equals(s))
                         item.deleteProperty(property);
@@ -93,16 +80,8 @@ public class Type implements Serializable {
         return items;
     }
 
-    public void setItems(ArrayList<Item> items) {
-        this.items = items;
-    }
-
     public ArrayList<String> getFieldLabels() {
         return fieldLabels;
-    }
-
-    public void setFieldLabels(ArrayList<String> fieldLabels) {
-        this.fieldLabels = fieldLabels;
     }
 
     public Type(String name) {

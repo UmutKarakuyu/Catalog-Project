@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import java.net.MalformedURLException;
 import javafx.print.*;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -50,10 +49,6 @@ public class MainController {
     @FXML
     private Label itemTags;
     @FXML
-    private Label typeLabel;
-    @FXML
-    private Label tagsLabel;
-    @FXML
     private Label listTitle;
 
     @FXML
@@ -94,19 +89,19 @@ public class MainController {
             ArrayList<Item> foundItemList = new ArrayList<Item>(catalog.searchItem(searchField.getText()));
 
             switch (searchChoice.getValue()) {
-                case "type" -> {
+                case "Type" -> {
                     if (foundTypeList.size() != 0)
                         typeSearch(foundTypeList, searchTreeRoot, true);
                     else
                         typeSearch(Catalog.typeList, searchTreeRoot, false);
                 }
-                case "tag" -> {
+                case "Tag" -> {
                     if (foundTagList.size() != 0)
                         tagSearch(foundTagList, searchTreeRoot, true);
                     else
                         tagSearch(Catalog.tagList, searchTreeRoot, false);
                 }
-                case "item" -> {
+                case "Item" -> {
                     if (foundItemList.size() != 0)
                         itemSearch(foundItemList, searchTreeRoot, true);
                     else
@@ -315,7 +310,7 @@ public class MainController {
     private void deleteFieldLabel() {
         String s = fieldList.getSelectionModel().getSelectedItem();
         Type type = (Type) selectedObject.getValue();
-        type.deleteFieldLabel(s);
+        type.removeFieldLabel(s);
         fieldList.getItems().remove(s);
     }
 
@@ -327,13 +322,12 @@ public class MainController {
     @FXML
     private void exportItem() {
         FileChooser fileChooser = new FileChooser();
-        File pathFile = fileChooser.showSaveDialog((Stage) tableView.getScene().getWindow());
-        Item exportItem = (Item) selectedObject.getValue();
-
+        File pathFile = fileChooser.showSaveDialog(tableView.getScene().getWindow());
+        Item item = (Item) selectedObject.getValue();
 
         try {
             File f = !pathFile.getAbsolutePath().contains(".") ? new File(pathFile.toPath() + ".html") : pathFile;
-            Files.writeString(f.toPath(), exportItem.exportItem(), StandardOpenOption.CREATE);
+            Files.writeString(f.toPath(), item.exportItem(), StandardOpenOption.CREATE);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -341,10 +335,6 @@ public class MainController {
 
     @FXML
     private void printPDF() {
-        print();
-    }
-
-    private void print() {
         Item printItem = (Item) selectedObject.getValue();
         AnchorPane pane  = new AnchorPane();
         WebView webView = new WebView();
@@ -376,9 +366,7 @@ public class MainController {
 
         searchChoice.setValue("Search");
         searchChoice.getItems().addAll(objectList);
-        searchChoice.setOnAction(event -> {
-            onSearch();
-        });
+        searchChoice.setOnAction(event -> onSearch());
         filterTagNames.getItems().addAll(Catalog.tagList);
         filterTagNames.getCheckModel().getCheckedItems().addListener((ListChangeListener<Tag>) change -> filterByTags());
 
@@ -429,8 +417,8 @@ public class MainController {
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("EditScreen.fxml"));
         Parent root = fxmlLoader.load();
-
         Scene scene = new Scene(root);
+
         stage.setTitle("Edit");
         stage.setScene(scene);
         stage.show();
@@ -453,7 +441,6 @@ public class MainController {
         tempState = 1;
         create();
     }
-
     private void create() throws IOException {
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("CreateScreen.fxml"));
@@ -461,7 +448,7 @@ public class MainController {
         Scene scene = new Scene(root);
         stage.setTitle("Create");
         stage.setScene(scene);
-        stage.show();
+
         stage.setOnCloseRequest(windowEvent -> {
             treeView();
             anchorPane.setVisible(false);
@@ -475,7 +462,7 @@ public class MainController {
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Help.fxml"));
         Parent root = fxmlLoader.load();
-        Scene scene = new Scene(root, 770, 600);
+        Scene scene = new Scene(root);
         stage.setTitle("Help");
         stage.setScene(scene);
         stage.setResizable(false);
@@ -506,9 +493,7 @@ public class MainController {
         ButtonType yesButton = new ButtonType("Yes", ButtonBar.ButtonData.YES);
         ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.NO);
         alert.getButtonTypes().setAll(yesButton, noButton);
-        alert.showAndWait().ifPresent(choice -> {
-            b.set(choice != noButton);
-        });
+        alert.showAndWait().ifPresent(choice -> b.set(choice != noButton));
         return b.get();
     }
 

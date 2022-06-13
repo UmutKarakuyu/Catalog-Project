@@ -1,7 +1,5 @@
 package com.example.catalog;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -91,29 +89,33 @@ public class EditController extends MainController implements Initializable {
             }
             if (!isRepeated) {
                 item.createProperty(property);
+                typeFieldLabel.getItems().clear();
+                typeFieldLabel.getItems().addAll(item.getType().getFieldLabels());
                 propertyTableView.getItems().add(property);
-                typeFieldLabel.getItems().add(propertyLabel.getText());
                 propertyLabel.clear();
                 propertyContent.clear();
             }
         } else if (propertyLabel.getText().isBlank())
-            alertErrorWindow("Error", "Error");
+            alertErrorWindow("Error", "Property label is blank.");
         else if (propertyContent.getText().isBlank())
-            alertErrorWindow("Error", "Error");
+            alertErrorWindow("Error", "Property content is blank");
     }
+
     @FXML
     private void deleteProperty() {
         Property selectedProperty = propertyTableView.getSelectionModel().getSelectedItem();
         if (selectedProperty != null) {
-            item.getType().deleteFieldLabel(selectedProperty.getLabel()); // deletes if there is no other
+            item.getType().deleteFieldLabel(selectedProperty.getLabel());// deletes if there is no other
+            typeFieldLabel.getItems().clear();
+            typeFieldLabel.getItems().addAll(item.getType().getFieldLabels());
+
             item.deleteProperty(selectedProperty);
-            item.getType().deleteFieldLabel(selectedProperty.getLabel());
             propertyTableView.getItems().remove(selectedProperty);
-        }
-        else
-            alertErrorWindow("Error", "Error");
+        } else
+            alertErrorWindow("Error", "You have not selected any property. Please select the property you want to delete first.");
 
     }
+
     @FXML
     private void selectedFieldName() {
         String s = typeFieldLabel.getSelectionModel().getSelectedItem();
@@ -129,30 +131,42 @@ public class EditController extends MainController implements Initializable {
 
     @FXML
     private void addTag() {
-        if (tagComboBox.getValue() != null && !item.getTags().contains(tagComboBox.getValue())) {
-            item.addTag(tagComboBox.getValue());
-            tagComboBox.getValue().addItems(item);
-            itemsTagsListView.getItems().add(tagComboBox.getValue());
+        if (tagComboBox.getValue() != null) {
+            if (item.getTags().contains(tagComboBox.getValue())) {
+                alertErrorWindow("Tag exists", "The tag you selected already exists in the item, please choose another tag.");
+            } else {
+                item.addTag(tagComboBox.getValue());
+                tagComboBox.getValue().addItems(item);
+                itemsTagsListView.getItems().add(tagComboBox.getValue());
+            }
+            tagComboBox.getSelectionModel().clearSelection();
+            tagComboBox.setPromptText("Catalog's Tags");
         }
     }
 
     @FXML
     private void createNewTag() {
         if (!newTagName.getText().isBlank()) {
-            Tag newTag = new Tag(newTagName.getText());
-            catalog.createTag(newTag);
-            item.addTag(newTag);
-            newTag.addItems(item);
-            tagComboBox.getItems().add(newTag);
-            itemsTagsListView.getItems().add(newTag);
-            tempTagList.add(newTag);
-            newTagName.clear();
+            if (Catalog.tagList.toString().contains(newTagName.getText())) {
+                alertErrorWindow("Tag exists in choice box", "This tag already exists in the choice box. Please select it from there!");
+            } else {
+                Tag newTag = new Tag(newTagName.getText());
+                catalog.createTag(newTag);
+                item.addTag(newTag);
+                newTag.addItems(item);
+                tagComboBox.getItems().add(newTag);
+                itemsTagsListView.getItems().add(newTag);
+                tempTagList.add(newTag);
+                newTagName.clear();
+            }
         }
     }
 
     @FXML
     private void deleteTagFromItem() {
-        if (selectedTag != null) {
+        if (selectedTag == null) {
+            alertErrorWindow("Error", "You have not selected any tag. Please select the tag you want to delete first.");
+        } else {
             item.deleteTag(selectedTag);
             selectedTag.getItems().remove(item);
             itemsTagsListView.getItems().remove(selectedTag);
@@ -162,7 +176,9 @@ public class EditController extends MainController implements Initializable {
 
     @FXML
     private void deleteTagFromCatalog() {
-        if (selectedTag != null) {
+        if (selectedTag == null) {
+            alertErrorWindow("Error", "You have not selected any tag. Please select the tag you want to delete first.");
+        } else {
             catalog.deleteTag(selectedTag);
             tagComboBox.getItems().remove(selectedTag);
             itemsTagsListView.getItems().remove(selectedTag);
@@ -172,7 +188,9 @@ public class EditController extends MainController implements Initializable {
 
     @FXML
     private void renameTag() {
-        if (selectedTag != null) {
+        if (selectedTag == null) {
+            alertErrorWindow("Error", "You have not selected any tag. Please select the tag you want to rename first.");
+        } else {
             selectedTag.setName(editTagName.getText());
             itemsTagsListView.refresh();
         }
@@ -190,7 +208,9 @@ public class EditController extends MainController implements Initializable {
 
     @FXML
     private void deleteType() {
-        if (selectedType != null) {
+        if (selectedTag == null) {
+            alertErrorWindow("Error", "You have not selected any type. Please select the type you want to delete first.");
+        } else {
             catalog.deleteType(selectedType);
             typeFieldNames.getItems().clear();
             if (selectedType == item.getType()) {
@@ -202,7 +222,9 @@ public class EditController extends MainController implements Initializable {
     @FXML
     private void deleteFieldName() {
         String s = typeFieldNames.getSelectionModel().getSelectedItem();
-        if (s != null) {
+        if (s == null) {
+            alertErrorWindow("Error", "You have not selected any field name. Please select the field name you want to delete first.");
+        } else {
             selectedType.deleteFieldLabel(s);
             typeFieldNames.getItems().remove(s);
         }
@@ -218,26 +240,18 @@ public class EditController extends MainController implements Initializable {
 
     @FXML
     private void close() {
-        if (state == 0) {
+        if (state == 0)
             if (!selectedType.equals(item.getType())) {
                 boolean isTrue = alertYesNoWindow("Type changed", "Are you sure you want to change the type");
                 if (isTrue) {
                     item.getType().getItems().remove(item);
                     item.setType(selectedType);
                     item.getType().getItems().add(item);
-
-                    Stage stage = (Stage) stackPane.getScene().getWindow();
-                    stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
                 }
-            } else {
-                Stage stage = (Stage) stackPane.getScene().getWindow();
-                stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
             }
-        }
-        else{
-            Stage stage = (Stage) stackPane.getScene().getWindow();
-            stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
-        }
+
+        Stage stage = (Stage) stackPane.getScene().getWindow();
+        stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
     }
 
     private void clearPage() {
