@@ -187,7 +187,7 @@
                                                 <Insets bottom="5.0" left="-80.0" right="-10.0" top="-10.0" />
                                              </padding>
                                              <graphic>
-                                                <ImageView accessibleRole="BUTTON" fitHeight="28.0" fitWidth="39.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                                                <ImageView accessibleRole="BUTTON" fitHeight="18.0" fitWidth="23.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
                                                    <image>
                                                       <Image url="@images/editIcon.png" />
                                                    </image>
@@ -221,7 +221,7 @@
                                                 <Insets bottom="5.0" left="-80.0" right="-10.0" top="-10.0" />
                                              </padding>
                                              <graphic>
-                                                <ImageView accessibleRole="BUTTON" fitHeight="28.0" fitWidth="39.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                                                <ImageView accessibleRole="BUTTON" fitHeight="18.0" fitWidth="40.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
                                                    <image>
                                                       <Image url="@images/editIcon.png" />
                                                    </image>
@@ -301,10 +301,10 @@
                                     </ImageView>
                                  </graphic>
                                  <HBox.margin>
-                                    <Insets top="8.0" />
+                                    <Insets right="45.0" top="8.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button mnemonicParsing="false" onAction="#deleteButton" prefHeight="26.0" prefWidth="102.0" style="-fx-background-color: transparent;" text="Delete">
+                              <Button mnemonicParsing="false" onAction="#deleteButton" prefHeight="26.0" prefWidth="90.0" style="-fx-background-color: transparent;" text="Delete">
                                  <padding>
                                     <Insets bottom="5.0" left="-80.0" right="-10.0" top="-10.0" />
                                  </padding>
@@ -319,7 +319,7 @@
                                     <Insets top="8.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button fx:id="exportButton" mnemonicParsing="false" onAction="#exportItem" prefHeight="30.0" prefWidth="89.0" style="-fx-background-color: white;" text="Export">
+                              <Button fx:id="exportButton" mnemonicParsing="false" onAction="#exportItem" prefHeight="30.0" prefWidth="125.0" style="-fx-background-color: white;" text="Export">
                                  <graphic>
                                     <ImageView fitHeight="21.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -331,7 +331,7 @@
                                     <Insets />
                                  </HBox.margin>
                               </Button>
-                              <Button fx:id="printButton" mnemonicParsing="false" onAction="#printPDF" style="-fx-background-color: white;">
+                              <Button fx:id="printButton" mnemonicParsing="false" onAction="#printPDF" prefHeight="28.0" prefWidth="110.0" style="-fx-background-color: white;" text="Print">
                                  <graphic>
                                     <ImageView fitHeight="20.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                                        <image>

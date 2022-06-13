@@ -451,7 +451,7 @@ public class MainController {
         Scene scene = new Scene(root);
         stage.setTitle("Create");
         stage.setScene(scene);
-
+        stage.show();
         stage.setOnCloseRequest(windowEvent -> {
             treeView();
             anchorPane.setVisible(false);

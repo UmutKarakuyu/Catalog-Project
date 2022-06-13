@@ -31,9 +31,10 @@ public class App extends Application {
             closeConfirmation.initOwner(stage);
             Optional<ButtonType> closeResponse = closeConfirmation.showAndWait();
             if (!ButtonType.OK.equals(closeResponse.get())) {
-                catalog.writeToFile();
+
                 windowEvent.consume();
             }
+            catalog.writeToFile();
         });
     }
 
